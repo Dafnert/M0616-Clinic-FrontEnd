@@ -1,0 +1,61 @@
+<form (ngSubmit)="login()" #LoginForm="ngForm" method="post" id="Login">
+  <div class="left">
+    <div>
+      <p>HealthConnect</p>
+      <img src="/img/logo.png" />
+    </div>
+
+    @if (loginAttempts > 0) {
+    <div class="attempts-badge">Intentos fallidos: {{ loginAttempts }}</div>
+    }
+  </div>
+
+  <div class="right">
+    <div>
+      <h1>Login</h1>
+
+      @switch (loginStatus) { @case ('loading') {
+      <div class="status-message loading">
+        <span class="spinner">⏳</span>
+        Verificando credenciales...
+      </div>
+      } @case ('success') {
+      <div class="status-message success">
+        {{ errorMessage }}
+      </div>
+      } @case ('error') {
+      <div class="status-message error">
+        {{ errorMessage }}
+      </div>
+      } }
+
+      <input
+        type="text"
+        name="username"
+        placeholder="Username"
+        [(ngModel)]="username"
+        [disabled]="isLoading"
+      />
+      <span class="material-symbols-outlined person"></span>
+
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        [(ngModel)]="password"
+        [disabled]="isLoading"
+      />
+      <span class="material-symbols-outlined lock"></span>
+
+      <button type="submit" [disabled]="isLoading || loginAttempts >= errorMessages.length">
+        @if (isLoading) { Verificando... } @else { Login }
+      </button>
+
+      <!-- Register button -->
+      <button type="button" 
+      class="register-btn" 
+      (click)="goToRegister()">
+       Registrarse </button>
+    </div>
+  </div>
+</form>
