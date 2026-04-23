@@ -1,0 +1,351 @@
+/* Importing the Poppins font from Google Fonts to ensure consistent typography across the site */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Global styles to reset default browser styles and apply a consistent look */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  text-decoration: none;
+  list-style: none;
+}
+
+/* Customizing material symbols to match the site's design */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Setting the background of the body to create a gradient effect */
+body {
+  background: linear-gradient(135deg, #00788f, #0097b2);
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Styling the form container to be centered and visually appealing */
+form {
+  width: 850px;
+  height: 550px;
+  background-color: #fff;
+  border-radius: 30px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 10px 40px rgba(0, 120, 143, 0.3);
+}
+
+/* Styling the left part of the form to create a visually appealing section */
+div.left {
+  background: linear-gradient(135deg, #00788f, #0097b2);
+  width: 50%;
+  height: inherit;
+  border-radius: 30px 30% 30% 30px;
+  position: relative;
+}
+
+div.left > div:first-child {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  line-height: 40px;
+  width: max-content;
+}
+
+div.left > div:first-child p {
+  color: #fff;
+  font-size: 36px;
+  margin: 0 0 20px 0;
+  font-weight: bolder;
+}
+
+div.left > div:first-child img {
+  width: 400px;
+  height: auto;
+  margin-top: 10px;
+}
+
+div.left div a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14.5px;
+}
+
+div.left div input[type='submit'] {
+  border: 2px solid #fff;
+  width: 160px;
+  height: 46px;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+div.left div input[type='submit']:hover {
+  background-color: #fff;
+  color: #00788f;
+}
+
+/* Attempts Badge - Movido más abajo para no tapar el logo */
+.attempts-badge {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(220, 38, 38, 0.95);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  animation: slideUp 0.3s ease;
+  z-index: 10;
+  white-space: nowrap;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Styling the right part of the form to create a functional section */
+div.right {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  padding: 40px;
+  overflow: hidden;
+}
+
+div.right div {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+}
+
+div.right h1 {
+  font-size: 36px;
+  text-align: center;
+  font-weight: bold;
+  color: #004d5e;
+  margin-bottom: 30px;
+}
+
+div.right input {
+  padding: 13px 50px 13px 20px;
+  margin: 10px 0;
+  background-color: #f0f8fa;
+  border: 2px solid #cbd5e0;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+div.right input:focus {
+  outline: none;
+  border-color: #00788f;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(0, 120, 143, 0.15);
+}
+
+div.right input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+div.right div span {
+  position: absolute;
+  left: 85%;
+  display: block;
+  color: #00788f;
+}
+
+div.right .person {
+  top: 23%;
+}
+
+div.right .lock {
+  top: 44%;
+}
+
+div.right div a {
+  color: #00788f;
+  display: block;
+  margin-bottom: 20px;
+  transition: color 0.3s ease;
+}
+
+div.right div a:hover {
+  color: #004d5e;
+}
+
+div.right div button {
+  background: linear-gradient(135deg, #00788f, #0097b2);
+  width: 100%;
+  height: 48px;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+div.right div button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 120, 143, 0.4);
+  background: linear-gradient(135deg, #0097b2, #004d5e);
+}
+
+div.right div button:active {
+  transform: translateY(0);
+}
+
+div.right div button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+.register-btn {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    background: transparent
+}
+
+div.right div p {
+  margin: 15px 0;
+  color: #004d5e;
+}
+
+div.right div div {
+  margin-top: 20px;
+  top: 100%;
+  width: 100%;
+}
+
+div.right div div a {
+  display: inline-block;
+  margin: 0 8px;
+  border: 2px solid #ccc;
+  padding: 6px 5px 0 5px;
+  text-align: center;
+  border-radius: 8px;
+  font-size: 24px;
+  width: 17%;
+  height: 50px;
+  transition: all 0.3s ease;
+}
+
+div.right div div a:hover {
+  border-color: #00788f;
+  background-color: #f0f8fa;
+}
+
+/* Status Messages */
+.status-message {
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-align: center;
+  animation: slideDown 0.3s ease;
+}
+
+.status-message.loading {
+  background-color: #fef3c7;
+  color: #92400e;
+  border-left: 4px solid #f59e0b;
+}
+
+.status-message.success {
+  background-color: #d1fae5;
+  color: #065f46;
+  border-left: 4px solid #10b981;
+}
+
+.status-message.error {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border-left: 4px solid #ef4444;
+}
+
+/* Help Section */
+.help-section {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f0f8fa;
+  border-radius: 8px;
+  border-left: 4px solid #00788f;
+}
+
+.help-title {
+  color: #004d5e;
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.user-hint {
+  background-color: white;
+  padding: 8px;
+  margin: 8px 0;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #00788f;
+  text-align: left;
+}
+
+.user-hint strong {
+  color: #004d5e;
+}
+
+/* Animations */
+.spinner {
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+

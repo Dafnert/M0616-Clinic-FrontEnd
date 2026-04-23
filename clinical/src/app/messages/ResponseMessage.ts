@@ -1,3 +1,4 @@
+import { Patient } from '../models/patient';
 import { user } from "../models/user";
 
 export class ResponseMessage {
@@ -11,5 +12,6 @@ export class ResponseMessage {
 export interface LoginResponse {
   success: boolean;
   message: string;
+  patient: Patient;
   user: user;
 }
