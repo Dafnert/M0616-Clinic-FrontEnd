@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PatientService } from '../services/patient.service';
-import { Patient } from '../models/patient';
+import { Patient } from '../../models/patient';
+import { PatientService } from '../../services/patient.service';
+import { HttpClientModule } from '@angular/common/http';
+import { UserService } from '../../services/user.service';
 
 
 @Component({
@@ -12,7 +14,7 @@ import { Patient } from '../models/patient';
   imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers:[PatientService]
+  providers:[UserService]
 })
 export class LoginComponent{
 
@@ -33,7 +35,7 @@ export class LoginComponent{
   ];
 
   constructor(
-    private _patientService: PatientService,
+    private _userService: UserService,
     private router: Router
   ) {}
   
@@ -41,33 +43,31 @@ export class LoginComponent{
   this.isLoading = true;
   this.loginStatus = 'loading';
 
-this._patientService.login(this.username, this.password).subscribe({
+this._userService.login(this.username, this.password).subscribe({
   next: (response) => {
-    if (response.success) {
-      const patient = response.patient;
+  if (response.success) {
+    const user = response.user;
 
-      localStorage.setItem('id', patient.id.toString());
-      console.log('ID guardado:', patient.id)
+    localStorage.setItem('id', user.id.toString());
+    console.log('ID guardado:', user.id);
 
-      this.loginStatus = 'success';
-      this.errorMessage = `Bienvenido ${patient.name}`;
+    this.loginStatus = 'success';
+    this.errorMessage = `Bienvenido ${user.name}`;
 
+    setTimeout(() => {
+      this.router.navigate(['/boxes']);
+    }, 1000);
 
-      setTimeout(() => {
-        this.router.navigate(['/home']);
-      }, 1000);
-    }
-    this.isLoading = false;
-  },
-  error: () => {
-    this.loginAttempts++;
-    this.loginStatus = 'error';
-    this.errorMessage =
-      this.errorMessages[
-        Math.min(this.loginAttempts - 1, this.errorMessages.length - 1)
-      ];
-    this.isLoading = false;
+  } else {
+    this.handleLoginError(); // 👈 importante
   }
+
+  this.isLoading = false;
+},
+  error: () => {
+  this.handleLoginError();
+  this.isLoading = false;
+}
 });
 }
 

@@ -1,0 +1,35 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.page-wrapper {
+  min-height: calc(100vh - 70px); /* ajusta según altura del menú */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: #f5f6fa;
+}
+
+.doctor-container {
+  display: grid;
+  grid-template-columns: repeat(2, 250px);
+  gap: 20px;
+}
+.doctor-box {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 140px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.doctor-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+}
