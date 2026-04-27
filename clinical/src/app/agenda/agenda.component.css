@@ -1,0 +1,606 @@
+/* ====================================================
+   HealthConnect – Agenda View
+   Dental clinic palette: professional blue, clean white
+   ==================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:host {
+  display: block;
+  font-family: 'Lato', sans-serif;
+  background: #f0f5fb;
+  min-height: 100vh;
+}
+
+/* ── Header ──────────────────────────────────────── */
+.agenda-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 24px;
+  background: #ffffff;
+  border-bottom: 3px solid #1a73c8;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(26, 115, 200, 0.1);
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.logo-img {
+  height: 44px;
+  width: auto;
+}
+
+.header-search {
+  flex: 1;
+  position: relative;
+  max-width: 480px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 9px 14px 9px 40px;
+  background: #f0f5fb;
+  border: 1px solid #cdddf5;
+  border-radius: 8px;
+  color: #1e3a5f;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.search-input::placeholder {
+  color: #94a3b8;
+}
+
+.search-input:focus {
+  border-color: #1a73c8;
+  background: #fff;
+}
+
+.btn-crear-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  background: #1a73c8;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  flex-shrink: 0;
+  letter-spacing: 0.3px;
+}
+
+.btn-crear-header svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-crear-header:hover {
+  background: #1558a0;
+}
+
+.btn-crear-header:active {
+  transform: scale(0.97);
+}
+
+/* ── Page title bar ──────────────────────────────── */
+.page-title-bar {
+  background: linear-gradient(135deg, #0d4e8a 0%, #1a73c8 100%);
+  padding: 20px 24px 18px;
+}
+
+.page-title-content {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.page-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #fff;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.visitas-count {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* ── Body ────────────────────────────────────────── */
+.agenda-body {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ── Day section ─────────────────────────────────── */
+.dia-seccion {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(26, 115, 200, 0.1);
+  border: 1px solid #dce9f8;
+}
+
+.dia-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: #eaf2fc;
+  border-left: 4px solid #1a73c8;
+  border-bottom: 1px solid #dce9f8;
+}
+
+.dia-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dia-fecha {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0d4e8a;
+  letter-spacing: 0.5px;
+}
+
+.dia-contador {
+  font-size: 0.78rem;
+  color: #5a84b0;
+}
+
+.btn-crear-dia {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 16px;
+  background: #1a73c8;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-crear-dia svg {
+  width: 14px;
+  height: 14px;
+}
+
+.btn-crear-dia:hover {
+  background: #1558a0;
+}
+
+/* ── Visit card ──────────────────────────────────── */
+.visitas-lista {
+  display: flex;
+  flex-direction: column;
+}
+
+.visita-card {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid #eaf0f8;
+  transition: background 0.15s;
+  position: relative;
+}
+
+.visita-card:last-child {
+  border-bottom: none;
+}
+
+.visita-card:hover {
+  background: #f7faff;
+}
+
+.visita-card.tiene-observacion {
+  background: #fffbf0;
+}
+
+.visita-card.tiene-observacion:hover {
+  background: #fff6e0;
+}
+
+/* Alert badge */
+.obs-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #fff3cd;
+  color: #e6a817;
+  flex-shrink: 0;
+  cursor: help;
+}
+
+.obs-badge svg {
+  width: 16px;
+  height: 16px;
+}
+
+.visita-card:not(.tiene-observacion) .obs-badge {
+  visibility: hidden;
+}
+
+/* Visit doctor + box info */
+.visita-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.visita-doctor {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0d4e8a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.visita-box-hora {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.visita-box {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  background: #1a73c8;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.visita-hora {
+  font-size: 0.78rem;
+  color: #64748b;
+  font-weight: 700;
+}
+
+/* Patient */
+.visita-paciente {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.paciente-nombre {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1e3a5f;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.paciente-dni {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+/* Treatment */
+.visita-tratamiento {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.tratamiento-nombre {
+  font-size: 0.85rem;
+  color: #475569;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Estado badges */
+.visita-estado {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+  width: fit-content;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.estado-pendiente {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.estado-proceso {
+  background: #fef9c3;
+  color: #a16207;
+}
+
+.estado-finalizada {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.estado-cancelada {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Actions */
+.visita-acciones {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.btn-accion {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.btn-accion:hover {
+  opacity: 0.85;
+}
+
+.btn-accion:active {
+  transform: scale(0.96);
+}
+
+.btn-ver {
+  background: #0d4e8a;
+  color: #fff;
+}
+
+.btn-actualizar {
+  background: #1a73c8;
+  color: #fff;
+}
+
+.btn-eliminar {
+  background: #e74c3c;
+  color: #fff;
+}
+
+/* ── Empty & loading states ──────────────────────── */
+.loading-state,
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 80px 24px;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.empty-state svg {
+  width: 64px;
+  height: 64px;
+  opacity: 0.4;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #dce9f8;
+  border-top-color: #1a73c8;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.btn-crear {
+  padding: 10px 24px;
+  background: #1a73c8;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-crear:hover {
+  background: #1558a0;
+}
+
+/* ── Modal ───────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 78, 138, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px 28px;
+  max-width: 360px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(13, 78, 138, 0.15);
+  animation: slideUp 0.15s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(12px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.modal-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #fee2e2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  color: #e74c3c;
+}
+
+.modal-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.modal h3 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0d4e8a;
+  margin: 0 0 8px;
+}
+
+.modal p {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin: 0 0 24px;
+}
+
+.modal-acciones {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.btn-modal-cancel {
+  padding: 9px 22px;
+  background: #f0f5fb;
+  border: 1px solid #cdddf5;
+  border-radius: 8px;
+  color: #1a73c8;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-modal-cancel:hover {
+  background: #dce9f8;
+}
+
+.btn-modal-confirm {
+  padding: 9px 22px;
+  background: #e74c3c;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-modal-confirm:hover {
+  background: #c0392b;
+}
+
+/* ── Responsive ──────────────────────────────────── */
+@media (max-width: 700px) {
+  .visita-card {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 8px;
+  }
+
+  .obs-badge {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .visita-info    { grid-row: 1; grid-column: 2; }
+  .visita-paciente { grid-row: 2; grid-column: 1 / -1; }
+  .visita-tratamiento { grid-row: 3; grid-column: 1 / -1; }
+  .visita-acciones { grid-row: 4; grid-column: 1 / -1; justify-content: flex-end; }
+
+  .agenda-header {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .header-search {
+    order: 3;
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+}
