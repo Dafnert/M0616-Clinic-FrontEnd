@@ -1,11 +1,10 @@
-<header class="main-header">
+<header class="main-header" *ngIf="showHeader">
   <div class="logo">
     <img src="/img/logo.png" />
   </div>
   <nav>
     <a routerLink="/home">HOME</a>
-    <a routerLink="/nurses">AGENDA</a>
-    <a routerLink="/find-nurse"></a>
+    <a routerLink="/users">LISTA DE Usuarios</a>
     <a routerLink="/profile"><img src="/img/icon.png" alt="profile" class="profile-icon"/></a>
   </nav>
 </header>
