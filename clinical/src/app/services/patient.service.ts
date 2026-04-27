@@ -11,9 +11,5 @@ export class PatientService {
   constructor(private conexHttp:HttpClient) { }
   url = "http://localhost:8000/patients";
 
-  login(username: string, password: string): Observable<LoginResponse> {
-    const headers = { 'Content-Type': 'application/json' };
-    const data = { username, password };
-    return this.conexHttp.post<LoginResponse>(`${this.url}/login`, data, { headers });
-  }     
+  
 }

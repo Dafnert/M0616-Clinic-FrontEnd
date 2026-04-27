@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { user } from '../../models/user';
-import { userService } from '../../services/user.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +16,7 @@ export class RegisterComponent {
   user: user = new user();
 
   constructor(
-    private userService: userService,
+    private userService: UserService,
     private router: Router
   ) { }
 
