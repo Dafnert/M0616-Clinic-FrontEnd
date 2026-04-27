@@ -1,0 +1,22 @@
+
+<div class="page-wrapper">
+  <div class="doctor-container">
+
+    <div class="doctor-box" *ngFor="let pair of doctors">
+
+      <div class="doctor-item">
+        <h3>{{ pair[0]?.name }}</h3>
+        <p>{{ pair[0]?.speciality }}</p>
+      </div>
+
+      <hr>
+
+      <div class="doctor-item">
+        <h3>{{ pair[1]?.name }}</h3>
+        <p>{{ pair[1]?.speciality }}</p>
+      </div>
+
+    </div>
+
+  </div>
+</div>
