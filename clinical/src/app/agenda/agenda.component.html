@@ -1,0 +1,138 @@
+<div class="agenda-wrapper">
+
+  <!-- Header -->
+  <header class="agenda-header">
+    <div class="header-brand">
+      <img src="logo.jpg" alt="HealthConnect Hospital" class="logo-img" />
+    </div>
+
+    <div class="header-search">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Buscar paciente, DNI, tratamiento..."
+        [value]="busqueda()"
+        (input)="onBusqueda($event)"
+      />
+    </div>
+
+    <button class="btn-crear-header" (click)="crearCita()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Nueva cita
+    </button>
+  </header>
+
+  <!-- Page title -->
+  <div class="page-title-bar">
+    <div class="page-title-content">
+      <h1 class="page-title">AGENDA</h1>
+      <span class="visitas-count" *ngIf="!cargando()">
+        {{ visitas().length }} visita{{ visitas().length !== 1 ? 's' : '' }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-state" *ngIf="cargando()">
+    <div class="spinner"></div>
+    <p>Cargando agenda...</p>
+  </div>
+
+  <!-- Empty state -->
+  <div class="empty-state" *ngIf="!cargando() && diasAgenda().length === 0">
+    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="8" y="12" width="48" height="44" rx="4" stroke="#1a73c8" stroke-width="2"/>
+      <line x1="8" y1="24" x2="56" y2="24" stroke="#1a73c8" stroke-width="2"/>
+      <line x1="20" y1="8" x2="20" y2="20" stroke="#1a73c8" stroke-width="2" stroke-linecap="round"/>
+      <line x1="44" y1="8" x2="44" y2="20" stroke="#1a73c8" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <p *ngIf="busqueda()">No se encontraron resultados para "<strong>{{ busqueda() }}</strong>"</p>
+    <p *ngIf="!busqueda()">No hay visitas programadas</p>
+    <button class="btn-crear" (click)="crearCita()">Crear primera cita</button>
+  </div>
+
+  <!-- Days list -->
+  <main class="agenda-body" *ngIf="!cargando() && diasAgenda().length > 0">
+    <section class="dia-seccion" *ngFor="let dia of diasAgenda()">
+
+      <!-- Day header -->
+      <div class="dia-header">
+        <div class="dia-info">
+          <span class="dia-fecha">{{ dia.fechaLabel | uppercase }}</span>
+          <span class="dia-contador">{{ dia.visitas.length }} cita{{ dia.visitas.length !== 1 ? 's' : '' }}</span>
+        </div>
+        <button class="btn-crear-dia" (click)="crearCita(dia.fecha)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          CREAR
+        </button>
+      </div>
+
+      <!-- Visits -->
+      <div class="visitas-lista">
+        <div class="visita-card" *ngFor="let visita of dia.visitas" [class.tiene-observacion]="visita.paciente.observaciones_importantes">
+
+          <!-- Alert badge for important observations -->
+          <div class="obs-badge" *ngIf="visita.paciente.observaciones_importantes" [title]="visita.paciente.observaciones_importantes">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+
+          <!-- Visit info -->
+          <div class="visita-info">
+            <div class="visita-doctor">{{ visita.odontologo.nombre }}</div>
+            <div class="visita-box-hora">
+              <span class="visita-box">{{ visita.box.nombre }}</span>
+              <span class="visita-hora">{{ visita.hora_inicio }}H - {{ visita.hora_fin }}H</span>
+            </div>
+          </div>
+
+          <div class="visita-paciente">
+            <span class="paciente-nombre">{{ visita.paciente.nombre }} {{ visita.paciente.apellidos }}</span>
+            <span class="paciente-dni">{{ visita.paciente.dni }}</span>
+          </div>
+
+          <div class="visita-tratamiento">
+            <span class="tratamiento-nombre">{{ visita.motivo_consulta }}</span>
+            <span class="visita-estado" [class]="estadoClass(visita.estado)">{{ estadoLabel(visita.estado) }}</span>
+          </div>
+
+          <!-- Actions -->
+          <div class="visita-acciones">
+            <button class="btn-accion btn-ver" (click)="verVisita(visita.id_visita)">
+              VER
+            </button>
+            <button class="btn-accion btn-actualizar" (click)="editarVisita(visita.id_visita)">
+              ACTUALIZAR
+            </button>
+            <button class="btn-accion btn-eliminar" (click)="pedirConfirmacion(visita.id_visita)">
+              ELIMINAR
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+</div>
+
+<!-- Confirm delete modal -->
+<div class="modal-overlay" *ngIf="confirmandoEliminar() !== null" (click)="cancelarEliminar()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div class="modal-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/>
+      </svg>
+    </div>
+    <h3>¿Eliminar esta cita?</h3>
+    <p>Esta acción no se puede deshacer.</p>
+    <div class="modal-acciones">
+      <button class="btn-modal-cancel" (click)="cancelarEliminar()">Cancelar</button>
+      <button class="btn-modal-confirm" (click)="confirmarEliminar(confirmandoEliminar()!)">Eliminar</button>
+    </div>
+  </div>
+</div>
