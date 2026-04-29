@@ -1,0 +1,187 @@
+<div class="odo-page">
+
+  <!-- CABECERA -->
+  <div class="odo-header">
+    <h2>Odontograma</h2>
+    @if (ultimaActualizacion()) {
+      <span class="odo-fecha">
+        Últ. actualización: {{ ultimaActualizacion() | date:'dd/MM/yyyy HH:mm' }}
+      </span>
+    }
+  </div>
+
+  <!-- BARRA DE HERRAMIENTAS -->
+  <div class="toolbar">
+    <div class="tool-group">
+      <span class="tool-label">Pintar cara:</span>
+      @for (c of PALETA_COLORES; track c.clave) {
+        <button
+          class="btn-tool"
+          [class.activo]="seleccion() === c.clave"
+          [style.background]="c.hex"
+          [style.borderColor]="seleccion() === c.clave ? '#333' : '#ccc'"
+          [title]="c.label"
+          (click)="seleccion.set(c.clave)">
+          @if (c.clave === 'color:normal') { <span class="ico-borrar">⌫</span> }
+        </button>
+      }
+    </div>
+    <div class="tool-group">
+      <span class="tool-label">Marcadores:</span>
+      @for (m of PALETA_MARCADORES; track m.clave) {
+        <button
+          class="btn-marcador"
+          [class.activo]="seleccion() === m.clave"
+          [style.color]="m.hex"
+          [style.borderColor]="seleccion() === m.clave ? m.hex : '#ccc'"
+          (click)="seleccion.set(m.clave)">
+          {{ m.label }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- GRÁFICO -->
+  <div class="chart">
+
+    <!-- ARCADA SUPERIOR -->
+    <div class="arcada arcada-sup">
+
+      <!-- C.S.D. -->
+      <div class="cuadrante">
+        <div class="q-label">C.S.D.</div>
+        <div class="dientes-row">
+          @for (n of superioresDerecho; track n) {
+            <div class="diente-item" (click)="onClickDiente(n)">
+              <span class="d-num">{{ n }}</span>
+              <svg width="34" height="34" class="diente-svg" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="0,0 34,0 24,10 10,10"   [attr.fill]="colorHex(getCaras(n).vestibular)" class="cara" (click)="onClickCara(n,'vestibular',$event)"/>
+                <polygon points="0,34 34,34 24,24 10,24" [attr.fill]="colorHex(getCaras(n).lingual)"    class="cara" (click)="onClickCara(n,'lingual',$event)"/>
+                <polygon points="0,0 0,34 10,24 10,10"   [attr.fill]="colorHex(getCaras(n).mesial)"     class="cara" (click)="onClickCara(n,'mesial',$event)"/>
+                <polygon points="34,0 34,34 24,24 24,10" [attr.fill]="colorHex(getCaras(n).distal)"     class="cara" (click)="onClickCara(n,'distal',$event)"/>
+                <rect x="10" y="10" width="14" height="14" [attr.fill]="colorHex(getCaras(n).oclusal)"  class="cara" (click)="onClickCara(n,'oclusal',$event)"/>
+                <rect x="0.5" y="0.5" width="33" height="33" fill="none" stroke="#9eb8d8" stroke-width="1" style="pointer-events:none"/>
+                <rect x="9.5" y="9.5" width="15" height="15" fill="none" stroke="#9eb8d8" stroke-width="0.5" style="pointer-events:none"/>
+                @if (getCaras(n).marcador === 'X') {
+                  <line x1="2" y1="2" x2="32" y2="32" [attr.stroke]="marcadorHex(n)" stroke-width="2.5" style="pointer-events:none"/>
+                  <line x1="32" y1="2" x2="2" y2="32" [attr.stroke]="marcadorHex(n)" stroke-width="2.5" style="pointer-events:none"/>
+                }
+                @if (getCaras(n).marcador === 'E') {
+                  <text x="17" y="22" text-anchor="middle" font-size="13" font-weight="bold" [attr.fill]="marcadorHex(n)" style="pointer-events:none">E</text>
+                }
+              </svg>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="sep-v"></div>
+
+      <!-- C.S.I. -->
+      <div class="cuadrante">
+        <div class="q-label">C.S.I.</div>
+        <div class="dientes-row">
+          @for (n of superioresIzquierdo; track n) {
+            <div class="diente-item" (click)="onClickDiente(n)">
+              <span class="d-num">{{ n }}</span>
+              <svg width="34" height="34" class="diente-svg" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="0,0 34,0 24,10 10,10"   [attr.fill]="colorHex(getCaras(n).vestibular)" class="cara" (click)="onClickCara(n,'vestibular',$event)"/>
+                <polygon points="0,34 34,34 24,24 10,24" [attr.fill]="colorHex(getCaras(n).lingual)"    class="cara" (click)="onClickCara(n,'lingual',$event)"/>
+                <polygon points="0,0 0,34 10,24 10,10"   [attr.fill]="colorHex(getCaras(n).mesial)"     class="cara" (click)="onClickCara(n,'mesial',$event)"/>
+                <polygon points="34,0 34,34 24,24 24,10" [attr.fill]="colorHex(getCaras(n).distal)"     class="cara" (click)="onClickCara(n,'distal',$event)"/>
+                <rect x="10" y="10" width="14" height="14" [attr.fill]="colorHex(getCaras(n).oclusal)"  class="cara" (click)="onClickCara(n,'oclusal',$event)"/>
+                <rect x="0.5" y="0.5" width="33" height="33" fill="none" stroke="#9eb8d8" stroke-width="1" style="pointer-events:none"/>
+                <rect x="9.5" y="9.5" width="15" height="15" fill="none" stroke="#9eb8d8" stroke-width="0.5" style="pointer-events:none"/>
+                @if (getCaras(n).marcador === 'X') {
+                  <line x1="2" y1="2" x2="32" y2="32" [attr.stroke]="marcadorHex(n)" stroke-width="2.5" style="pointer-events:none"/>
+                  <line x1="32" y1="2" x2="2" y2="32" [attr.stroke]="marcadorHex(n)" stroke-width="2.5" style="pointer-events:none"/>
+                }
+                @if (getCaras(n).marcador === 'E') {
+                  <text x="17" y="22" text-anchor="middle" font-size="13" font-weight="bold" [attr.fill]="marcadorHex(n)" style="pointer-events:none">E</text>
+                }
+              </svg>
+            </div>
+          }
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sep-h"></div>
+
+    <!-- ARCADA INFERIOR -->
+    <div class="arcada arcada-inf">
+
+      <!-- C.I.D. -->
+      <div class="cuadrante">
+        <div class="dientes-row">
+          @for (n of inferioresDerecho; track n) {
+            <div class="diente-item" (click)="onClickDiente(n)">
+              <svg width="34" height="34" class="diente-svg" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="0,0 34,0 24,10 10,10"   [attr.fill]="colorHex(getCaras(n).vestibular)" class="cara" (click)="onClickCara(n,'vestibular',$event)"/>
+                <polygon points="0,34 34,34 24,24 10,24" [attr.fill]="colorHex(getCaras(n).lingual)"    class="cara" (click)="onClickCara(n,'lingual',$event)"/>
+                <polygon points="0,0 0,34 10,24 10,10"   [attr.fill]="colorHex(getCaras(n).mesial)"     class="cara" (click)="onClickCara(n,'mesial',$event)"/>
+                <polygon points="34,0 34,34 24,24 24,10" [attr.fill]="colorHex(getCaras(n).distal)"     class="cara" (click)="onClickCara(n,'distal',$event)"/>
+                <rect x="10" y="10" width="14" height="14" [attr.fill]="colorHex(getCaras(n).oclusal)"  class="cara" (click)="onClickCara(n,'oclusal',$event)"/>
+                <rect x="0.5" y="0.5" width="33" height="33" fill="none" stroke="#9eb8d8" stroke-width="1" style="pointer-events:none"/>
+                <rect x="9.5" y="9.5" width="15" height="15" fill="none" stroke="#9eb8d8" stroke-width="0.5" style="pointer-events:none"/>
+                @if (getCaras(n).marcador === 'X') {
+                  <line x1="2" y1="2" x2="32" y2="32" [attr.stroke]="marcadorHex(n)" stroke-width="2.5" style="pointer-events:none"/>
+                  <line x1="32" y1="2" x2="2" y2="32" [attr.stroke]="marcadorHex(n)" stroke-width="2.5" style="pointer-events:none"/>
+                }
+                @if (getCaras(n).marcador === 'E') {
+                  <text x="17" y="22" text-anchor="middle" font-size="13" font-weight="bold" [attr.fill]="marcadorHex(n)" style="pointer-events:none">E</text>
+                }
+              </svg>
+              <span class="d-num">{{ n }}</span>
+            </div>
+          }
+        </div>
+        <div class="q-label">C.I.D.</div>
+      </div>
+
+      <div class="sep-v"></div>
+
+      <!-- C.I.I. -->
+      <div class="cuadrante">
+        <div class="dientes-row">
+          @for (n of inferioresIzquierdo; track n) {
+            <div class="diente-item" (click)="onClickDiente(n)">
+              <svg width="34" height="34" class="diente-svg" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="0,0 34,0 24,10 10,10"   [attr.fill]="colorHex(getCaras(n).vestibular)" class="cara" (click)="onClickCara(n,'vestibular',$event)"/>
+                <polygon points="0,34 34,34 24,24 10,24" [attr.fill]="colorHex(getCaras(n).lingual)"    class="cara" (click)="onClickCara(n,'lingual',$event)"/>
+                <polygon points="0,0 0,34 10,24 10,10"   [attr.fill]="colorHex(getCaras(n).mesial)"     class="cara" (click)="onClickCara(n,'mesial',$event)"/>
+                <polygon points="34,0 34,34 24,24 24,10" [attr.fill]="colorHex(getCaras(n).distal)"     class="cara" (click)="onClickCara(n,'distal',$event)"/>
+                <rect x="10" y="10" width="14" height="14" [attr.fill]="colorHex(getCaras(n).oclusal)"  class="cara" (click)="onClickCara(n,'oclusal',$event)"/>
+                <rect x="0.5" y="0.5" width="33" height="33" fill="none" stroke="#9eb8d8" stroke-width="1" style="pointer-events:none"/>
+                <rect x="9.5" y="9.5" width="15" height="15" fill="none" stroke="#9eb8d8" stroke-width="0.5" style="pointer-events:none"/>
+                @if (getCaras(n).marcador === 'X') {
+                  <line x1="2" y1="2" x2="32" y2="32" [attr.stroke]="marcadorHex(n)" stroke-width="2.5" style="pointer-events:none"/>
+                  <line x1="32" y1="2" x2="2" y2="32" [attr.stroke]="marcadorHex(n)" stroke-width="2.5" style="pointer-events:none"/>
+                }
+                @if (getCaras(n).marcador === 'E') {
+                  <text x="17" y="22" text-anchor="middle" font-size="13" font-weight="bold" [attr.fill]="marcadorHex(n)" style="pointer-events:none">E</text>
+                }
+              </svg>
+              <span class="d-num">{{ n }}</span>
+            </div>
+          }
+        </div>
+        <div class="q-label">C.I.I.</div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ACCIONES -->
+  <div class="odo-acciones">
+    <button class="btn-guardar" (click)="guardar()">Guardar cambios</button>
+    <button class="btn-radiografia">RADIOGRAFÍA</button>
+  </div>
+
+  @if (toast()) {
+    <div class="toast" [class.toast-error]="!toast()!.ok">{{ toast()!.msg }}</div>
+  }
+
+</div>
