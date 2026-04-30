@@ -5,6 +5,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { BoxesComponent } from './pages/boxes/boxes';
 import { OdontogramaComponent } from './odontograma/odontograma.component';
 import { HomeComponent } from './pages/home/home';
+import { StockComponent } from './stock/stock.component';
 
 
 export const routes: Routes = [
@@ -15,5 +16,6 @@ export const routes: Routes = [
   { path: 'boxes', component: BoxesComponent },
   { path: 'agenda', component: AgendaComponent },
   { path: 'odontograma/:id', component: OdontogramaComponent },
+  { path: 'stock', component: StockComponent },
   { path: '**', redirectTo: '/home' }
 ];
