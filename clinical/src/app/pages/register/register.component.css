@@ -118,4 +118,22 @@ form {
   .right {
     border-radius: 0 0 30px 30px;
   }
+  .status-message {
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.status-message.success {
+  background-color: #d1fae5;
+  color: #065f46;
+  border-left: 4px solid #10b981;
+}
+
+.status-message.error {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border-left: 4px solid #ef4444;
+}
 }
