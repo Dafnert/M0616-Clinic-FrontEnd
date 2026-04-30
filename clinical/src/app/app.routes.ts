@@ -6,6 +6,7 @@ import { BoxesComponent } from './pages/boxes/boxes';
 import { PatientProfileComponent } from './patient-profile/profile.component';
 import { OdontogramaComponent } from './odontograma/odontograma.component';
 import { HomeComponent } from './pages/home/home';
+import { StockComponent } from './stock/stock.component';
 
 
 export const routes: Routes = [
@@ -16,7 +17,7 @@ export const routes: Routes = [
   { path: 'boxes', component: BoxesComponent },
   { path: 'agenda', component: AgendaComponent },
   { path: 'patient/profile/:id', component: PatientProfileComponent },
-  { path: '**', redirectTo: '/login' } ,// ← siempre el último
   { path: 'odontograma/:id', component: OdontogramaComponent },
+  { path: 'stock', component: StockComponent },
+  { path: '**', redirectTo: '/login' }
 ];
-  
