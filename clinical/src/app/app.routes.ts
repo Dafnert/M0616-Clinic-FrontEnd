@@ -8,12 +8,12 @@ import { HomeComponent } from './pages/home/home';
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'boxes', component: BoxesComponent },
   { path: 'agenda', component: AgendaComponent },
   { path: 'odontograma/:id', component: OdontogramaComponent },
-  { path: '**', redirectTo: '/home' }
+  { path: '**', redirectTo: '/login' }
 ];
