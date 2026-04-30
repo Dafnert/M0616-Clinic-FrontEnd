@@ -55,7 +55,7 @@ this._userService.login(this.username, this.password).subscribe({
     this.errorMessage = `Bienvenido ${user.name}`;
 
     setTimeout(() => {
-      this.router.navigate(['/boxes']);
+      this.router.navigate(['/home']);
     }, 1000);
 
   } else {
