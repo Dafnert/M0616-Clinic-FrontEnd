@@ -10,10 +10,9 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-
 header {
   width: 100%;
-  background-color: #0097b2; /* azul sanitario */
+  background-color: #0097b2;
   padding: 15px 30px;
   display: flex;
   align-items: center;
@@ -39,7 +38,6 @@ header {
   height: 100px;
 }
 
-
 nav a {
   margin-left: 25px;
   color: white;
@@ -59,10 +57,14 @@ nav a:hover {
   border-bottom: 2px solid white;
 }
 
+/* HOME CONTAINER */
 .home-container {
-  margin-top: 120px; 
+  margin-top: 130px;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 130px);
+  padding: 0;
   text-align: center;
-  padding: 40px;
 }
 
 h1 {
@@ -85,4 +87,123 @@ button {
 
 button:hover {
   background-color: #00788f;
+}
+
+/* CARRUSEL */
+.carousel {
+  position: relative;
+  width: 60%;
+  height: 550px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.carousel-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.6s ease;
+}
+
+.slide {
+  min-width: 100%;
+  height: 100%;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* FLECHAS */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.arrow:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.arrow.left  { left: 16px; }
+.arrow.right { right: 16px; }
+
+/* DOTS */
+.dots {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.dot.active {
+  background: white;
+}
+
+/* BIENVENIDA SOBRE EL CARRUSEL */
+.welcome-overlay {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.welcome-overlay h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0;
+  color: white;
+}
+
+.welcome-overlay h1 span {
+  color: #7dd3c8;
+}
+
+.welcome-overlay p {
+  font-size: 1.1rem;
+  margin-top: 6px;
+}
+
+/* FOOTER */
+.home-footer {
+  background: #1a2e3b;
+  color: #ccc;
+  text-align: center;
+  padding: 1.5rem;
+  margin-top: auto;
+  font-size: 0.95rem;
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.home-footer p {
+  margin: 0;
 }
