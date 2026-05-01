@@ -7,6 +7,7 @@ import { PatientProfileComponent } from './patient-profile/profile.component';
 import { OdontogramaComponent } from './odontograma/odontograma.component';
 import { HomeComponent } from './pages/home/home';
 import { StockComponent } from './stock/stock.component';
+import { ProfileComponent } from './profile/profile';
 
 
 export const routes: Routes = [
@@ -19,5 +20,6 @@ export const routes: Routes = [
   { path: 'patient/profile/:id', component: PatientProfileComponent },
   { path: 'odontograma/:id', component: OdontogramaComponent },
   { path: 'stock', component: StockComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: '**', redirectTo: '/login' }
 ];

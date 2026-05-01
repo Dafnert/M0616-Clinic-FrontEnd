@@ -1,55 +1,157 @@
-<form #profileForm="ngForm">
+<div class="profile-page">
 
-  <div class="left">
-    <div>
-      <h1>PERFIL</h1>
-
-      <input
-        type="text"
-        name="name"
-        placeholder="Nombre"
-        [(ngModel)]="user.name"
-        required
-      />
-
-      <input
-        type="text"
-        name="surname"
-        placeholder="Apellido"
-        [(ngModel)]="user.surname"
-        required
-      />
-
-      <input
-        type="number"
-        name="age"
-        placeholder="Edad"
-        [(ngModel)]="user.age"
-        required
-      />
-      <input
-        type="text"
-        name="speciality"
-        placeholder="Especialidad"
-        [(ngModel)]="user.speciality"
-        required
-      />
-      <input
-        type="text"
-        name="username"
-        placeholder="Username"
-        [(ngModel)]="user.username"
-        required
-      />
-
-      <input
-        type="password"
-        name="password"
-        placeholder="Contraseña"
-        [(ngModel)]="user.password"
-        required
-      />
-      
-    </div>
+  <div class="toast" [class.show]="saveSuccess">
+    <span>✓</span> Perfil actualizado correctamente
   </div>
-</form>
+
+  <div class="profile-container">
+
+    @if (isLoading) {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Cargando perfil...</p>
+      </div>
+    }
+
+    @if (loadError && !isLoading) {
+      <div class="error-state">
+        <p>⚠️ No se pudo cargar el perfil.</p>
+      </div>
+    }
+
+    @if (!isLoading && !loadError) {
+
+      <!-- Header Card -->
+      <div class="header-card">
+        <div class="avatar-wrapper">
+          <div class="avatar">{{ getInitials() }}</div>
+        </div>
+        <div class="header-info">
+          <span class="user-label">Especialista</span>
+          <h1 class="user-name">{{ user.name }} {{ user.surname }}</h1>
+          <div class="user-meta">
+            <span class="meta-badge">@{{ user.username }}</span>
+            <span class="meta-badge">{{ user.age }} años</span>
+            <span class="meta-badge">{{ user.speciality }}</span>
+            <span class="meta-badge id-badge">ID #{{ user.id }}</span>
+          </div>
+        </div>
+        <div class="header-actions">
+          @if (!isEditing) {
+            <button class="btn-edit" (click)="startEdit()">✏️ Editar perfil</button>
+          }
+          <button class="btn-logout" (click)="logout()">🚪 Cerrar sesión</button>
+        </div>
+      </div>
+
+      <!-- Vista normal -->
+      @if (!isEditing) {
+        <div class="content-grid">
+
+          <div class="info-card">
+            <div class="card-header">👤 Datos personales</div>
+            <div class="fields-list">
+              <div class="field-row">
+                <span class="field-label">Nombre</span>
+                <span class="field-value">{{ user.name }}</span>
+              </div>
+              <div class="field-row">
+                <span class="field-label">Apellido</span>
+                <span class="field-value">{{ user.surname }}</span>
+              </div>
+              <div class="field-row">
+                <span class="field-label">Edad</span>
+                <span class="field-value">{{ user.age }} años</span>
+              </div>
+              <div class="field-row">
+                <span class="field-label">Especialidad</span>
+                <span class="field-value">{{ user.speciality }}</span>
+              </div>
+              <div class="field-row">
+                <span class="field-label">ID</span>
+                <span class="field-value highlight">#{{ user.id }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="card-header">🖥️ Cuenta de acceso</div>
+            <div class="fields-list">
+              <div class="field-row">
+                <span class="field-label">Usuario</span>
+                <span class="field-value mono">{{ user.username }}</span>
+              </div>
+              <div class="field-row">
+                <span class="field-label">Contraseña</span>
+                <span class="field-value">••••••••</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      }
+
+      <!-- Modo edición -->
+      @if (isEditing) {
+        <div class="edit-card">
+          <div class="card-header">✏️ Editando perfil</div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Nombre</label>
+              <input class="form-input" type="text" [(ngModel)]="editForm.name" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Apellido</label>
+              <input class="form-input" type="text" [(ngModel)]="editForm.surname" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Edad</label>
+              <input class="form-input" type="number" [(ngModel)]="editForm.age" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Especialidad</label>
+              <input class="form-input" type="text" [(ngModel)]="editForm.speciality" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Usuario</label>
+              <input class="form-input" type="text" [(ngModel)]="editForm.username" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">ID</label>
+              <input class="form-input readonly" type="text" [value]="user.id" disabled />
+              <span class="field-hint">El ID no puede modificarse</span>
+            </div>
+          </div>
+
+          <div class="password-section">
+            <button class="btn-toggle-pass" (click)="showPasswordChange = !showPasswordChange">
+              🔒 {{ showPasswordChange ? 'Cancelar cambio de contraseña' : 'Cambiar contraseña' }}
+            </button>
+            @if (showPasswordChange) {
+              <div class="password-fields">
+                <div class="form-group">
+                  <label class="form-label">Nueva contraseña</label>
+                  <input class="form-input" type="password" [(ngModel)]="newPassword" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Confirmar contraseña</label>
+                  <input class="form-input" [class.input-error]="passwordMismatch" type="password" [(ngModel)]="confirmPassword" />
+                  @if (passwordMismatch) {
+                    <span class="error-msg">Las contraseñas no coinciden</span>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+
+          <div class="form-actions">
+            <button class="btn-cancel" (click)="cancelEdit()">Cancelar</button>
+            <button class="btn-save" (click)="saveChanges()">✓ Guardar cambios</button>
+          </div>
+        </div>
+      }
+
+    }
+  </div>
+</div>
