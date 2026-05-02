@@ -1,0 +1,35 @@
+<div class="home-container">
+
+  <!-- CARRUSEL -->
+  <div class="carousel">
+    <div class="carousel-track" [style.transform]="'translateX(-' + currentSlide * 100 + '%)'">
+      <div class="slide" *ngFor="let img of images">
+        <img [src]="img" alt="slide" />
+      </div>
+    </div>
+
+    <button class="arrow left" (click)="prev()">&#10094;</button>
+    <button class="arrow right" (click)="next()">&#10095;</button>
+
+    <div class="dots">
+      <span *ngFor="let img of images; let i = index"
+            class="dot"
+            [class.active]="i === currentSlide"
+            (click)="goTo(i)">
+      </span>
+    </div>
+
+    <!-- MENSAJE BIENVENIDA -->
+    <div class="welcome-overlay">
+      <h1>Benvinguts a la Clínica <span>HealthConnect</span></h1>
+      <p>La teva salud, nostra prioritat</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="home-footer">
+    <p>📧 contacto@healthconnect.com</p>
+    <p>📞 +34 912 345 678</p>
+  </footer>
+
+</div>

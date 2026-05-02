@@ -1,0 +1,207 @@
+.odo-page {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: 'Lato', sans-serif;
+}
+
+/* ── CABECERA ── */
+.odo-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.odo-header h2 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.7rem;
+  color: #1a73c8;
+  font-weight: 700;
+}
+.odo-fecha { font-size: 0.82rem; color: #6b7c93; }
+
+/* ── TOOLBAR ── */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: #fff;
+  border: 1px solid #d0e4f7;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+.tool-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.tool-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #344563;
+  white-space: nowrap;
+}
+
+/* color swatches */
+.btn-tool {
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  border: 2px solid #ccc;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s, border-color 0.1s;
+}
+.btn-tool:hover  { transform: scale(1.15); }
+.btn-tool.activo { border-width: 3px; transform: scale(1.15); }
+.ico-borrar { font-size: 0.7rem; color: #888; line-height: 1; }
+
+/* marker buttons */
+.btn-marcador {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  background: #f9fbff;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+  white-space: nowrap;
+}
+.btn-marcador:hover  { background: #eef4ff; }
+.btn-marcador.activo { background: #eef4ff; font-weight: 700; }
+
+/* ── CHART ── */
+.chart {
+  background: #fff;
+  border: 1px solid #d0e4f7;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+}
+
+.arcada {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.sep-h {
+  height: 2px;
+  background: #1a73c8;
+  margin: 4px 0;
+  border-radius: 2px;
+}
+
+.sep-v {
+  width: 2px;
+  background: #1a73c8;
+  align-self: stretch;
+  margin: 0 4px;
+  border-radius: 2px;
+}
+
+.cuadrante { flex: 1; }
+
+.q-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #1a73c8;
+  text-align: center;
+  letter-spacing: 0.05em;
+  padding: 2px 0;
+}
+
+.dientes-row {
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+}
+
+/* ── DIENTE ── */
+.diente-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  cursor: default;
+}
+
+.d-num {
+  font-size: 0.6rem;
+  color: #6b7c93;
+  line-height: 1.2;
+  text-align: center;
+  min-width: 20px;
+}
+
+/* SVG faces */
+.diente-svg { display: block; }
+
+.cara {
+  cursor: pointer;
+  transition: opacity 0.1s;
+}
+.cara:hover { opacity: 0.75; }
+
+/* ── ACCIONES ── */
+.odo-acciones {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+.btn-guardar {
+  padding: 0.5rem 1.4rem;
+  background: #1a73c8;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-guardar:hover { background: #0d4e8a; }
+
+.btn-radiografia {
+  padding: 0.5rem 1.4rem;
+  background: #fff;
+  color: #1a73c8;
+  border: 2px solid #1a73c8;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.btn-radiografia:hover { background: #1a73c8; color: #fff; }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: #2e7d32;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  animation: fadeInUp 0.2s ease;
+  z-index: 999;
+}
+.toast.toast-error { background: #c62828; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

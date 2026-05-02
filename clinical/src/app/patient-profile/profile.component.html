@@ -1,0 +1,197 @@
+<div class="profile-page">
+
+  <div class="bg-decoration">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+  </div>
+
+  <div class="toast" [class.show]="saveSuccess">
+    <span class="toast-icon">✓</span> Perfil actualizado correctamente
+  </div>
+
+  <div class="profile-container">
+
+    <!-- Loading -->
+    <div class="loading-state" *ngIf="isLoading">
+      <div class="spinner"></div>
+      <p>Cargando perfil...</p>
+    </div>
+
+    <!-- Error -->
+    <div class="error-state" *ngIf="loadError && !isLoading">
+      <p>⚠️ No se pudo cargar el paciente.</p>
+    </div>
+
+    <ng-container *ngIf="!isLoading && !loadError">
+
+      <!-- Header Card -->
+      <div class="header-card">
+        <div class="avatar-wrapper">
+          <div class="avatar">{{ getInitials() }}</div>
+          <div class="avatar-ring"></div>
+        </div>
+
+        <div class="header-info">
+          <span class="patient-label">Paciente</span>
+          <h1 class="patient-name">{{ patient.name }} {{ patient.surname }}</h1>
+          <div class="patient-meta">
+            <span class="meta-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              @{{ patient.username }}
+            </span>
+            <span class="meta-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              {{ patient.age }} años
+            </span>
+            <span class="meta-badge id-badge">ID #{{ patient.id }}</span>
+          </div>
+        </div>
+
+        <button class="btn-edit" (click)="startEdit()" *ngIf="!isEditing">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+          Editar perfil
+        </button>
+      </div>
+
+      <!-- View Mode -->
+      <div class="content-grid" *ngIf="!isEditing">
+
+        <div class="info-card">
+          <div class="card-header">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            Datos personales
+          </div>
+          <div class="fields-list">
+            <div class="field-row">
+              <span class="field-label">Nombre</span>
+              <span class="field-value">{{ patient.name }}</span>
+            </div>
+            <div class="field-row">
+              <span class="field-label">Apellido</span>
+              <span class="field-value">{{ patient.surname }}</span>
+            </div>
+            <div class="field-row">
+              <span class="field-label">Edad</span>
+              <span class="field-value">{{ patient.age }} años</span>
+            </div>
+            <div class="field-row">
+              <span class="field-label">ID de paciente</span>
+              <span class="field-value highlight">#{{ patient.id }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="card-header">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+            Cuenta de acceso
+          </div>
+          <div class="fields-list">
+            <div class="field-row">
+              <span class="field-label">Nombre de usuario</span>
+              <span class="field-value mono">{{ patient.username }}</span>
+            </div>
+            <div class="field-row">
+              <span class="field-label">Contraseña</span>
+              <span class="field-value">••••••••</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Edit Mode -->
+      <div class="edit-card" *ngIf="isEditing">
+        <div class="card-header">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+          Editando perfil
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Nombre</label>
+            <input class="form-input" type="text" [(ngModel)]="editForm.name" placeholder="Nombre" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Apellido</label>
+            <input class="form-input" type="text" [(ngModel)]="editForm.surname" placeholder="Apellido" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Edad</label>
+            <input class="form-input" type="number" [(ngModel)]="editForm.age" min="0" max="120" placeholder="Edad" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Nombre de usuario</label>
+            <input class="form-input" type="text" [(ngModel)]="editForm.username" placeholder="username" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">ID de paciente</label>
+            <input class="form-input readonly" type="text" [value]="patient.id" disabled />
+            <span class="field-hint">El ID no puede modificarse</span>
+          </div>
+        </div>
+
+        <!-- Password toggle -->
+        <div class="password-section">
+          <button class="btn-toggle-pass" (click)="showPasswordChange = !showPasswordChange">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            {{ showPasswordChange ? 'Cancelar cambio de contraseña' : 'Cambiar contraseña' }}
+          </button>
+
+          <div class="password-fields" *ngIf="showPasswordChange">
+            <div class="form-group">
+              <label class="form-label">Nueva contraseña</label>
+              <input class="form-input" type="password" [(ngModel)]="newPassword" placeholder="Nueva contraseña" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Confirmar contraseña</label>
+              <input class="form-input" [class.input-error]="passwordMismatch" type="password"
+                [(ngModel)]="confirmPassword" placeholder="Repite la contraseña" />
+              <span class="error-msg" *ngIf="passwordMismatch">Las contraseñas no coinciden</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="form-actions">
+          <button class="btn-cancel" (click)="cancelEdit()">Cancelar</button>
+          <button class="btn-save" (click)="saveChanges()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            Guardar cambios
+          </button>
+        </div>
+      </div>
+
+    </ng-container>
+  </div>
+</div>
