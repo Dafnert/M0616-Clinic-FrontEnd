@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { DoctorService } from '../../services/doctor.service';
 
 @Component({
@@ -12,7 +13,7 @@ import { DoctorService } from '../../services/doctor.service';
 export class BoxesComponent implements OnInit {
   doctors: any[][] = [];
 
-  constructor(private doctorService: DoctorService) {}
+  constructor(private doctorService: DoctorService, private router: Router) {}
 
   ngOnInit() {
   this.doctorService.getRandomDoctors().subscribe({
@@ -31,4 +32,8 @@ export class BoxesComponent implements OnInit {
     }
   });
 }
+
+  goToAgenda() {
+    this.router.navigate(['/agenda']);
+  }
 }

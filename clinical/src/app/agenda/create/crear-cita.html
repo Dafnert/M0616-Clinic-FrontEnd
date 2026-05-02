@@ -1,0 +1,37 @@
+<div class="form-wrapper">
+  <div class="form-header">
+    <span class="form-title">{{ titulo }}</span>
+    <p class="form-subtitle">Rellena los datos para registrar la cita</p>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    <div class="form-row">
+      <div class="field">
+        <label>Fecha</label>
+        <input type="date" formControlName="date" />
+      </div>
+      <div class="field">
+        <label>Hora</label>
+        <input type="time" formControlName="hourVisit" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Motivo de consulta</label>
+      <input type="text" placeholder="Ej. Revisión anual, dolor molar..." formControlName="reason" />
+    </div>
+
+    <div class="field">
+      <label>Observaciones</label>
+      <textarea placeholder="Notas adicionales para el profesional..."
+                rows="3"
+                formControlName="observations">
+      </textarea>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn-secondary">Cancelar</button>
+      <button type="submit" class="btn-primary">Guardar cita</button>
+    </div>
+  </form>
+</div>
