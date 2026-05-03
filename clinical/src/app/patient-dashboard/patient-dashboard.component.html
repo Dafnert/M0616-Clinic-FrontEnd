@@ -1,0 +1,16 @@
+<div class="dashboard-layout">
+
+  <div class="col-left">
+    <app-patient-profile />
+  </div>
+
+  <div class="col-right">
+    <div class="odontograma-wrapper">
+      <app-odontograma />
+    </div>
+    <div class="documents-wrapper">
+      <app-documents [patientId]="patientId" />
+    </div>
+  </div>
+
+</div>

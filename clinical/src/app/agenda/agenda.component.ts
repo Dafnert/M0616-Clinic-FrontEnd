@@ -63,6 +63,10 @@ export class AgendaComponent implements OnInit {
     }
   }
 
+  verFichaPaciente(pacienteId: number) {
+    this.router.navigate(['/patient/dashboard', pacienteId]);
+  }
+
   cerrarPopup() {
     this.visitaVisualizando.set(null);
   }
@@ -112,12 +116,12 @@ export class AgendaComponent implements OnInit {
 
     const lista = termino
       ? this.visitas().filter(
-          (v) =>
-            v.paciente.nombre.toLowerCase().includes(termino) ||
-            v.paciente.apellidos.toLowerCase().includes(termino) ||
-            v.paciente.dni.toLowerCase().includes(termino) ||
-            v.motivo_consulta.toLowerCase().includes(termino),
-        )
+        (v) =>
+          v.paciente.nombre.toLowerCase().includes(termino) ||
+          v.paciente.apellidos.toLowerCase().includes(termino) ||
+          v.paciente.dni.toLowerCase().includes(termino) ||
+          v.motivo_consulta.toLowerCase().includes(termino),
+      )
       : this.visitas();
 
     const mapa = new Map<string, Visita[]>();

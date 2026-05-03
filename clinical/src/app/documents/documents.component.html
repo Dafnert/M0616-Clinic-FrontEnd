@@ -1,0 +1,39 @@
+<div class="documents-container">
+  <div class="doc-header">
+    <h3>📁 Documentos</h3>
+    <label class="btn-upload" [class.disabled]="uploading">
+      {{ uploading ? 'Subiendo...' : '+ Subir archivo' }}
+      <input type="file" (change)="onFileSelected($event)" [disabled]="uploading" hidden />
+    </label>
+  </div>
+
+  @if (error) {
+    <p class="doc-error">{{ error }}</p>
+  }
+
+  @if (isLoading) {
+    <p class="doc-loading">Cargando documentos...</p>
+  }
+
+  @if (!isLoading && documents.length === 0) {
+    <p class="doc-empty">No hay documentos subidos.</p>
+  }
+
+  @if (!isLoading && documents.length > 0) {
+    <div class="doc-list">
+      @for (doc of documents; track doc.id) {
+        <div class="doc-item">
+          <span class="doc-icon">{{ getIcon(doc.mimeType) }}</span>
+          <div class="doc-info">
+            <span class="doc-name">{{ doc.originalName }}</span>
+            <span class="doc-date">{{ doc.uploadedAt }}</span>
+          </div>
+          <div class="doc-actions">
+            <button class="btn-download" (click)="download(doc.id)">⬇️ Descargar</button>
+            <button class="btn-delete" (click)="delete(doc.id)">🗑️</button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
