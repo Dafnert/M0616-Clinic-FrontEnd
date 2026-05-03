@@ -2,8 +2,8 @@
 
   <!-- CABECERA -->
   <div class="stock-header">
-    <h2>Stock</h2>
-    <button class="btn-nuevo" (click)="openCreate()">+ Nuevo artículo</button>
+    <h2>ESTOC</h2>
+    <button class="btn-nuevo" (click)="openCreate()">+ Nou article</button>
   </div>
 
   <!-- ALERTA BAJO STOCK -->
@@ -11,7 +11,7 @@
     <div class="alerta-stock">
       <span class="alerta-ico">⚠</span>
       <span>
-        {{ lowStock().length }} artículo{{ lowStock().length > 1 ? 's' : '' }} por debajo del mínimo:
+        {{ lowStock().length }} article{{ lowStock().length > 1 ? 's' : '' }} por debajo del mínimo:
         <strong>{{ lowStockNames() }}</strong>
       </span>
     </div>
@@ -20,19 +20,21 @@
   <!-- TABLA -->
   <div class="tabla-wrapper">
     @if (loading()) {
-      <div class="estado-msg">Cargando...</div>
+      <div class="estado-msg">
+Carregant...</div>
     } @else if (items().length === 0) {
-      <div class="estado-msg">No hay artículos en el stock.</div>
+      <div class="estado-msg">
+No hi ha articles en l'estoc.</div>
     } @else {
       <table class="tabla-stock">
         <thead>
           <tr>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Cantidad</th>
-            <th>Mínimo</th>
-            <th>Unidad</th>
-            <th>Últ. actualización</th>
+            <th>Nom</th>
+            <th>Descripció</th>
+            <th>Quantitat</th>
+            <th>Mínim</th>
+            <th>Unitat</th>
+            <th>Últ. actualizació</th>
             <th></th>
           </tr>
         </thead>
@@ -66,38 +68,40 @@
   <div class="modal-backdrop" (click)="closeModal()">
     <div class="modal" (click)="$event.stopPropagation()">
       <div class="modal-header">
-        <h3>{{ editingItem() ? 'Editar artículo' : 'Nuevo artículo' }}</h3>
+        <h3>{{ editingItem() ? 'Editar article' : 'Nou article' }}</h3>
         <button class="modal-close" (click)="closeModal()">✕</button>
       </div>
 
       <div class="modal-body">
         <div class="campo">
-          <label>Nombre *</label>
-          <input type="text" [(ngModel)]="form.name" placeholder="Ej: Guantes de látex" />
+          <label>Nom *</label>
+          <input type="text" [(ngModel)]="form.name" placeholder="Ej: 
+Guants de làtex" />
         </div>
         <div class="campo">
-          <label>Descripción</label>
+          <label>Descripció</label>
           <input type="text" [(ngModel)]="form.description" placeholder="Opcional" />
         </div>
         <div class="campos-fila">
           <div class="campo">
-            <label>Cantidad *</label>
+            <label>Quantitat *</label>
             <input type="number" [(ngModel)]="form.quantity" min="0" />
           </div>
           <div class="campo">
-            <label>Cantidad mínima *</label>
+            <label>Quantitat mínima *</label>
             <input type="number" [(ngModel)]="form.minimumQuantity" min="0" />
           </div>
           <div class="campo">
-            <label>Unidad *</label>
+            <label>Unitat *</label>
             <input type="text" [(ngModel)]="form.unit" placeholder="Ej: cajas, uds, ml" />
           </div>
         </div>
       </div>
 
       <div class="modal-footer">
-        <button class="btn-cancelar" (click)="closeModal()">Cancelar</button>
-        <button class="btn-guardar" (click)="guardar()">Guardar</button>
+        <button class="btn-cancelar" (click)="closeModal()">
+Cancel·lar</button>
+        <button class="btn-guardar" (click)="guardar()">Desar</button>
       </div>
     </div>
   </div>

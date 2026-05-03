@@ -149,28 +149,28 @@ export class AgendaComponent implements OnInit {
     const [year, month, day] = fecha.split('-').map(Number);
     const date = new Date(year, month - 1, day);
 
-    const dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-    const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+    const dias = ['Diumenge', 'Dilluns', 'Dimarts', 'Dimecres', 'Dijous', 'Divendres', 'DIssabte'];
+    const meses = ['gener', 'febrer', 'març', 'abril', 'maig', 'juny', 'juliol', 'agost', 'septembre', 'octubre', 'novembre', 'desembre'];
 
     return `${dias[date.getDay()]} ${day} de ${meses[month - 1]} de ${year}`;
   }
 
   estadoClass(estado: string): string {
     const clases: Record<string, string> = {
-      pendiente: 'estado-pendiente',
-      en_proceso: 'estado-proceso',
-      finalizada: 'estado-finalizada',
-      cancelada: 'estado-cancelada',
+      pendiente: 'estat-pendiente',
+      en_proceso: 'estat-proceso',
+      finalizada: 'estat-finalizada',
+      cancelada: 'estat-cancelada',
     };
     return clases[estado] ?? '';
   }
 
   estadoLabel(estado: string): string {
     const labels: Record<string, string> = {
-      pendiente: 'Pendiente',
-      en_proceso: 'En proceso',
-      finalizada: 'Finalizada',
-      cancelada: 'Cancelada',
+      pendiente: 'Pendent',
+      en_proceso: 'En procés',
+      finalizada: 'Finalitzada',
+      cancelada: 'Cancel·lada',
     };
     return labels[estado] ?? estado;
   }

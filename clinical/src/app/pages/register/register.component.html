@@ -2,18 +2,18 @@
 
   <div class="left">
     <div>
-      <h1>Registro</h1>
+      <h1>Registrarse</h1>
 
-      <input type="text" name="name" placeholder="Nombre" [(ngModel)]="user.name" required />
+      <input type="text" name="name" placeholder="Nomb" [(ngModel)]="user.name" required />
 
-      <input type="text" name="surname" placeholder="Apellido" [(ngModel)]="user.surname" required />
+      <input type="text" name="surname" placeholder="Cognom" [(ngModel)]="user.surname" required />
 
-      <input type="number" name="age" placeholder="Edad" [(ngModel)]="user.age" required />
-      <input type="text" name="speciality" placeholder="Especialidad" [(ngModel)]="user.speciality" required />
+      <input type="number" name="age" placeholder="Edat" [(ngModel)]="user.age" required />
+      <input type="text" name="speciality" placeholder="Especialitat" [(ngModel)]="user.speciality" required />
 
-      <input type="text" name="username" placeholder="Username" [(ngModel)]="user.username" required />
+      <input type="text" name="username" placeholder="Nom d'usuari" [(ngModel)]="user.username" required />
 
-      <input type="password" name="password" placeholder="Contraseña" [(ngModel)]="user.password" required />
+      <input type="password" name="password" placeholder="Contrasenya" [(ngModel)]="user.password" required />
       @if (successMessage) {
       <div class="status-message success">{{ successMessage }}</div>
       }
@@ -28,7 +28,6 @@
 
   <div class="right">
     <div>
-      <p>HealthClinic</p>
       <img src="/img/logo.png" />
     </div>
   </div>
