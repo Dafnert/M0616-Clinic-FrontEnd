@@ -1,0 +1,39 @@
+.dashboard-layout {
+  display: flex;
+  gap: 24px;
+  padding: 100px 24px 40px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #00788f, #0097b2);
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+.col-left {
+  width: 35%;
+  flex-shrink: 0;
+}
+
+.col-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.odontograma-wrapper,
+.documents-wrapper {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+@media (max-width: 900px) {
+  .dashboard-layout {
+    flex-direction: column;
+    padding: 90px 16px 40px;
+  }
+  .col-left {
+    width: 100%;
+  }
+}

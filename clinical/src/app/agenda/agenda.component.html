@@ -8,19 +8,18 @@
 
     <div class="header-search">
       <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        <circle cx="11" cy="11" r="8" />
+        <line x1="21" y1="21" x2="16.65" y2="16.65" />
       </svg>
-      <input
-        type="text"
-        class="search-input"
-        placeholder="Buscar paciente, DNI, tratamiento..."
-        [value]="busqueda()"
-        (input)="onBusqueda($event)"
-      />
+      <input type="text" class="search-input" placeholder="Buscar paciente, DNI, tratamiento..." [value]="busqueda()"
+        (input)="onBusqueda($event)" />
     </div>
 
     <button class="btn-crear-header" (click)="crearCita()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="12" y1="5" x2="12" y2="19" />
+        <line x1="5" y1="12" x2="19" y2="12" />
+      </svg>
       Nueva cita
     </button>
   </header>
@@ -44,10 +43,10 @@
   <!-- Empty state -->
   <div class="empty-state" *ngIf="!cargando() && diasAgenda().length === 0">
     <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="8" y="12" width="48" height="44" rx="4" stroke="#1a73c8" stroke-width="2"/>
-      <line x1="8" y1="24" x2="56" y2="24" stroke="#1a73c8" stroke-width="2"/>
-      <line x1="20" y1="8" x2="20" y2="20" stroke="#1a73c8" stroke-width="2" stroke-linecap="round"/>
-      <line x1="44" y1="8" x2="44" y2="20" stroke="#1a73c8" stroke-width="2" stroke-linecap="round"/>
+      <rect x="8" y="12" width="48" height="44" rx="4" stroke="#1a73c8" stroke-width="2" />
+      <line x1="8" y1="24" x2="56" y2="24" stroke="#1a73c8" stroke-width="2" />
+      <line x1="20" y1="8" x2="20" y2="20" stroke="#1a73c8" stroke-width="2" stroke-linecap="round" />
+      <line x1="44" y1="8" x2="44" y2="20" stroke="#1a73c8" stroke-width="2" stroke-linecap="round" />
     </svg>
     <p *ngIf="busqueda()">No se encontraron resultados para "<strong>{{ busqueda() }}</strong>"</p>
     <p *ngIf="!busqueda()">No hay visitas programadas</p>
@@ -65,20 +64,26 @@
           <span class="dia-contador">{{ dia.visitas.length }} cita{{ dia.visitas.length !== 1 ? 's' : '' }}</span>
         </div>
         <button class="btn-crear-dia" (click)="crearCita(dia.fecha)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
           CREAR
         </button>
       </div>
 
       <!-- Visits -->
       <div class="visitas-lista">
-        <div class="visita-card" *ngFor="let visita of dia.visitas" [class.tiene-observacion]="visita.paciente.observaciones_importantes">
+        <div class="visita-card" *ngFor="let visita of dia.visitas"
+          [class.tiene-observacion]="visita.paciente.observaciones_importantes">
 
           <!-- Alert badge for important observations -->
-          <div class="obs-badge" *ngIf="visita.paciente.observaciones_importantes" [title]="visita.paciente.observaciones_importantes">
+          <div class="obs-badge" *ngIf="visita.paciente.observaciones_importantes"
+            [title]="visita.paciente.observaciones_importantes">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
-              <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+              <line x1="12" y1="9" x2="12" y2="13" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
             </svg>
           </div>
 
@@ -125,7 +130,11 @@
   <div class="modal" (click)="$event.stopPropagation()">
     <div class="modal-icon">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/>
+        <polyline points="3 6 5 6 21 6" />
+        <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
+        <path d="M10 11v6" />
+        <path d="M14 11v6" />
+        <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2" />
       </svg>
     </div>
     <h3>¿Eliminar esta cita?</h3>
@@ -144,7 +153,8 @@
       <h3>Detalle de la Cita</h3>
       <button class="btn-close" (click)="cerrarPopup()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
         </svg>
       </button>
     </div>
@@ -155,7 +165,8 @@
       </div>
       <div class="detalle-fila">
         <span class="detalle-label">Paciente:</span>
-        <span class="detalle-valor">{{ visitaVisualizando()!.paciente.nombre }} {{ visitaVisualizando()!.paciente.apellidos }}</span>
+        <span class="detalle-valor">{{ visitaVisualizando()!.paciente.nombre }} {{
+          visitaVisualizando()!.paciente.apellidos }}</span>
       </div>
       <div class="detalle-fila">
         <span class="detalle-label">DNI:</span>
@@ -163,7 +174,8 @@
       </div>
       <div class="detalle-fila">
         <span class="detalle-label">Doctor:</span>
-        <span class="detalle-valor">{{ visitaVisualizando()!.odontologo.nombre }} {{ visitaVisualizando()!.odontologo.apellidos }}</span>
+        <span class="detalle-valor">{{ visitaVisualizando()!.odontologo.nombre }} {{
+          visitaVisualizando()!.odontologo.apellidos }}</span>
       </div>
       <div class="detalle-fila">
         <span class="detalle-label">Fecha:</span>
@@ -171,7 +183,8 @@
       </div>
       <div class="detalle-fila">
         <span class="detalle-label">Hora:</span>
-        <span class="detalle-valor">{{ visitaVisualizando()!.hora_inicio }}H - {{ visitaVisualizando()!.hora_fin }}H</span>
+        <span class="detalle-valor">{{ visitaVisualizando()!.hora_inicio }}H - {{ visitaVisualizando()!.hora_fin
+          }}H</span>
       </div>
       <div class="detalle-fila">
         <span class="detalle-label">Box:</span>
@@ -184,6 +197,9 @@
     </div>
     <div class="modal-acciones">
       <button class="btn-secondary" (click)="cerrarPopup()">Cerrar</button>
+      <button class="btn-ficha" (click)="verFichaPaciente(visitaVisualizando()!.paciente.id_paciente)">
+        Ver ficha paciente
+      </button>
     </div>
   </div>
 </div>
