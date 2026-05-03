@@ -64,7 +64,7 @@ export class StockComponent implements OnInit {
 
   guardar() {
     if (!this.form.name.trim() || !this.form.unit.trim()) {
-      this.showToast('Nombre y unidad son obligatorios', false);
+      this.showToast('Nom i unitat són obligatoris', false);
       return;
     }
 
@@ -83,7 +83,7 @@ export class StockComponent implements OnInit {
         next: updated => {
           this.items.update(list => list.map(i => i.id === updated.id ? updated : i));
           this.modalOpen.set(false);
-          this.showToast('Artículo actualizado', true);
+          this.showToast('Article actualizat', true);
         },
         error: () => this.showToast('Error al actualizar', false),
       });
@@ -92,7 +92,7 @@ export class StockComponent implements OnInit {
         next: created => {
           this.items.update(list => [...list, created]);
           this.modalOpen.set(false);
-          this.showToast('Artículo creado', true);
+          this.showToast('Article creat', true);
         },
         error: () => this.showToast('Error al crear', false),
       });
@@ -104,7 +104,7 @@ export class StockComponent implements OnInit {
     this.svc.delete(item.id).subscribe({
       next: () => {
         this.items.update(list => list.filter(i => i.id !== item.id));
-        this.showToast('Artículo eliminado', true);
+        this.showToast('Article eliminat', true);
       },
       error: () => this.showToast('Error al eliminar', false),
     });

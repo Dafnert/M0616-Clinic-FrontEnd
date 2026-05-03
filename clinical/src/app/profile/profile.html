@@ -1,7 +1,8 @@
 <div class="profile-page">
 
   <div class="toast" [class.show]="saveSuccess">
-    <span>✓</span> Perfil actualizado correctamente
+    <span>✓</span> 
+Perfil actualitzat correctament
   </div>
 
   <div class="profile-container">
@@ -9,13 +10,13 @@
     @if (isLoading) {
       <div class="loading-state">
         <div class="spinner"></div>
-        <p>Cargando perfil...</p>
+        <p>Carregant perfil...</p>
       </div>
     }
 
     @if (loadError && !isLoading) {
       <div class="error-state">
-        <p>⚠️ No se pudo cargar el perfil.</p>
+        <p>⚠️ No es va poder carregar el perfil.</p>
       </div>
     }
 
@@ -31,7 +32,7 @@
           <h1 class="user-name">{{ user.name }} {{ user.surname }}</h1>
           <div class="user-meta">
             <span class="meta-badge">@{{ user.username }}</span>
-            <span class="meta-badge">{{ user.age }} años</span>
+            <span class="meta-badge">{{ user.age }} anys</span>
             <span class="meta-badge">{{ user.speciality }}</span>
             <span class="meta-badge id-badge">ID #{{ user.id }}</span>
           </div>
@@ -40,7 +41,7 @@
           @if (!isEditing) {
             <button class="btn-edit" (click)="startEdit()">✏️ Editar perfil</button>
           }
-          <button class="btn-logout" (click)="logout()">🚪 Cerrar sesión</button>
+          <button class="btn-logout" (click)="logout()">🚪 Tancar sessió</button>
         </div>
       </div>
 
@@ -49,22 +50,22 @@
         <div class="content-grid">
 
           <div class="info-card">
-            <div class="card-header">👤 Datos personales</div>
+            <div class="card-header">👤 Dades personals</div>
             <div class="fields-list">
               <div class="field-row">
-                <span class="field-label">Nombre</span>
+                <span class="field-label">Nom</span>
                 <span class="field-value">{{ user.name }}</span>
               </div>
               <div class="field-row">
-                <span class="field-label">Apellido</span>
+                <span class="field-label">Cognom</span>
                 <span class="field-value">{{ user.surname }}</span>
               </div>
               <div class="field-row">
-                <span class="field-label">Edad</span>
-                <span class="field-value">{{ user.age }} años</span>
+                <span class="field-label">Edat</span>
+                <span class="field-value">{{ user.age }} anys</span>
               </div>
               <div class="field-row">
-                <span class="field-label">Especialidad</span>
+                <span class="field-label">Especialitat</span>
                 <span class="field-value">{{ user.speciality }}</span>
               </div>
               <div class="field-row">
@@ -75,14 +76,14 @@
           </div>
 
           <div class="info-card">
-            <div class="card-header">🖥️ Cuenta de acceso</div>
+            <div class="card-header">🖥️ Compte d'accés</div>
             <div class="fields-list">
               <div class="field-row">
-                <span class="field-label">Usuario</span>
+                <span class="field-label">Usuari</span>
                 <span class="field-value mono">{{ user.username }}</span>
               </div>
               <div class="field-row">
-                <span class="field-label">Contraseña</span>
+                <span class="field-label">Contrasenya</span>
                 <span class="field-value">••••••••</span>
               </div>
             </div>
@@ -94,51 +95,54 @@
       <!-- Modo edición -->
       @if (isEditing) {
         <div class="edit-card">
-          <div class="card-header">✏️ Editando perfil</div>
+          <div class="card-header">✏️ Editant perfil</div>
 
           <div class="form-grid">
             <div class="form-group">
-              <label class="form-label">Nombre</label>
+              <label class="form-label">Nom</label>
               <input class="form-input" type="text" [(ngModel)]="editForm.name" />
             </div>
             <div class="form-group">
-              <label class="form-label">Apellido</label>
+              <label class="form-label">Cognom</label>
               <input class="form-input" type="text" [(ngModel)]="editForm.surname" />
             </div>
             <div class="form-group">
-              <label class="form-label">Edad</label>
+              <label class="form-label">Edat</label>
               <input class="form-input" type="number" [(ngModel)]="editForm.age" />
             </div>
             <div class="form-group">
-              <label class="form-label">Especialidad</label>
+              <label class="form-label">Especialitat</label>
               <input class="form-input" type="text" [(ngModel)]="editForm.speciality" />
             </div>
             <div class="form-group">
-              <label class="form-label">Usuario</label>
+              <label class="form-label">Usuari</label>
               <input class="form-input" type="text" [(ngModel)]="editForm.username" />
             </div>
             <div class="form-group">
               <label class="form-label">ID</label>
               <input class="form-input readonly" type="text" [value]="user.id" disabled />
-              <span class="field-hint">El ID no puede modificarse</span>
+              <span class="field-hint">El ID no pot modificar-se</span>
             </div>
           </div>
 
           <div class="password-section">
             <button class="btn-toggle-pass" (click)="showPasswordChange = !showPasswordChange">
-              🔒 {{ showPasswordChange ? 'Cancelar cambio de contraseña' : 'Cambiar contraseña' }}
+              🔒 {{ showPasswordChange ? '
+Cancel·lar canvi de contrasenya' : '
+Canviar de contrasenya' }}
             </button>
             @if (showPasswordChange) {
               <div class="password-fields">
                 <div class="form-group">
-                  <label class="form-label">Nueva contraseña</label>
+                  <label class="form-label">Nova contrasenya</label>
                   <input class="form-input" type="password" [(ngModel)]="newPassword" />
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Confirmar contraseña</label>
+                  <label class="form-label">Confirmar contrasenya</label>
                   <input class="form-input" [class.input-error]="passwordMismatch" type="password" [(ngModel)]="confirmPassword" />
                   @if (passwordMismatch) {
-                    <span class="error-msg">Las contraseñas no coinciden</span>
+                    <span class="error-msg">
+Les contrasenyes no coincideixen</span>
                   }
                 </div>
               </div>
@@ -146,8 +150,8 @@
           </div>
 
           <div class="form-actions">
-            <button class="btn-cancel" (click)="cancelEdit()">Cancelar</button>
-            <button class="btn-save" (click)="saveChanges()">✓ Guardar cambios</button>
+            <button class="btn-cancel" (click)="cancelEdit()">Cancel·lar</button>
+            <button class="btn-save" (click)="saveChanges()">✓ Desar canvis</button>
           </div>
         </div>
       }

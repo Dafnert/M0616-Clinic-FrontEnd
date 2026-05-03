@@ -15,7 +15,7 @@ export class CrearCitaComponent implements OnInit {
   form!: FormGroup;
   isEditMode = false;
   visitaId: number | null = null;
-  titulo = 'Nueva cita';
+  titulo = 'Nova cita';
   visitaActual: any = null;
 
   constructor(
@@ -39,7 +39,7 @@ export class CrearCitaComponent implements OnInit {
       if (params['id']) {
         this.isEditMode = true;
         this.visitaId = params['id'];
-        this.titulo = 'Actualizar cita';
+        this.titulo = 'Actualitzar cita';
         this.cargarVisita(params['id']);
       } else {
         // Modo creación

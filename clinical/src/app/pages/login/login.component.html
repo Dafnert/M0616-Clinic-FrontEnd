@@ -1,23 +1,23 @@
 <form (ngSubmit)="login()" #LoginForm="ngForm" method="post" id="Login">
   <div class="left">
     <div>
-      <p>HealthConnect</p>
       <img src="/img/logo.png" />
     </div>
 
     @if (loginAttempts > 0) {
-    <div class="attempts-badge">Intentos fallidos: {{ loginAttempts }}</div>
+    <div class="attempts-badge">Intents fallits: {{ loginAttempts }}</div>
     }
   </div>
 
   <div class="right">
     <div>
-      <h1>Login</h1>
+      <h1>
+Iniciar Sessió</h1>
 
       @switch (loginStatus) { @case ('loading') {
       <div class="status-message loading">
         <span class="spinner">⏳</span>
-        Verificando credenciales...
+        Verificant credencials...
       </div>
       } @case ('success') {
       <div class="status-message success">
@@ -32,7 +32,7 @@
       <input
         type="text"
         name="username"
-        placeholder="Username"
+        placeholder="Nom d'usuari"
         [(ngModel)]="username"
         [disabled]="isLoading"
       />
@@ -41,14 +41,14 @@
       <input
         type="password"
         name="password"
-        placeholder="Password"
+        placeholder="Contrasenya"
         [(ngModel)]="password"
         [disabled]="isLoading"
       />
       <span class="material-symbols-outlined lock"></span>
 
       <button type="submit" [disabled]="isLoading || loginAttempts >= errorMessages.length">
-        @if (isLoading) { Verificando... } @else { Login }
+        @if (isLoading) { Verificant... } @else { Iniciar Sessió }
       </button>
 
       <!-- Register button -->

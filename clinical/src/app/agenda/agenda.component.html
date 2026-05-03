@@ -2,25 +2,14 @@
 
   <!-- Header -->
   <header class="agenda-header">
-    <div class="header-brand">
-      <img src="logo.jpg" alt="HealthConnect Hospital" class="logo-img" />
-    </div>
-
-    <div class="header-search">
-      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="11" cy="11" r="8" />
-        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-      </svg>
-      <input type="text" class="search-input" placeholder="Buscar paciente, DNI, tratamiento..." [value]="busqueda()"
-        (input)="onBusqueda($event)" />
-    </div>
+   
 
     <button class="btn-crear-header" (click)="crearCita()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <line x1="12" y1="5" x2="12" y2="19" />
         <line x1="5" y1="12" x2="19" y2="12" />
       </svg>
-      Nueva cita
+      Nova cita
     </button>
   </header>
 
@@ -37,7 +26,8 @@
   <!-- Loading -->
   <div class="loading-state" *ngIf="cargando()">
     <div class="spinner"></div>
-    <p>Cargando agenda...</p>
+    <p>
+Carregant agenda...</p>
   </div>
 
   <!-- Empty state -->
@@ -48,8 +38,10 @@
       <line x1="20" y1="8" x2="20" y2="20" stroke="#1a73c8" stroke-width="2" stroke-linecap="round" />
       <line x1="44" y1="8" x2="44" y2="20" stroke="#1a73c8" stroke-width="2" stroke-linecap="round" />
     </svg>
-    <p *ngIf="busqueda()">No se encontraron resultados para "<strong>{{ busqueda() }}</strong>"</p>
-    <p *ngIf="!busqueda()">No hay visitas programadas</p>
+    <p *ngIf="busqueda()">
+No es van trobar resultats per a "<strong>{{ busqueda() }}</strong>"</p>
+    <p *ngIf="!busqueda()">
+No hi ha visites programades</p>
     <button class="btn-crear" (click)="crearCita()">Crear primera cita</button>
   </div>
 
@@ -112,7 +104,8 @@
               VER
             </button>
             <button class="btn-accion btn-actualizar" (click)="editarVisita(visita.id_visita)">
-              ACTUALIZAR
+              
+ACTUALITZAR
             </button>
             <button class="btn-accion btn-eliminar" (click)="pedirConfirmacion(visita.id_visita)">
               ELIMINAR
@@ -137,10 +130,12 @@
         <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2" />
       </svg>
     </div>
-    <h3>¿Eliminar esta cita?</h3>
-    <p>Esta acción no se puede deshacer.</p>
+    <h3>
+Eliminar aquesta cita?</h3>
+    <p>
+Aquesta acció no es pot desfer.</p>
     <div class="modal-acciones">
-      <button class="btn-modal-cancel" (click)="cancelarEliminar()">Cancelar</button>
+      <button class="btn-modal-cancel" (click)="cancelarEliminar()">Cancel·lar</button>
       <button class="btn-modal-confirm" (click)="confirmarEliminar(confirmandoEliminar()!)">Eliminar</button>
     </div>
   </div>
@@ -150,7 +145,8 @@
 <div class="modal-overlay" *ngIf="visitaVisualizando() !== null" (click)="cerrarPopup()">
   <div class="modal modal-ver-visita" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h3>Detalle de la Cita</h3>
+      <h3>
+Detall de la Cita</h3>
       <button class="btn-close" (click)="cerrarPopup()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="18" y1="6" x2="6" y2="18" />
@@ -160,11 +156,11 @@
     </div>
     <div class="modal-content" *ngIf="visitaVisualizando()">
       <div class="detalle-fila">
-        <span class="detalle-label">Motivo de Consulta:</span>
+        <span class="detalle-label">Motiu de Consulta:</span>
         <span class="detalle-valor">{{ visitaVisualizando()!.motivo_consulta }}</span>
       </div>
       <div class="detalle-fila">
-        <span class="detalle-label">Paciente:</span>
+        <span class="detalle-label">Pacient:</span>
         <span class="detalle-valor">{{ visitaVisualizando()!.paciente.nombre }} {{
           visitaVisualizando()!.paciente.apellidos }}</span>
       </div>
@@ -178,7 +174,7 @@
           visitaVisualizando()!.odontologo.apellidos }}</span>
       </div>
       <div class="detalle-fila">
-        <span class="detalle-label">Fecha:</span>
+        <span class="detalle-label">Data:</span>
         <span class="detalle-valor">{{ visitaVisualizando()!.fecha }}</span>
       </div>
       <div class="detalle-fila">
