@@ -67,7 +67,25 @@ No hi ha visites programades</p>
       <!-- Visits -->
       <div class="visitas-lista">
         <div class="visita-card" *ngFor="let visita of dia.visitas"
-          [class.tiene-observacion]="visita.paciente.observaciones_importantes">
+          [class.tiene-observacion]="visita.paciente.observaciones_importantes"
+          [class.tiene-vih]="visita.paciente.tiene_vih"
+          [class.tiene-alergias]="visita.paciente.alergias">
+
+          <!-- Alert badge for VIH -->
+          <div class="vih-badge" *ngIf="visita.paciente.tiene_vih"
+            title="⚠ PACIENTE CON VIH">
+            <span>VIH</span>
+          </div>
+
+          <!-- Alert badge for allergies -->
+          <div class="alergias-badge" *ngIf="visita.paciente.alergias"
+            [title]="'Alergias: ' + visita.paciente.alergias">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+              <line x1="12" y1="9" x2="12" y2="13" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+          </div>
 
           <!-- Alert badge for important observations -->
           <div class="obs-badge" *ngIf="visita.paciente.observaciones_importantes"
