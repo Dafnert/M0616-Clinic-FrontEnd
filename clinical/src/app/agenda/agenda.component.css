@@ -247,6 +247,24 @@
   background: #fff6e0;
 }
 
+.visita-card.tiene-vih {
+  background: #ffebee;
+  border-left: 4px solid #c62828;
+}
+
+.visita-card.tiene-vih:hover {
+  background: #ffcdd2;
+}
+
+.visita-card.tiene-alergias {
+  background: #fff3e0;
+  border-left: 4px solid #f57c00;
+}
+
+.visita-card.tiene-alergias:hover {
+  background: #ffe0b2;
+}
+
 /* Alert badge */
 .obs-badge {
   display: flex;
@@ -268,6 +286,52 @@
 
 .visita-card:not(.tiene-observacion) .obs-badge {
   visibility: hidden;
+}
+
+/* VIH badge - critical warning */
+.vih-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #c62828;
+  color: #fff;
+  flex-shrink: 0;
+  cursor: help;
+  font-weight: 700;
+  font-size: 0.65rem;
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 8px rgba(198, 40, 40, 0.3);
+}
+
+.visita-card:not(.tiene-vih) .vih-badge {
+  display: none;
+}
+
+/* Allergies badge - warning */
+.alergias-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #f57c00;
+  color: #fff;
+  flex-shrink: 0;
+  cursor: help;
+  box-shadow: 0 2px 8px rgba(245, 124, 0, 0.3);
+}
+
+.alergias-badge svg {
+  width: 16px;
+  height: 16px;
+}
+
+.visita-card:not(.tiene-alergias) .alergias-badge {
+  display: none;
 }
 
 /* Visit doctor + box info */

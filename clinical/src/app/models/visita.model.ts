@@ -11,6 +11,8 @@ export interface Paciente {
   nombre: string;
   apellidos: string;
   observaciones_importantes?: string;
+  tiene_vih?: boolean;
+  alergias?: string | null;
 }
 
 export interface Box {
