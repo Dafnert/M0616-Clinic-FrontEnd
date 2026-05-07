@@ -1,0 +1,40 @@
+<div class="users-page">
+
+  <div class="users-header">
+    <h2>Gestió d'Usuaris</h2>
+  </div>
+
+  <div class="tabla-wrapper">
+    @if (loading()) {
+      <div class="estat-msg">Carregant...</div>
+    } @else if (users().length === 0) {
+      <div class="estat-msg">No hi ha usuaris.</div>
+    } @else {
+      <table class="tabla-users">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nom</th>
+            <th>Usuari</th>
+            <th>Rol</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (u of users(); track u.id) {
+            <tr>
+              <td class="td-id">{{ u.id }}</td>
+              <td class="td-nom">{{ u.name }}</td>
+              <td class="td-username">{{ u.username }}</td>
+              <td>
+                <span class="badge-rol" [class.badge-admin]="u.role === 'ADMIN'" [class.badge-doctor]="u.role === 'DOCTOR'">
+                  {{ u.role }}
+                </span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+
+</div>

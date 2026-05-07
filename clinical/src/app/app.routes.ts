@@ -10,22 +10,25 @@ import { HomeComponent } from './pages/home/home';
 import { StockComponent } from './stock/stock.component';
 import { ProfileComponent } from './profile/profile';
 import { FichaPacienteComponent } from './patient-dashboard/patient-dashboard.component';
+import { authGuard, adminGuard } from './guards/auth.guard';
+import { UsersComponent } from './users/users.component';
 
 
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'boxes', component: BoxesComponent },
-  { path: 'agenda', component: AgendaComponent },
-  { path: 'cita/nueva', component: CrearCitaComponent },
-  { path: 'cita/editar/:id', component: CrearCitaComponent },
-  { path: 'patient/profile/:id', component: PatientProfileComponent },
-  { path: 'odontograma/:id', component: OdontogramaComponent },
-  { path: 'stock', component: StockComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'ficha-paciente/:id', component: FichaPacienteComponent },
+  { path: 'home', component: HomeComponent, canActivate: [authGuard] },
+  { path: 'boxes', component: BoxesComponent, canActivate: [authGuard] },
+  { path: 'agenda', component: AgendaComponent, canActivate: [authGuard] },
+  { path: 'cita/nueva', component: CrearCitaComponent, canActivate: [authGuard] },
+  { path: 'cita/editar/:id', component: CrearCitaComponent, canActivate: [authGuard] },
+  { path: 'patient/profile/:id', component: PatientProfileComponent, canActivate: [authGuard] },
+  { path: 'odontograma/:id', component: OdontogramaComponent, canActivate: [authGuard] },
+  { path: 'stock', component: StockComponent, canActivate: [authGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
+  { path: 'ficha-paciente/:id', component: FichaPacienteComponent, canActivate: [authGuard] },
+  { path: 'users', component: UsersComponent, canActivate: [authGuard, adminGuard] },
   { path: '**', redirectTo: '/login' }
 ];

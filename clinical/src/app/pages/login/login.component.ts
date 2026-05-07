@@ -49,7 +49,8 @@ this._userService.login(this.username, this.password).subscribe({
     const user = response.user;
 
     localStorage.setItem('id', user.id.toString());
-    console.log('ID guardado:', user.id);
+    localStorage.setItem('role', user.role);
+    localStorage.setItem('username', user.username);
 
     this.loginStatus = 'success';
     this.errorMessage = `Bienvenido ${user.name}`;

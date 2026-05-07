@@ -1,0 +1,84 @@
+.users-page {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: 'Lato', sans-serif;
+}
+
+.users-header {
+  margin-bottom: 1.25rem;
+}
+
+.users-header h2 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.7rem;
+  color: #1a73c8;
+  font-weight: 700;
+}
+
+.tabla-wrapper {
+  background: #fff;
+  border: 1px solid #d0e4f7;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.estat-msg {
+  padding: 2rem;
+  text-align: center;
+  color: #6b7c93;
+  font-size: 0.9rem;
+}
+
+.tabla-users {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.tabla-users thead tr {
+  background: #f0f7ff;
+}
+
+.tabla-users th {
+  text-align: left;
+  padding: 0.65rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #344563;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 2px solid #d0e4f7;
+}
+
+.tabla-users td {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid #eef3f9;
+  vertical-align: middle;
+}
+
+.tabla-users tbody tr:last-child td { border-bottom: none; }
+.tabla-users tbody tr:hover { background: #f7fbff; }
+
+.td-id { color: #6b7c93; font-size: 0.8rem; }
+.td-nom { font-weight: 600; color: #1c2d3e; }
+.td-username { color: #6b7c93; }
+
+.badge-rol {
+  padding: 0.2rem 0.6rem;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: #e8edf3;
+  color: #344563;
+}
+
+.badge-admin {
+  background: #e8f0fe;
+  color: #1a73c8;
+}
+
+.badge-doctor {
+  background: #e6f4ea;
+  color: #2e7d32;
+}

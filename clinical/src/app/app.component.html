@@ -6,9 +6,11 @@
     <a routerLink="/home">INICI</a>
     <a routerLink="/boxes">BOXES</a>
     <a routerLink="/stock">ESTOC</a>
+    @if (auth.isAdmin()) {
+      <a routerLink="/users">USUARIS</a>
+    }
     <a routerLink="/profile"><img src="/img/icon.png" alt="profile" class="profile-icon"/></a>
-
- </nav>
+  </nav>
 </header>
 <div class="container-fluid" style="padding-top: 80px;">
   <router-outlet></router-outlet>
