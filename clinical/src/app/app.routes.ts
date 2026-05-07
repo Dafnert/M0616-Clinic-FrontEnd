@@ -12,6 +12,7 @@ import { ProfileComponent } from './profile/profile';
 import { FichaPacienteComponent } from './patient-dashboard/patient-dashboard.component';
 import { authGuard, adminGuard } from './guards/auth.guard';
 import { UsersComponent } from './users/users.component';
+import { PatientsComponent } from './patients/patients.component';
 
 
 
@@ -30,5 +31,6 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
   { path: 'ficha-paciente/:id', component: FichaPacienteComponent, canActivate: [authGuard] },
   { path: 'users', component: UsersComponent, canActivate: [authGuard, adminGuard] },
+  { path: 'patients', component: PatientsComponent, canActivate: [authGuard, adminGuard] },
   { path: '**', redirectTo: '/login' }
 ];
