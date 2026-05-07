@@ -6,6 +6,7 @@ import { Patient } from '../../models/patient';
 import { PatientService } from '../../services/patient.service';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -36,8 +37,11 @@ export class LoginComponent{
 
   constructor(
     private _userService: UserService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private auth: AuthService
+  ) {
+    this.auth.logout();
+  }
   
   login() {
   this.isLoading = true;
