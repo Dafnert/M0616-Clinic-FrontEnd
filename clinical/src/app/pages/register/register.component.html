@@ -9,17 +9,26 @@
       <input type="text" name="surname" placeholder="Cognom" [(ngModel)]="user.surname" required />
 
       <input type="number" name="age" placeholder="Edat" [(ngModel)]="user.age" required />
+
       <input type="text" name="speciality" placeholder="Especialitat" [(ngModel)]="user.speciality" required />
 
       <input type="text" name="username" placeholder="Nom d'usuari" [(ngModel)]="user.username" required />
 
       <input type="password" name="password" placeholder="Contrasenya" [(ngModel)]="user.password" required />
+
+      <select name="role" [(ngModel)]="user.role" required>
+        <option value="" disabled selected>Selecciona un rol</option>
+        <option value="DOCTOR">Doctor</option>
+        <option value="ADMIN">Admin</option>
+      </select>
+
       @if (successMessage) {
-      <div class="status-message success">{{ successMessage }}</div>
+        <div class="status-message success">{{ successMessage }}</div>
       }
       @if (errorMessage) {
-      <div class="status-message error">{{ errorMessage }}</div>
+        <div class="status-message error">{{ errorMessage }}</div>
       }
+
       <button type="submit" [disabled]="registerForm.invalid">
         Registrarse
       </button>
