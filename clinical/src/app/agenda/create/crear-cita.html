@@ -1,8 +1,7 @@
 <div class="form-wrapper">
   <div class="form-header">
     <span class="form-title">{{ titulo }}</span>
-    <p class="form-subtitle">Emplena les dades per a registrar la cita
-</p>
+    <p class="form-subtitle">Emplena les dades per a registrar la cita</p>
   </div>
 
   <form [formGroup]="form" (ngSubmit)="guardar()">
@@ -15,6 +14,16 @@
         <label>Hora</label>
         <input type="time" formControlName="hourVisit" />
       </div>
+    </div>
+
+    <div class="field">
+      <label>Doctor</label>
+      <select formControlName="doctorId">
+        <option value="">-- Selecciona un doctor --</option>
+        <option *ngFor="let doctor of doctors" [value]="doctor.id">
+          {{ doctor.name }} {{ doctor.surname }} — {{ doctor.speciality }}
+        </option>
+      </select>
     </div>
 
     <div class="field">
@@ -31,8 +40,7 @@
     </div>
 
     <div class="form-actions">
-      <button type="button" class="btn-secondary">
-Cancel·lar</button>
+      <button type="button" class="btn-secondary">Cancel·lar</button>
       <button type="submit" class="btn-primary">Desar cita</button>
     </div>
   </form>
