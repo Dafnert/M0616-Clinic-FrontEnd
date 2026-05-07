@@ -28,9 +28,9 @@ export class AgendaService {
         observaciones_importantes: item.observations
       },
       odontologo: {
-        id_odontologo: 1,
-        nombre: 'Doctor',
-        apellidos: '',
+        id_odontologo: item.doctor?.id ?? 1,
+        nombre: item.doctor?.name ?? '---',
+        apellidos: item.doctor?.surname ?? '',
         email: ''
       },
       box: {
