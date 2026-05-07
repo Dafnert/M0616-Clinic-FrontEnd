@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AgendaService } from '../../services/agenda.service';
+import { DoctorService, Doctor } from '../../services/doctor.service';
 
 @Component({
   selector: 'app-crear-cita',
@@ -17,11 +18,13 @@ export class CrearCitaComponent implements OnInit {
   visitaId: number | null = null;
   titulo = 'Nova cita';
   visitaActual: any = null;
+  doctors: Doctor[] = [];
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private agendaService: AgendaService,
+    private doctorService: DoctorService,
     private router: Router
   ) {}
 
@@ -31,7 +34,14 @@ export class CrearCitaComponent implements OnInit {
       date: [''],
       hourVisit: [''],
       reason: [''],
-      observations: ['']
+      observations: [''],
+      doctorId: ['']
+    });
+
+    // Cargar lista de doctores
+    this.doctorService.getAllDoctors().subscribe({
+      next: (data) => this.doctors = data,
+      error: (err) => console.error('Error al cargar doctores', err)
     });
 
     // Detectar si es modo edición
@@ -57,7 +67,8 @@ export class CrearCitaComponent implements OnInit {
           date: [visita.fecha],
           hourVisit: [visita.hora_inicio],
           reason: [visita.motivo_consulta],
-          observations: [visita.paciente?.observaciones_importantes || '']
+          observations: [visita.paciente?.observaciones_importantes || ''],
+          doctorId: [visita.doctor?.id || '']
         });
       },
       error: (err) => {
@@ -95,12 +106,11 @@ export class CrearCitaComponent implements OnInit {
     } else {
       // Modo creación - crear
       this.agendaService.createVisita({
-        fecha: data.date,
-        hora_inicio: data.hourVisit,
-        motivo_consulta: data.reason,
-        paciente: {
-          observaciones_importantes: data.observations
-        }
+        date: data.date,
+        hourVisit: data.hourVisit,
+        reason: data.reason,
+        observations: data.observations,
+        doctorId: data.doctorId || null
       }).subscribe({
         next: res => {
           console.log('OK', res);
