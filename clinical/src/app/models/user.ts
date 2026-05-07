@@ -6,8 +6,9 @@ export class user{
     speciality:string="";
     username:string="";
     password:string="";
-    img: string=""
-    constructor(id =0,name="",surname="", age =0, speciality="", username="", password="" ){
+    img: string="";
+    role:string="";
+    constructor(id =0,name="",surname="", age =0, speciality="", username="", password="", role="" ){
         this.id=id;
         this.name=name;
         this.surname=surname;
@@ -16,6 +17,7 @@ export class user{
         this.username=username;
         this.password=password;
         this.img=this.img;
+        this.role=role;
     }
 }
  

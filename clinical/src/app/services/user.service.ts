@@ -20,6 +20,10 @@ export class UserService {
     return this.conexHttp.post<LoginResponse>(`${this.url}/login`, data, { headers });
   }
 
+  getAll(): Observable<any[]> {
+    return this.conexHttp.get<any[]>(`${this.url}`);
+  }
+
   getById(id: number): Observable<any> {
     return this.conexHttp.get(`${this.url}/${id}`);
   }
