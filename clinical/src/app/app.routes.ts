@@ -10,7 +10,7 @@ import { HomeComponent } from './pages/home/home';
 import { StockComponent } from './stock/stock.component';
 import { ProfileComponent } from './profile/profile';
 import { FichaPacienteComponent } from './patient-dashboard/patient-dashboard.component';
-
+import { DocumentsComponent } from './documents/documents.component';
 
 
 export const routes: Routes = [
@@ -26,6 +26,8 @@ export const routes: Routes = [
   { path: 'odontograma/:id', component: OdontogramaComponent },
   { path: 'stock', component: StockComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'documents/:patientId', component: DocumentsComponent },
   { path: 'ficha-paciente/:id', component: FichaPacienteComponent },
   { path: '**', redirectTo: '/login' }
 ];
+//y se accede al navegdaro como/; http://localhost:4200/documents/1 para ver los documentos del paciente con id 1
