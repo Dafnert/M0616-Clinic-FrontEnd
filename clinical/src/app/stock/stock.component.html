@@ -3,7 +3,9 @@
   <!-- CABECERA -->
   <div class="stock-header">
     <h2>ESTOC</h2>
-    <button class="btn-nuevo" (click)="openCreate()">+ Nou article</button>
+    @if (isAdmin) {
+      <button class="btn-nuevo" (click)="openCreate()">+ Nou article</button>
+    }
   </div>
 
   <!-- ALERTA BAJO STOCK -->
@@ -51,8 +53,10 @@ No hi ha articles en l'estoc.</div>
               <td>{{ item.unit }}</td>
               <td class="td-fecha">{{ item.updatedAt ? (item.updatedAt | date:'dd/MM/yyyy') : '—' }}</td>
               <td class="td-acciones">
-                <button class="btn-edit" (click)="openEdit(item)" title="Editar">✏</button>
-                <button class="btn-del" (click)="eliminar(item)" title="Eliminar">✕</button>
+                @if (isAdmin) {
+                  <button class="btn-edit" (click)="openEdit(item)" title="Editar">✏</button>
+                  <button class="btn-del" (click)="eliminar(item)" title="Eliminar">✕</button>
+                }
               </td>
             </tr>
           }

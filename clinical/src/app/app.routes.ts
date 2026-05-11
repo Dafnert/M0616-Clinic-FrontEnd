@@ -15,19 +15,21 @@ import { DocumentsComponent } from './documents/documents.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'boxes', component: BoxesComponent },
-  { path: 'agenda', component: AgendaComponent },
-  { path: 'cita/nueva', component: CrearCitaComponent },
-  { path: 'cita/editar/:id', component: CrearCitaComponent },
-  { path: 'patient/profile/:id', component: PatientProfileComponent },
-  { path: 'odontograma/:id', component: OdontogramaComponent },
-  { path: 'stock', component: StockComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'home', component: HomeComponent, canActivate: [authGuard] },
+  { path: 'boxes', component: BoxesComponent, canActivate: [authGuard] },
+  { path: 'agenda', component: AgendaComponent, canActivate: [authGuard] },
+  { path: 'cita/nueva', component: CrearCitaComponent, canActivate: [authGuard] },
+  { path: 'cita/editar/:id', component: CrearCitaComponent, canActivate: [authGuard] },
+  { path: 'patient/profile/:id', component: PatientProfileComponent, canActivate: [authGuard] },
+  { path: 'odontograma/:id', component: OdontogramaComponent, canActivate: [authGuard] },
+  { path: 'stock', component: StockComponent, canActivate: [authGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
+  { path: 'ficha-paciente/:id', component: FichaPacienteComponent, canActivate: [authGuard] },
+  { path: 'users', component: UsersComponent, canActivate: [authGuard, adminGuard] },
+  { path: 'patients', component: PatientsComponent, canActivate: [authGuard, adminGuard] },
   { path: 'documents/:patientId', component: DocumentsComponent },
-  { path: 'ficha-paciente/:id', component: FichaPacienteComponent },
   { path: '**', redirectTo: '/login' }
 ];
 //y se accede al navegdaro como/; http://localhost:4200/documents/1 para ver los documentos del paciente con id 1

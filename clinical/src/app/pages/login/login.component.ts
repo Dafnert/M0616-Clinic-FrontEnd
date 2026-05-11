@@ -6,6 +6,7 @@ import { Patient } from '../../models/patient';
 import { PatientService } from '../../services/patient.service';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -36,8 +37,11 @@ export class LoginComponent{
 
   constructor(
     private _userService: UserService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private auth: AuthService
+  ) {
+    this.auth.logout();
+  }
   
   login() {
   this.isLoading = true;
@@ -49,7 +53,8 @@ this._userService.login(this.username, this.password).subscribe({
     const user = response.user;
 
     localStorage.setItem('id', user.id.toString());
-    console.log('ID guardado:', user.id);
+    localStorage.setItem('role', user.role);
+    localStorage.setItem('username', user.username);
 
     this.loginStatus = 'success';
     this.errorMessage = `Bienvenido ${user.name}`;
