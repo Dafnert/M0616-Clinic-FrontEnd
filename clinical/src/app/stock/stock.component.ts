@@ -2,6 +2,7 @@ import { Component, OnInit, signal, inject, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { StockService } from '../services/stock.service';
+import { AuthService } from '../services/auth.service';
 import { Stock } from '../models/stock.model';
 
 type StockForm = { name: string; description: string; quantity: number; minimumQuantity: number; unit: string };
@@ -15,6 +16,9 @@ type StockForm = { name: string; description: string; quantity: number; minimumQ
 })
 export class StockComponent implements OnInit {
   private svc = inject(StockService);
+  private auth = inject(AuthService);
+
+  isAdmin = this.auth.isAdmin();
 
   items = signal<Stock[]>([]);
   loading = signal(true);

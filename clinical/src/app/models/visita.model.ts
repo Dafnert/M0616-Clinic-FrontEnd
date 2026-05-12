@@ -14,6 +14,7 @@ export interface Patient{
     password: string;
     disease: string;
     observations: string;
+
 }
  
 
@@ -30,6 +31,13 @@ export interface Tratamiento {
   precio: number;
 }
 
+export interface DoctorVisita {
+  id: number;
+  name: string;
+  surname: string;
+  speciality: string;
+}
+
 export interface Visita {
   id_visita: number;
   fecha: string; // YYYY-MM-DD
@@ -42,6 +50,7 @@ export interface Visita {
   odontologo: Odontologo;
   box: Box;
   tratamientos?: Tratamiento[];
+  doctor?: DoctorVisita;
 }
 
 export interface DiaAgenda {

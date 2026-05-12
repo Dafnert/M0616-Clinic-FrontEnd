@@ -32,15 +32,16 @@ export class AgendaService {
         observations: item.observations
       },
       odontologo: {
-        id_odontologo: 1,
-        nombre: 'Doctor',
-        apellidos: '',
+        id_odontologo: item.doctor?.id ?? 1,
+        nombre: item.doctor?.name ?? '---',
+        apellidos: item.doctor?.surname ?? '',
         email: ''
       },
       box: {
         id_box: 1,
         nombre: 'Box 1'
-      }
+      },
+      doctor: item.doctor ?? undefined
     };
   }
 
@@ -64,12 +65,18 @@ export class AgendaService {
     observations: visita.paciente?.observations ?? ''
   };
 
-  console.log('BODY FINAL:', body);
 
-  return this.http.post<any>(`${API_BASE}/appointment`, body, {
-    headers: { 'Content-Type': 'application/json' }
-  });
-}
+
+    if (visita.doctorId) {
+      body['doctorId'] = visita.doctorId;
+    }
+
+    console.log('BODY FINAL:', body);
+
+    return this.http.post<any>(`${API_BASE}/appointment`, body, {
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
 
   updateVisita(id: number, visita: Partial<Visita>): Observable<Visita> {
     const body: any = {};

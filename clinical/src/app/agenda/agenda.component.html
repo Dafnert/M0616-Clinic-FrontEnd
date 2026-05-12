@@ -67,7 +67,6 @@ No hi ha visites programades</p>
       <!-- Visits -->
       <div class="visitas-lista">
         <div class="visita-card" *ngFor="let visita of dia.visitas"
-          [class.tiene-observacion]="visita.paciente.observations">
 
           <!-- Alert badge for important observations -->
           <div class="obs-badge" *ngIf="visita.paciente.observations"

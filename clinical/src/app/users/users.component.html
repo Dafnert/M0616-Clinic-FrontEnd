@@ -1,0 +1,103 @@
+<div class="users-page">
+
+  <div class="users-header">
+    <h2>Gestió d'Usuaris</h2>
+    <button class="btn-nou" (click)="openCreate()">+ Nou usuari</button>
+  </div>
+
+  <div class="tabla-wrapper">
+    @if (loading()) {
+      <div class="estat-msg">Carregant...</div>
+    } @else if (users().length === 0) {
+      <div class="estat-msg">No hi ha usuaris.</div>
+    } @else {
+      <table class="tabla-users">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nom</th>
+            <th>Usuari</th>
+            <th>Rol</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (u of users(); track u.id) {
+            <tr>
+              <td class="td-id">{{ u.id }}</td>
+              <td class="td-nom">{{ u.name }}</td>
+              <td class="td-username">{{ u.username }}</td>
+              <td>
+                <span class="badge-rol" [class.badge-admin]="u.role === 'ADMIN'" [class.badge-doctor]="u.role === 'DOCTOR'">
+                  {{ u.role }}
+                </span>
+              </td>
+              <td class="td-accions">
+                <button class="btn-edit" (click)="openEdit(u)" title="Editar">✏</button>
+                <button class="btn-del" (click)="eliminar(u)" title="Eliminar">✕</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+
+</div>
+
+<!-- MODAL -->
+@if (modalOpen()) {
+  <div class="modal-backdrop" (click)="closeModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>{{ editingUser() ? 'Editar usuari' : 'Nou usuari' }}</h3>
+        <button class="modal-close" (click)="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="camp">
+          <label>Nom *</label>
+          <input type="text" [(ngModel)]="form.name" placeholder="Nom" />
+        </div>
+        <div class="camp">
+          <label>Cognoms *</label>
+          <input type="text" [(ngModel)]="form.surname" placeholder="Cognoms" />
+        </div>
+        <div class="camps-fila">
+          <div class="camp">
+            <label>Edat *</label>
+            <input type="number" [(ngModel)]="form.age" min="0" />
+          </div>
+          <div class="camp">
+            <label>Especialitat *</label>
+            <input type="text" [(ngModel)]="form.speciality" placeholder="Ex: General" />
+          </div>
+        </div>
+        <div class="camp">
+          <label>Usuari *</label>
+          <input type="text" [(ngModel)]="form.username" placeholder="Nom d'usuari" />
+        </div>
+        <div class="camp">
+          <label>Contrasenya {{ editingUser() ? '(deixa buit per no canviar)' : '*' }}</label>
+          <input type="password" [(ngModel)]="form.password" placeholder="Contrasenya" />
+        </div>
+        <div class="camp">
+          <label>Rol *</label>
+          <select [(ngModel)]="form.role">
+            @for (r of roles; track r) {
+              <option [value]="r">{{ r }}</option>
+            }
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancelar" (click)="closeModal()">Cancel·lar</button>
+        <button class="btn-guardar" (click)="guardar()">Guardar</button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- TOAST -->
+@if (toast()) {
+  <div class="toast" [class.toast-error]="!toast()!.ok">{{ toast()!.msg }}</div>
+}
