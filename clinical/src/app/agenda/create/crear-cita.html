@@ -1,39 +1,104 @@
 <div class="form-wrapper">
+
   <div class="form-header">
     <span class="form-title">{{ titulo }}</span>
-    <p class="form-subtitle">Emplena les dades per a registrar la cita
-</p>
+
+    <p class="form-subtitle">
+      Emplena les dades per a registrar la cita
+    </p>
   </div>
 
   <form [formGroup]="form" (ngSubmit)="guardar()">
+
     <div class="form-row">
+
+      <!-- PACIENTE -->
+      <div class="field">
+        <label>Pacient</label>
+
+        <select formControlName="patientId">
+
+          <option value="">
+            Selecciona un pacient
+          </option>
+
+          <option
+            *ngFor="let patient of patients"
+            [value]="patient.id">
+
+            {{ patient.name }}
+
+          </option>
+
+        </select>
+      </div>
+
+      <!-- FECHA -->
       <div class="field">
         <label>Data</label>
-        <input type="date" formControlName="date" />
+
+        <input
+          type="date"
+          formControlName="date" />
       </div>
+
+      <!-- HORA -->
       <div class="field">
         <label>Hora</label>
-        <input type="time" formControlName="hourVisit" />
+
+        <input
+          type="time"
+          formControlName="hourVisit" />
       </div>
+
     </div>
 
+    <!-- MOTIVO -->
     <div class="field">
+
       <label>Motiu de consulta</label>
-      <input type="text" placeholder="Ej. Revisión anual, dolor molar..." formControlName="reason" />
+
+      <input
+        type="text"
+        placeholder="Ej. Revisión anual, dolor molar..."
+        formControlName="reason" />
+
     </div>
 
+    <!-- OBSERVACIONES -->
     <div class="field">
+
       <label>Observacions</label>
-      <textarea placeholder="Notas adicionales para el profesional..."
-                rows="3"
-                formControlName="observations">
+
+      <textarea
+        rows="3"
+        placeholder="Notas adicionales..."
+        formControlName="observations">
       </textarea>
+
     </div>
 
+    <!-- BOTONES -->
     <div class="form-actions">
-      <button type="button" class="btn-secondary">
-Cancel·lar</button>
-      <button type="submit" class="btn-primary">Desar cita</button>
+
+      <button
+        type="button"
+        class="btn-secondary">
+
+        Cancel·lar
+
+      </button>
+
+      <button
+        type="submit"
+        class="btn-primary">
+
+        Desar cita
+
+      </button>
+
     </div>
+
   </form>
+
 </div>

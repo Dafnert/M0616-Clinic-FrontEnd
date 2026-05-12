@@ -117,9 +117,8 @@ export class AgendaComponent implements OnInit {
     const lista = termino
       ? this.visitas().filter(
         (v) =>
-          v.paciente.nombre.toLowerCase().includes(termino) ||
-          v.paciente.apellidos.toLowerCase().includes(termino) ||
-          v.paciente.dni.toLowerCase().includes(termino) ||
+          v.paciente.name.toLowerCase().includes(termino) ||
+          v.paciente.surname.toLowerCase().includes(termino) ||
           v.motivo_consulta.toLowerCase().includes(termino),
       )
       : this.visitas();
