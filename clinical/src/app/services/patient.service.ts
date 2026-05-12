@@ -7,9 +7,14 @@ import { Patient } from '../models/patient';
   providedIn: 'root'
 })
 export class PatientService {
-  constructor(private conexHttp: HttpClient) {}
 
   url = 'http://localhost:8000/patient';
+
+  constructor(private conexHttp: HttpClient) {}
+
+  getAll(): Observable<Patient[]> {
+    return this.conexHttp.get<Patient[]>(`${this.url}/list`);
+  }
 
   getById(id: number): Observable<{ success: boolean; patient: Patient }> {
     return this.conexHttp.get<{ success: boolean; patient: Patient }>(`${this.url}/${id}`);

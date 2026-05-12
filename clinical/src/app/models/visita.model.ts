@@ -4,16 +4,20 @@ export interface Odontologo {
   apellidos: string;
   email: string;
 }
+export interface Patient{
+    id:number;
+    name:string;
+    surname:string;
+    age:number;
+    dni:string;
+    username:string;
+    password: string;
+    disease: string;
+    observations: string;
 
-export interface Paciente {
-  id_paciente: number;
-  dni: string;
-  nombre: string;
-  apellidos: string;
-  observaciones_importantes?: string;
-  tiene_vih?: boolean;
-  alergias?: string | null;
 }
+ 
+
 
 export interface Box {
   id_box: number;
@@ -42,7 +46,7 @@ export interface Visita {
   motivo_consulta: string;
   notas?: string;
   estado: 'pendiente' | 'en_proceso' | 'finalizada' | 'cancelada';
-  paciente: Paciente;
+  paciente: Patient;
   odontologo: Odontologo;
   box: Box;
   tratamientos?: Tratamiento[];

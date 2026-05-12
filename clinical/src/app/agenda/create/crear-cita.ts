@@ -3,7 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AgendaService } from '../../services/agenda.service';
+import { PatientService } from '../../services/patient.service';
+import {Patient} from '../../models/patient';
 import { DoctorService, Doctor } from '../../services/doctor.service';
+
 
 @Component({
   selector: 'app-crear-cita',
@@ -18,19 +21,32 @@ export class CrearCitaComponent implements OnInit {
   visitaId: number | null = null;
   titulo = 'Nova cita';
   visitaActual: any = null;
+  patients: any[] = [];
   doctors: Doctor[] = [];
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private agendaService: AgendaService,
+    private patientService: PatientService,
     private doctorService: DoctorService,
     private router: Router
   ) {}
 
   ngOnInit() {
+    // Cargar la lista de pacientes
+    this.patientService.getAll().subscribe({
+      next: (patients) => {
+        this.patients = patients;
+      },
+      error: (err) => {
+        console.log('ERROR AL CARGAR PACIENTES', err);
+      }
+    });
+
     // Inicializar formulario vacío
     this.form = this.fb.group({
+      patientId: [''],
       date: [''],
       hourVisit: [''],
       reason: [''],
@@ -64,10 +80,11 @@ export class CrearCitaComponent implements OnInit {
       next: (visita) => {
         this.visitaActual = visita;
         this.form = this.fb.group({
+          patientId: [visita.paciente?.id || ''],
           date: [visita.fecha],
           hourVisit: [visita.hora_inicio],
           reason: [visita.motivo_consulta],
-          observations: [visita.paciente?.observaciones_importantes || ''],
+          observations: [visita.paciente?.observations || '']
           doctorId: [visita.doctor?.id || '']
         });
       },

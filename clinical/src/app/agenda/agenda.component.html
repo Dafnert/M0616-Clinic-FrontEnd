@@ -67,29 +67,10 @@ No hi ha visites programades</p>
       <!-- Visits -->
       <div class="visitas-lista">
         <div class="visita-card" *ngFor="let visita of dia.visitas"
-          [class.tiene-observacion]="visita.paciente.observaciones_importantes"
-          [class.tiene-vih]="visita.paciente.tiene_vih"
-          [class.tiene-alergias]="visita.paciente.alergias">
-
-          <!-- Alert badge for VIH -->
-          <div class="vih-badge" *ngIf="visita.paciente.tiene_vih"
-            title="⚠ PACIENTE CON VIH">
-            <span>VIH</span>
-          </div>
-
-          <!-- Alert badge for allergies -->
-          <div class="alergias-badge" *ngIf="visita.paciente.alergias"
-            [title]="'Alergias: ' + visita.paciente.alergias">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
-              <line x1="12" y1="9" x2="12" y2="13" />
-              <line x1="12" y1="17" x2="12.01" y2="17" />
-            </svg>
-          </div>
 
           <!-- Alert badge for important observations -->
-          <div class="obs-badge" *ngIf="visita.paciente.observaciones_importantes"
-            [title]="visita.paciente.observaciones_importantes">
+          <div class="obs-badge" *ngIf="visita.paciente.observations"
+            [title]="visita.paciente.observations">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
               <line x1="12" y1="9" x2="12" y2="13" />
@@ -107,7 +88,7 @@ No hi ha visites programades</p>
           </div>
 
           <div class="visita-paciente">
-            <span class="paciente-nombre">{{ visita.paciente.nombre }} {{ visita.paciente.apellidos }}</span>
+            <span class="paciente-nombre">{{ visita.paciente.name }} {{ visita.paciente.surname }}</span>
             <span class="paciente-dni">{{ visita.paciente.dni }}</span>
           </div>
 
@@ -179,8 +160,8 @@ Detall de la Cita</h3>
       </div>
       <div class="detalle-fila">
         <span class="detalle-label">Pacient:</span>
-        <span class="detalle-valor">{{ visitaVisualizando()!.paciente.nombre }} {{
-          visitaVisualizando()!.paciente.apellidos }}</span>
+        <span class="detalle-valor">{{ visitaVisualizando()!.paciente.name }} {{
+          visitaVisualizando()!.paciente.surname }}</span>
       </div>
       <div class="detalle-fila">
         <span class="detalle-label">DNI:</span>
@@ -204,14 +185,14 @@ Detall de la Cita</h3>
         <span class="detalle-label">Box:</span>
         <span class="detalle-valor">{{ visitaVisualizando()!.box.nombre }}</span>
       </div>
-      <div class="detalle-fila" *ngIf="visitaVisualizando()!.paciente.observaciones_importantes">
+      <div class="detalle-fila" *ngIf="visitaVisualizando()!.paciente.observations">
         <span class="detalle-label">Observaciones:</span>
-        <span class="detalle-valor">{{ visitaVisualizando()!.paciente.observaciones_importantes }}</span>
+        <span class="detalle-valor">{{ visitaVisualizando()!.paciente.observations }}</span>
       </div>
     </div>
     <div class="modal-acciones">
       <button class="btn-secondary" (click)="cerrarPopup()">Cerrar</button>
-      <button class="btn-ficha" (click)="verFichaPaciente(visitaVisualizando()!.paciente.id_paciente)">
+      <button class="btn-ficha" (click)="verFichaPaciente(visitaVisualizando()!.paciente.id)">
         Ver ficha paciente
       </button>
     </div>

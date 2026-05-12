@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { Visita } from '../models/visita.model';
-
+import { Patient } from '../models/patient';
 const API_BASE = 'http://localhost:8000';
 
 @Injectable({
@@ -21,11 +21,15 @@ export class AgendaService {
       motivo_consulta: item.reason,
       estado: 'pendiente',
       paciente: {
-        id_paciente: item.id,
-        dni: '---',
-        nombre: 'Paciente',
-        apellidos: '',
-        observaciones_importantes: item.observations
+        id: item.id,
+        name: item.patientName || 'Paciente',
+        surname: item.patientSurname || '',
+        age: item.patientAge || 0,
+        dni: item.patientDni || '---',
+        username: item.patientUsername || '',
+        password: item.patientPassword || '',
+        disease: item.patientDisease || '',
+        observations: item.observations
       },
       odontologo: {
         id_odontologo: item.doctor?.id ?? 1,
@@ -54,12 +58,14 @@ export class AgendaService {
   }
 
   createVisita(visita: any): Observable<Visita> {
-    const body: any = {
-      date: visita.date,
-      hourVisit: visita.hourVisit,
-      reason: visita.reason,
-      observations: visita.observations ?? ''
-    };
+  const body = {
+    date: visita.fecha,
+    hourVisit: visita.hora_inicio,
+    reason: visita.motivo_consulta,
+    observations: visita.paciente?.observations ?? ''
+  };
+
+
 
     if (visita.doctorId) {
       body['doctorId'] = visita.doctorId;
@@ -78,8 +84,8 @@ export class AgendaService {
     if (visita.fecha)            body['date']         = visita.fecha;
     if (visita.hora_inicio)      body['hourVisit']    = visita.hora_inicio;
     if (visita.motivo_consulta)  body['reason']       = visita.motivo_consulta;
-    if (visita.paciente?.observaciones_importantes !== undefined) {
-      body['observations'] = visita.paciente.observaciones_importantes;
+    if (visita.paciente?.observations !== undefined) {
+      body['observations'] = visita.paciente.observations;
     }
 
     return this.http.put<any>(`${API_BASE}/appointment/${id}`, body).pipe(
