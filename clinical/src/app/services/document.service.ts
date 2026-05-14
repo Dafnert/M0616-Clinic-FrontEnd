@@ -13,6 +13,7 @@ export class DocumentService {
   upload(patientId: number, file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('patientId', String(patientId));
     return this.http.post(`${this.url}/upload/${patientId}`, formData);
   }
 

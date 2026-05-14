@@ -10,10 +10,7 @@ import { HomeComponent } from './pages/home/home';
 import { StockComponent } from './stock/stock.component';
 import { ProfileComponent } from './profile/profile';
 import { FichaPacienteComponent } from './patient-dashboard/patient-dashboard.component';
-import { authGuard, adminGuard } from './guards/auth.guard';
-import { UsersComponent } from './users/users.component';
-import { PatientsComponent } from './patients/patients.component';
-
+import { DocumentsComponent } from './documents/documents.component';
 
 
 export const routes: Routes = [
@@ -32,5 +29,7 @@ export const routes: Routes = [
   { path: 'ficha-paciente/:id', component: FichaPacienteComponent, canActivate: [authGuard] },
   { path: 'users', component: UsersComponent, canActivate: [authGuard, adminGuard] },
   { path: 'patients', component: PatientsComponent, canActivate: [authGuard, adminGuard] },
+  { path: 'documents/:patientId', component: DocumentsComponent },
   { path: '**', redirectTo: '/login' }
 ];
+//y se accede al navegdaro como/; http://localhost:4200/documents/1 para ver los documentos del paciente con id 1
