@@ -84,7 +84,7 @@ export class CrearCitaComponent implements OnInit {
           date: [visita.fecha],
           hourVisit: [visita.hora_inicio],
           reason: [visita.motivo_consulta],
-          observations: [visita.paciente?.observations || '']
+          observations: [visita.paciente?.observations || ''],
           doctorId: [visita.doctor?.id || '']
         });
       },
