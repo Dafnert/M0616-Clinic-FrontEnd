@@ -58,7 +58,7 @@ export class AgendaService {
   }
 
   createVisita(visita: any): Observable<Visita> {
-  const body = {
+  const body: any = {
     date: visita.fecha,
     hourVisit: visita.hora_inicio,
     reason: visita.motivo_consulta,
