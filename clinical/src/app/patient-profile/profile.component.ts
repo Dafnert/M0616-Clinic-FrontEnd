@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -14,6 +14,9 @@ import { PatientService } from '../services/patient.service';
 })
 export class PatientProfileComponent implements OnInit {
 
+  @Input() patientId?: number;
+  @Input() embedded = false;
+
   patient: Patient = new Patient();
   isLoading = true;
   loadError = false;
@@ -25,6 +28,7 @@ export class PatientProfileComponent implements OnInit {
   confirmPassword = '';
   passwordMismatch = false;
   saveSuccess = false;
+  saveError = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,7 +36,7 @@ export class PatientProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = this.patientId ?? this.route.snapshot.paramMap.get('id');
     if (id) {
       this.patientService.getById(+id).subscribe({
         next: (res) => {
@@ -79,9 +83,11 @@ export class PatientProfileComponent implements OnInit {
       this.editForm.password = this.newPassword;
     }
 
+    console.log('GUARDANDO paciente ID:', this.patient.id, 'Datos:', this.editForm);
     this.patientService.update(this.patient.id, this.editForm).subscribe({
       next: (res) => {
-        this.patient = res.patient;
+        console.log('RESPUESTA UPDATE:', res);
+        this.patient = res.patient ?? { ...this.patient, ...this.editForm };
         this.isEditing = false;
         this.showPasswordChange = false;
         this.newPassword = '';
@@ -90,8 +96,10 @@ export class PatientProfileComponent implements OnInit {
         this.saveSuccess = true;
         setTimeout(() => this.saveSuccess = false, 3000);
       },
-      error: () => {
-        console.error('Error al actualizar el paciente');
+      error: (err) => {
+        console.error('ERROR UPDATE /patient/' + this.patient.id, err.status, err.error);
+        this.saveError = true;
+        setTimeout(() => this.saveError = false, 3000);
       }
     });
   }

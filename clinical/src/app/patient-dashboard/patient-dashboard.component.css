@@ -1,39 +1,100 @@
+:host {
+  display: block;
+}
+
 .dashboard-layout {
   display: flex;
-  gap: 24px;
-  padding: 100px 24px 40px;
+  gap: 28px;
+  padding: 88px 32px 48px;
   min-height: 100vh;
-  background: linear-gradient(135deg, #00788f, #0097b2);
+  background: #eef2f7;
   align-items: flex-start;
   box-sizing: border-box;
+  font-family: 'Lato', sans-serif;
 }
 
+/* ── Left column ── */
 .col-left {
-  width: 35%;
+  width: 320px;
   flex-shrink: 0;
+  position: sticky;
+  top: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
+/* ── Right column ── */
 .col-right {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
+  min-width: 0;
 }
 
-.odontograma-wrapper,
-.documents-wrapper {
-  background: white;
+/* ── Section cards ── */
+.section-card {
+  background: #fff;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 16px rgba(26, 115, 200, 0.07);
+  border: 1px solid #dce8f5;
 }
 
-@media (max-width: 900px) {
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 24px;
+  border-bottom: 1px solid #eaf1fb;
+  background: #f7faff;
+}
+
+.section-header svg {
+  color: #1a73c8;
+  flex-shrink: 0;
+}
+
+.section-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a73c8;
+  margin: 0;
+  letter-spacing: 0.3px;
+}
+
+.section-body {
+  padding: 8px 0;
+}
+
+.odontograma-wrapper {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(26, 115, 200, 0.07);
+  border: 1px solid #dce8f5;
+}
+
+.documents-wrapper {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(26, 115, 200, 0.07);
+  border: 1px solid #dce8f5;
+}
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
   .dashboard-layout {
     flex-direction: column;
-    padding: 90px 16px 40px;
+    padding: 88px 16px 40px;
+    gap: 20px;
   }
+
   .col-left {
     width: 100%;
+    position: static;
   }
 }

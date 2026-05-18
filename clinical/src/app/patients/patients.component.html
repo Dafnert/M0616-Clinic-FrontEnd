@@ -1,18 +1,92 @@
 <div class="patients-page">
 
   <div class="patients-header">
-    <h2>Llista de Pacients</h2>
+    <div class="header-left">
+      <h2>Llista de Pacients</h2>
+      @if (!loading() && !error()) {
+        <span class="count-badge">{{ filtered().length }} pacients</span>
+      }
+    </div>
+    @if (!loading() && !error() && patients().length > 0) {
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input
+          type="text"
+          placeholder="Cercar per nom o usuari..."
+          [value]="search()"
+          (input)="search.set($any($event.target).value)"
+        />
+      </div>
+    }
   </div>
 
-  <div class="tabla-wrapper">
+  @if (loading()) {
     <div class="estat-msg">
-      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
-        <circle cx="32" cy="20" r="10" stroke="#1a73c8" stroke-width="2"/>
-        <path d="M12 52c0-11 9-20 20-20s20 9 20 20" stroke="#1a73c8" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      <p>Pendent de connexió amb el backend</p>
-      <span>Endpoint necessari: <code>GET /api/patients</code></span>
+      <div class="spinner"></div>
+      <p>Carregant pacients...</p>
     </div>
-  </div>
+  }
+
+  @if (error() && !loading()) {
+    <div class="estat-msg error">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="40" height="40">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <p>Error al carregar els pacients</p>
+      <span>Comprova que el backend està actiu</span>
+    </div>
+  }
+
+  @if (!loading() && !error() && filtered().length === 0 && search()) {
+    <div class="estat-msg">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="40" height="40">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <p>Cap resultat per "{{ search() }}"</p>
+    </div>
+  }
+
+  @if (!loading() && !error() && filtered().length > 0) {
+    <div class="tabla-wrapper">
+      <table class="patients-table">
+        <thead>
+          <tr>
+            <th>Pacient</th>
+            <th>Usuari</th>
+            <th>Edat</th>
+            <th>DNI</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (patient of filtered(); track patient.id) {
+            <tr class="patient-row" (click)="verFicha(patient.id)">
+              <td>
+                <div class="patient-name-cell">
+                  <div class="avatar">{{ patient.name[0] | uppercase }}</div>
+                  <div>
+                    <div class="name">{{ patient.name }} {{ patient.surname }}</div>
+                    <div class="sub">ID #{{ patient.id }}</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="username">&#64;{{ patient.username }}</span></td>
+              <td>{{ patient.age ? patient.age + ' anys' : '—' }}</td>
+              <td>{{ patient.dni || '—' }}</td>
+              <td>
+                <button class="btn-ver" (click)="verFicha(patient.id); $event.stopPropagation()">
+                  Ver ficha
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
 
 </div>

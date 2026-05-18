@@ -19,8 +19,8 @@ export class DoctorService {
   constructor(private http: HttpClient) {}
 
   getAllDoctors() {
-    return this.http.get<{ success: boolean; data: Doctor[] }>(`${this.apiUrl}`).pipe(
-      map(res => res.data)
+    return this.http.get<any>(`${this.apiUrl}`).pipe(
+      map(res => Array.isArray(res) ? res : (res.data ?? res.doctors ?? []))
     );
   }
 

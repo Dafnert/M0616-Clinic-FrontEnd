@@ -1,12 +1,23 @@
 .patients-page {
-  max-width: 960px;
+  max-width: 1000px;
   margin: 2rem auto;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
   font-family: 'Lato', sans-serif;
 }
 
 .patients-header {
-  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .patients-header h2 {
@@ -14,41 +25,163 @@
   font-size: 1.7rem;
   color: #1a73c8;
   font-weight: 700;
+  margin: 0;
 }
+
+.count-badge {
+  background: #e8f1fc;
+  color: #1a73c8;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1.5px solid #d0e4f7;
+  border-radius: 10px;
+  padding: 8px 14px;
+  min-width: 260px;
+}
+
+.search-box svg { color: #6b7c93; flex-shrink: 0; }
+
+.search-box input {
+  border: none;
+  outline: none;
+  font-size: 0.9rem;
+  color: #344563;
+  width: 100%;
+  font-family: 'Lato', sans-serif;
+  background: transparent;
+}
+
+.search-box input::placeholder { color: #a0aec0; }
 
 .tabla-wrapper {
   background: #fff;
   border: 1px solid #d0e4f7;
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
+  box-shadow: 0 2px 12px rgba(26, 115, 200, 0.07);
 }
 
-.estat-msg {
-  padding: 3rem;
-  text-align: center;
+.patients-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.patients-table thead tr {
+  background: #f0f7ff;
+  border-bottom: 2px solid #d0e4f7;
+}
+
+.patients-table th {
+  padding: 13px 20px;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 700;
   color: #6b7c93;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.patients-table th:last-child { text-align: right; }
+
+.patient-row {
+  border-bottom: 1px solid #edf2fb;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.patient-row:last-child { border-bottom: none; }
+.patient-row:hover { background: #f7faff; }
+
+.patients-table td {
+  padding: 14px 20px;
+  font-size: 0.9rem;
+  color: #344563;
+  vertical-align: middle;
+}
+
+.patients-table td:last-child { text-align: right; }
+
+.patient-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1a73c8, #0d5ba8);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.name { font-weight: 600; color: #1a2a3a; }
+
+.sub { font-size: 0.78rem; color: #8a9ab0; margin-top: 2px; }
+
+.username {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: #1a73c8;
+  background: #e8f1fc;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.btn-ver {
+  background: #1a73c8;
+  color: #fff;
+  border: none;
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Lato', sans-serif;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.btn-ver:hover { background: #1560a8; transform: translateY(-1px); }
+
+.estat-msg {
+  padding: 3.5rem;
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid #d0e4f7;
+  border-radius: 14px;
 }
 
-.estat-msg p {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #344563;
-  margin: 0;
+.estat-msg p { font-size: 1rem; font-weight: 600; color: #344563; margin: 0; }
+.estat-msg span { font-size: 0.85rem; color: #6b7c93; }
+.estat-msg.error svg { color: #e53e3e; }
+.estat-msg.error p { color: #e53e3e; }
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #d0e4f7;
+  border-top-color: #1a73c8;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
 }
 
-.estat-msg span {
-  font-size: 0.85rem;
-  color: #6b7c93;
-}
-
-.estat-msg code {
-  background: #f0f7ff;
-  padding: 0.15rem 0.4rem;
-  border-radius: 4px;
-  color: #1a73c8;
-  font-weight: 600;
-}
+@keyframes spin { to { transform: rotate(360deg); } }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Patient } from '../models/patient';
 
 @Injectable({
@@ -17,10 +17,14 @@ export class PatientService {
   }
 
   getById(id: number): Observable<{ success: boolean; patient: Patient }> {
-    return this.conexHttp.get<{ success: boolean; patient: Patient }>(`${this.url}/${id}`);
+    return this.conexHttp.get<any>(`${this.url}/${id}`).pipe(
+      map(res => res.patient ? res : { success: true, patient: res })
+    );
   }
 
   update(id: number, data: Partial<Patient>): Observable<{ success: boolean; patient: Patient }> {
-    return this.conexHttp.put<{ success: boolean; patient: Patient }>(`${this.url}/${id}`, data);
+    return this.conexHttp.put<any>(`${this.url}/${id}`, data).pipe(
+      map(res => res.patient ? res : { success: true, patient: res })
+    );
   }
 }

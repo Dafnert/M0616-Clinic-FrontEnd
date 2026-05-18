@@ -64,7 +64,7 @@ export class AgendaComponent implements OnInit {
   }
 
   verFichaPaciente(pacienteId: number) {
-    this.router.navigate(['/patient/dashboard', pacienteId]);
+    this.router.navigate(['/ficha-paciente', pacienteId]);
   }
 
   cerrarPopup() {

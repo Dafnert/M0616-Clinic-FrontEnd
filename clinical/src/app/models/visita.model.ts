@@ -4,17 +4,18 @@ export interface Odontologo {
   apellidos: string;
   email: string;
 }
-export interface Patient{
-    id:number;
-    name:string;
-    surname:string;
-    age:number;
-    dni:string;
-    username:string;
-    password: string;
-    disease: string;
-    observations: string;
-
+export interface Patient {
+  id: number;
+  name: string;
+  surname: string;
+  age: number;
+  dni: string;
+  username: string;
+  password: string;
+  disease: string;
+  observations: string;
+  tiene_vih?: boolean;
+  alergias?: string | null;
 }
  
 
