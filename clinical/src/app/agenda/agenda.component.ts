@@ -173,4 +173,7 @@ export class AgendaComponent implements OnInit {
     };
     return labels[estado] ?? estado;
   }
+  crearPaciente() {
+  this.router.navigate(['/pacient/nou']);
+}
 }
