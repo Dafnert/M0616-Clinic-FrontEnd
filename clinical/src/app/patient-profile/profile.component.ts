@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Patient } from '../models/patient';
@@ -29,9 +29,12 @@ export class PatientProfileComponent implements OnInit {
   passwordMismatch = false;
   saveSuccess = false;
   saveError = false;
+  confirmDelete = false;
+  deleting = false;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private patientService: PatientService
   ) {}
 
@@ -72,6 +75,20 @@ export class PatientProfileComponent implements OnInit {
     this.newPassword = '';
     this.confirmPassword = '';
     this.passwordMismatch = false;
+  }
+
+  deletePatient(): void {
+    this.deleting = true;
+    this.patientService.delete(this.patient.id).subscribe({
+      next: () => this.router.navigate(['/patients']),
+      error: (err) => {
+        console.error('ERROR DELETE /patient/' + this.patient.id, err.status, err.error);
+        this.deleting = false;
+        this.confirmDelete = false;
+        this.saveError = true;
+        setTimeout(() => this.saveError = false, 3000);
+      }
+    });
   }
 
   saveChanges(): void {
