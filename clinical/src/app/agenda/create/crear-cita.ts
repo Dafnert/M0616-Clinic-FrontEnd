@@ -123,12 +123,13 @@ export class CrearCitaComponent implements OnInit {
     } else {
       // Modo creación - crear
       this.agendaService.createVisita({
-        date: data.date,
-        hourVisit: data.hourVisit,
-        reason: data.reason,
-        observations: data.observations,
-        doctorId: data.doctorId || null
-      }).subscribe({
+  date: data.date,
+  hourVisit: data.hourVisit,
+  reason: data.reason,
+  observations: data.observations,
+  patientId: data.patientId,      // ← añadir
+  doctorId: data.doctorId || null
+}).subscribe({
         next: res => {
           console.log('OK', res);
           this.router.navigate(['/agenda']);
