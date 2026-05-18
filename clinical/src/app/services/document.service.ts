@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DocumentService {
-  private url = 'http://localhost:8000/document';
+  private url = 'https://localhost:8000/document';
 
   constructor(private http: HttpClient) {}
 

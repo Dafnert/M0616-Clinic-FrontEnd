@@ -20,7 +20,7 @@ export class UserService {
   }
 
   register(user: user): Observable<any> {
-    return this.conexHttp.post(`${this.url}/`, user);
+    return this.conexHttp.post(`${this.url}`, user);
   }
 
   create(data: { name: string; surname: string; age: number; speciality: string; username: string; password: string; role: string }): Observable<any> {
