@@ -14,7 +14,7 @@ import { DocumentsComponent } from './documents/documents.component';
 import { UsersComponent } from './users/users.component';
 import { PatientsComponent } from './patients/patients.component';
 import { authGuard } from './guards/auth.guard';
-
+import { CrearPacienteComponent } from './pages/create-patient/create-patient';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -32,5 +32,6 @@ export const routes: Routes = [
   { path: 'users', component: UsersComponent, canActivate: [authGuard] },
   { path: 'patients', component: PatientsComponent, canActivate: [authGuard] },
   { path: 'documents/:patientId', component: DocumentsComponent },
+  { path: 'pacient/nou', component: CrearPacienteComponent, canActivate: [authGuard] },
   { path: '**', redirectTo: '/login' }
 ];

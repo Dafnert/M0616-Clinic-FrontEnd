@@ -1,0 +1,78 @@
+<div class="form-page">
+  <div class="bg-decoration">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+  </div>
+
+  <div class="form-wrapper">
+
+    <!-- Header azul (igual que el dashboard de paciente) -->
+    <div class="form-header">
+      <div class="form-header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+        </svg>
+      </div>
+      <div class="form-header-info">
+        <span class="form-title">Nou Pacient</span>
+        <p class="form-subtitle">Emplena les dades per registrar el pacient</p>
+      </div>
+    </div>
+
+    <!-- Formulario -->
+    <form [formGroup]="form" (ngSubmit)="guardar()">
+
+      <div class="form-section-title">Dades personals</div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>Nom</label>
+          <input type="text" formControlName="name" placeholder="Nom complet" />
+        </div>
+        <div class="field">
+          <label>Edat</label>
+          <input type="number" formControlName="age" placeholder="Anys" />
+        </div>
+        <div class="field">
+          <label>DNI</label>
+          <input type="text" formControlName="dni" placeholder="DNI" />
+        </div>
+      </div>
+
+      <hr class="form-divider" />
+      <div class="form-section-title">Informació mèdica</div>
+
+      <div class="field">
+        <label>Malaltia / Diagnòstic</label>
+        <input type="text" formControlName="disease" placeholder="Opcional" />
+      </div>
+      <div class="field">
+        <label>Observacions</label>
+        <input type="text" formControlName="observations" placeholder="Opcional" />
+      </div>
+
+      <hr class="form-divider" />
+      <div class="form-section-title">Accés al sistema</div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>Usuari</label>
+          <input type="text" formControlName="username" placeholder="Nom d'usuari" />
+        </div>
+        <div class="field">
+          <label>Contrasenya</label>
+          <input type="password" formControlName="password" placeholder="Contrasenya" />
+        </div>
+      </div>
+
+      <p *ngIf="error" class="error-msg">{{ error }}</p>
+
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="cancelar()">Cancel·lar</button>
+        <button type="submit" class="btn-primary" [disabled]="form.invalid">Desar pacient</button>
+      </div>
+
+    </form>
+  </div>
+</div>
