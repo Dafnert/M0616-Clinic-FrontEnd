@@ -1,12 +1,52 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject, OnInit, computed } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { PatientService } from '../services/patient.service';
+import { Patient } from '../models/patient';
 
 @Component({
   selector: 'app-patients',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './patients.component.html',
   styleUrl: './patients.component.css',
 })
-export class PatientsComponent {
-  loading = signal(false);
+export class PatientsComponent implements OnInit {
+  private patientService = inject(PatientService);
+  private router = inject(Router);
+
+  patients = signal<Patient[]>([]);
+  loading = signal(true);
+  error = signal(false);
+  search = signal('');
+
+  filtered = computed(() => {
+    const q = this.search().toLowerCase();
+    return q
+      ? this.patients().filter(p =>
+          p.name.toLowerCase().includes(q) ||
+          p.surname.toLowerCase().includes(q) ||
+          p.username.toLowerCase().includes(q)
+        )
+      : this.patients();
+  });
+
+  ngOnInit() {
+    this.patientService.getAll().subscribe({
+      next: (data: any) => {
+        const list = Array.isArray(data) ? data : (data.data ?? data.patients ?? []);
+        this.patients.set(list);
+        this.loading.set(false);
+      },
+      error: () => {
+        this.error.set(true);
+        this.loading.set(false);
+      }
+    });
+  }
+
+  verFicha(id: number) {
+    this.router.navigate(['/ficha-paciente', id]);
+  }
 }

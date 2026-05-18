@@ -27,6 +27,55 @@
   font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
+.profile-embedded {
+  font-family: 'Lato', sans-serif;
+}
+
+.profile-embedded .profile-container {
+  max-width: 100%;
+  gap: 14px;
+  animation: fadeUp .35s ease both;
+}
+
+.profile-embedded .header-card {
+  border-radius: 14px;
+  padding: 24px 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  background: linear-gradient(135deg, #1a73c8 0%, #0d5ba8 100%);
+}
+
+.profile-embedded .btn-edit {
+  width: 100%;
+  justify-content: center;
+  padding: 9px 16px;
+  font-size: 13px;
+}
+
+.profile-embedded .content-grid {
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.profile-embedded .info-card {
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 2px 10px rgba(26,115,200,0.07);
+  border: 1px solid #dce8f5;
+}
+
+.profile-embedded .patient-name {
+  font-size: 20px;
+}
+
+.profile-embedded .edit-card {
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 2px 10px rgba(26,115,200,0.07);
+  border: 1px solid #dce8f5;
+}
+
 /* Decorative circles */
 .bg-decoration { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
 .circle {
@@ -75,6 +124,7 @@
 }
 .toast.show { opacity: 1; transform: translateY(0); }
 .toast-icon { font-size: 16px; }
+.toast-error { background: #2d1a1a; color: #fc8181; top: 72px; }
 
 /* ── Header card ────────────────────────────── */
 .header-card {

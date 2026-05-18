@@ -2,7 +2,6 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { Visita } from '../models/visita.model';
-import { Patient } from '../models/patient';
 const API_BASE = 'http://localhost:8000';
 
 @Injectable({
@@ -21,15 +20,17 @@ export class AgendaService {
       motivo_consulta: item.reason,
       estado: 'pendiente',
       paciente: {
-        id: item.id,
-        name: item.patientName || 'Paciente',
-        surname: item.patientSurname || '',
-        age: item.patientAge || 0,
-        dni: item.patientDni || '---',
-        username: item.patientUsername || '',
-        password: item.patientPassword || '',
-        disease: item.patientDisease || '',
-        observations: item.observations
+        id: item.patient?.id ?? 0,
+        name: item.patient?.name ?? '---',
+        surname: item.patient?.surname ?? '',
+        age: item.patient?.age ?? 0,
+        dni: item.patient?.dni ?? '---',
+        username: item.patient?.username ?? '',
+        password: '',
+        disease: item.patient?.disease ?? '',
+        observations: item.patient?.observations ?? item.observations ?? '',
+        tiene_vih: item.patient?.disease?.toLowerCase().includes('vih') ?? false,
+        alergias: item.patient?.alergias ?? null,
       },
       odontologo: {
         id_odontologo: item.doctor?.id ?? 1,
@@ -63,7 +64,7 @@ export class AgendaService {
   hourVisit:    visita.hourVisit    ?? visita.hora_inicio,
   reason:       visita.reason       ?? visita.motivo_consulta,
   observations: visita.observations ?? visita.paciente?.observations ?? '',
-  patientId:    visita.patientId    // ← añadir
+  patient_id:   visita.patientId ? parseInt(visita.patientId) : undefined
 };
 
   if (visita.doctorId) {

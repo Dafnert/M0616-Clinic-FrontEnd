@@ -1,12 +1,17 @@
-<div class="profile-page">
+<div [class]="embedded ? 'profile-embedded' : 'profile-page'">
 
-  <div class="bg-decoration">
-    <div class="circle circle-1"></div>
-    <div class="circle circle-2"></div>
-  </div>
+  @if (!embedded) {
+    <div class="bg-decoration">
+      <div class="circle circle-1"></div>
+      <div class="circle circle-2"></div>
+    </div>
+  }
 
   <div class="toast" [class.show]="saveSuccess">
-    <span class="toast-icon">✓</span> Perfil actualizado correctamente
+    <span class="toast-icon">✓</span> Perfil actualitzat correctament
+  </div>
+  <div class="toast toast-error" [class.show]="saveError">
+    <span class="toast-icon">✗</span> Error al guardar els canvis
   </div>
 
   <div class="profile-container">
