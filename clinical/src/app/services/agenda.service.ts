@@ -59,24 +59,23 @@ export class AgendaService {
 
   createVisita(visita: any): Observable<Visita> {
   const body: any = {
-    date: visita.fecha,
-    hourVisit: visita.hora_inicio,
-    reason: visita.motivo_consulta,
-    observations: visita.paciente?.observations ?? ''
-  };
+  date:         visita.date         ?? visita.fecha,
+  hourVisit:    visita.hourVisit    ?? visita.hora_inicio,
+  reason:       visita.reason       ?? visita.motivo_consulta,
+  observations: visita.observations ?? visita.paciente?.observations ?? '',
+  patientId:    visita.patientId    // ← añadir
+};
 
-
-
-    if (visita.doctorId) {
-      body['doctorId'] = visita.doctorId;
-    }
-
-    console.log('BODY FINAL:', body);
-
-    return this.http.post<any>(`${API_BASE}/appointment`, body, {
-      headers: { 'Content-Type': 'application/json' }
-    });
+  if (visita.doctorId) {
+    body['doctorId'] = visita.doctorId;
   }
+
+  console.log('BODY FINAL:', body);
+
+  return this.http.post<any>(`${API_BASE}/appointment`, body, {
+    headers: { 'Content-Type': 'application/json' }
+  });
+}
 
   updateVisita(id: number, visita: Partial<Visita>): Observable<Visita> {
     const body: any = {};
