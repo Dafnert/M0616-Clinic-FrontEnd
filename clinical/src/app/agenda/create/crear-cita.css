@@ -99,3 +99,15 @@
 
   &:hover { background: #1f2937; }
 }
+/* Estil per a l'alerta d'error a l'agenda */
+.alert-error-agenda {
+  color: #ffffff;
+  background-color: #e74c3c;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 14px;
+  border-left: 5px solid #c0392b;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
