@@ -37,6 +37,26 @@ export class CrearCitaComponent implements OnInit {
     return slots;
   })();
 
+  horasLibres: string[] = [];
+
+  actualizarHoresLliures(date: string) {
+    if (!date) {
+      this.horasLibres = [...this.horasDisponibles];
+      return;
+    }
+    this.agendaService.getVisitas().subscribe({
+      next: (visites) => {
+        const reservades = visites
+          .filter(v => v.fecha === date && v.id_visita !== this.visitaId)
+          .map(v => v.hora_inicio.substring(0, 5));
+        this.horasLibres = this.horasDisponibles.filter(h => !reservades.includes(h));
+      },
+      error: () => {
+        this.horasLibres = [...this.horasDisponibles];
+      }
+    });
+  }
+
   get patientHasVih(): boolean {
     return !!(this.selectedPatient?.isVih ?? this.selectedPatient?.disease?.toLowerCase().includes('vih'));
   }
@@ -75,11 +95,17 @@ export class CrearCitaComponent implements OnInit {
       doctorId: ['']
     });
 
+    this.horasLibres = [...this.horasDisponibles];
+
     this.form.get('patientId')!.valueChanges.subscribe(id => {
       this.selectedPatient = this.patients.find(p => p.id == id) ?? null;
       if (this.patientHasVih) {
         this.form.get('hourVisit')!.setValue('19:30');
       }
+    });
+
+    this.form.get('date')!.valueChanges.subscribe(date => {
+      this.actualizarHoresLliures(date);
     });
 
     // Cargar lista de doctores
@@ -116,6 +142,7 @@ export class CrearCitaComponent implements OnInit {
           observations: [visita.paciente?.observations || ''],
           doctorId: [visita.doctor?.id || '']
         });
+        this.actualizarHoresLliures(visita.fecha);
       },
       error: (err) => {
         console.log('ERROR AL CARGAR VISITA', err);
