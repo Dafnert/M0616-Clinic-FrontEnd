@@ -49,4 +49,8 @@ export class PatientsComponent implements OnInit {
   verFicha(id: number) {
     this.router.navigate(['/ficha-paciente', id]);
   }
+
+  nouPacient() {
+    this.router.navigate(['/pacient/nou']);
+  }
 }

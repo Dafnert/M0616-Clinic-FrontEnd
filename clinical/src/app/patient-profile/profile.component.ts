@@ -23,6 +23,7 @@ export class PatientProfileComponent implements OnInit {
 
   isEditing = false;
   editForm: Partial<Patient> = {};
+  editVih = false;
   showPasswordChange = false;
   newPassword = '';
   confirmPassword = '';
@@ -62,6 +63,7 @@ export class PatientProfileComponent implements OnInit {
 
   startEdit(): void {
     this.editForm = { ...this.patient };
+    this.editVih = this.patient.disease?.toLowerCase() === 'vih';
     this.isEditing = true;
     this.saveSuccess = false;
   }
@@ -81,6 +83,10 @@ export class PatientProfileComponent implements OnInit {
         return;
       }
       this.editForm.password = this.newPassword;
+    }
+
+    if (this.editVih) {
+      this.editForm.disease = 'vih';
     }
 
     console.log('GUARDANDO paciente ID:', this.patient.id, 'Datos:', this.editForm);

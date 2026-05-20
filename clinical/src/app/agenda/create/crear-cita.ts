@@ -24,6 +24,27 @@ export class CrearCitaComponent implements OnInit {
   doctors: Doctor[] = [];
   errorMessage: string | null = null;
 
+  selectedPatient: any = null;
+
+  horasDisponibles: string[] = (() => {
+    const slots: string[] = [];
+    for (let h = 10; h <= 19; h++) {
+      for (let m = 0; m < 60; m += 5) {
+        if (h === 19 && m > 30) break;
+        slots.push(`${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`);
+      }
+    }
+    return slots;
+  })();
+
+  get patientHasVih(): boolean {
+    return !!(this.selectedPatient?.isVih ?? this.selectedPatient?.disease?.toLowerCase().includes('vih'));
+  }
+
+  get patientHasAlergias(): boolean {
+    return !!this.selectedPatient?.alergias;
+  }
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -34,7 +55,6 @@ export class CrearCitaComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Cargar la lista de pacientes
     this.patientService.getAll().subscribe({
       next: (patients) => {
         this.patients = patients;
@@ -44,7 +64,6 @@ export class CrearCitaComponent implements OnInit {
       }
     });
 
-    // Inicializar formulario vacío
     this.form = this.fb.group({
       patientId: [''],
       date: [''],
@@ -54,13 +73,18 @@ export class CrearCitaComponent implements OnInit {
       doctorId: ['']
     });
 
-    // Cargar lista de doctores
+    this.form.get('patientId')!.valueChanges.subscribe(id => {
+      this.selectedPatient = this.patients.find(p => p.id == id) ?? null;
+      if (this.patientHasVih) {
+        this.form.get('hourVisit')!.setValue('19:30');
+      }
+    });
+
     this.doctorService.getAllDoctors().subscribe({
       next: (data) => this.doctors = data,
       error: (err) => console.error('Error al cargar doctores', err)
     });
 
-    // Detectar si es modo edición
     this.route.params.subscribe(params => {
       if (params['id']) {
         this.isEditMode = true;
@@ -79,6 +103,7 @@ export class CrearCitaComponent implements OnInit {
     this.agendaService.getVisitaById(id).subscribe({
       next: (visita) => {
         this.visitaActual = visita;
+        this.selectedPatient = visita.paciente ?? null;
         this.form = this.fb.group({
           patientId: [visita.paciente?.id || ''],
           date: [visita.fecha],
@@ -105,34 +130,29 @@ export class CrearCitaComponent implements OnInit {
 
     const data = this.form.value;
 
-    // =========================================================================
-    // REGLA 1: Test appointment depends on treatment/reason, doctor and time
-    // =========================================================================
+
     if (!data.reason || !data.doctorId || !data.date || !data.hourVisit) {
       this.errorMessage = 'Falten camps obligatoris: La cita depèn del tractament/motiu, metge i hora.';
       return;
     }
 
-    // Diccionario de duraciones estimadas por tratamiento (en minutos)
+
     const DURACION_TRATAMIENTO: Record<string, number> = {
       'Dentista': 30,
       'Neteja': 20,
       'Ortodòncia': 45,
       'Revisió': 15,
-      'default': 30 // Duración por defecto si no coincide con ninguna clave anterior
+      'default': 30 
     };
 
-    // =========================================================================
-    // REGLA 2: Test 5 min before-after every appointment (Márgenes de seguridad)
-    // =========================================================================
+
     this.agendaService.getVisitas().subscribe({
       next: (visitasExistentes) => {
         
-        // Convertimos la hora de inicio de la NUEVA cita a minutos absolutos
+
         const [nuevaHora, nuevaMinutos] = data.hourVisit.split(':').map(Number);
         const nuevaInicio = nuevaHora * 60 + nuevaMinutos;
         
-        // Calculamos la hora de finalización de la nueva cita según su tipo
         const duracionNueva = DURACION_TRATAMIENTO[data.reason] || DURACION_TRATAMIENTO['default'];
         const nuevaFin = nuevaInicio + duracionNueva;
 
@@ -145,18 +165,15 @@ export class CrearCitaComponent implements OnInit {
           const mismaFecha = visita.fecha === data.date;
 
           if (mismoDoctor && mismaFecha) {
-            // Conversión de la cita guardada en base de datos
             const [vHora, vMinutos] = visita.hora_inicio.split(':').map(Number);
             const viejaInicio = vHora * 60 + vMinutos;
             
             const duracionVieja = DURACION_TRATAMIENTO[visita.motivo_consulta] || DURACION_TRATAMIENTO['default'];
             const viejaFin = viejaInicio + duracionVieja;
 
-            // Añadir el margen obligatorio de 5 minutos de descanso
             const viejaFinConMargen = viejaFin + 5;
             const nuevaFinConMargen = nuevaFin + 5;
 
-            // Comprobación de solapamiento de intervalos de tiempo
             const solapaAntes = (nuevaInicio >= viejaInicio && nuevaInicio < viejaFinConMargen);
             const solapaDespues = (viejaInicio >= nuevaInicio && viejaInicio < nuevaFinConMargen);
 
@@ -185,10 +202,9 @@ export class CrearCitaComponent implements OnInit {
         fecha: data.date,
         hora_inicio: data.hourVisit,
         motivo_consulta: data.reason,
-        paciente: {
-          ...this.visitaActual.paciente,
-          observaciones_importantes: data.observations
-        }
+        observations: data.observations,
+        patientId: data.patientId,
+        doctorId: data.doctorId,
       }).subscribe({
         next: res => this.router.navigate(['/agenda']),
         error: err => this.errorMessage = 'Error del servidor en actualitzar: ' + (err.error?.message || err.statusText)

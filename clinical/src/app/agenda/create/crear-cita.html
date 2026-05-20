@@ -10,28 +10,47 @@
   </div>
   <form [formGroup]="form" (ngSubmit)="guardar()">
 
-    <div class="form-row">
+    <!-- PACIENTE -->
+    <div class="field">
+      <label>Pacient</label>
+      <select formControlName="patientId">
+        <option value="">Selecciona un pacient</option>
+        @for (patient of patients; track patient.id) {
+          <option [value]="patient.id">{{ patient.name }} {{ patient.surname }}</option>
+        }
+      </select>
+    </div>
 
-      <!-- PACIENTE -->
-      <div class="field">
-        <label>Pacient</label>
-
-        <select formControlName="patientId">
-
-          <option value="">
-            Selecciona un pacient
-          </option>
-
-          <option
-            *ngFor="let patient of patients"
-            [value]="patient.id">
-
-            {{ patient.name }}
-
-          </option>
-
-        </select>
+    <!-- WARNINGS PACIENT -->
+    @if (patientHasVih) {
+      <div class="alert alert-vih">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+          <line x1="12" y1="9" x2="12" y2="13"/>
+          <line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+        <div>
+          <strong>Atenció: Pacient amb VIH</strong>
+          <span>Prendre les mesures de protecció adients durant la intervenció.</span>
+        </div>
       </div>
+    }
+
+    @if (patientHasAlergias && !patientHasVih) {
+      <div class="alert alert-alergies">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+          <line x1="12" y1="9" x2="12" y2="13"/>
+          <line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+        <div>
+          <strong>Al·lèrgies: {{ selectedPatient?.alergias }}</strong>
+          <span>Verificar medicació i materials abans de la intervenció.</span>
+        </div>
+      </div>
+    }
+
+    <div class="form-row" style="margin-top:0">
 
       <!-- FECHA -->
       <div class="field">
@@ -45,10 +64,12 @@
       <!-- HORA -->
       <div class="field">
         <label>Hora</label>
-
-        <input
-          type="time"
-          formControlName="hourVisit" />
+        <select formControlName="hourVisit">
+          <option value="">-- Selecciona hora --</option>
+          @for (hora of horasDisponibles; track hora) {
+            <option [value]="hora">{{ hora }}</option>
+          }
+        </select>
       </div>
 
     </div>
@@ -59,9 +80,9 @@
       <label>Doctor</label>
       <select formControlName="doctorId">
         <option value="">-- Selecciona un doctor --</option>
-        <option *ngFor="let doctor of doctors" [value]="doctor.id">
-          {{ doctor.name }} {{ doctor.surname }} — {{ doctor.speciality }}
-        </option>
+        @for (doctor of doctors; track doctor.id) {
+          <option [value]="doctor.id">{{ doctor.name }} {{ doctor.surname }} — {{ doctor.speciality }}</option>
+        }
       </select>
     </div>
 

@@ -265,6 +265,23 @@
   background: #ffe0b2;
 }
 
+/* Warning badges VIH / alèrgies */
+.warn-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+  cursor: help;
+  align-self: center;
+}
+.warn-vih { background: #c62828; color: #fff; }
+.warn-alergies { background: #f57c00; color: #fff; }
+
 /* Alert badge */
 .obs-badge {
   display: flex;

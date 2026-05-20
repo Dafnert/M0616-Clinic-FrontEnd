@@ -15,8 +15,8 @@ export class AgendaService {
     return {
       id_visita: item.id,
       fecha: item.date,
-      hora_inicio: item.hourVisit,
-      hora_fin: item.hourVisit,
+      hora_inicio: item.hourVisit?.substring(0, 5) ?? '',
+      hora_fin: item.hourVisit?.substring(0, 5) ?? '',
       motivo_consulta: item.reason,
       estado: 'pendiente',
       paciente: {
@@ -29,7 +29,7 @@ export class AgendaService {
         password: '',
         disease: item.patient?.disease ?? '',
         observations: item.patient?.observations ?? item.observations ?? '',
-        tiene_vih: item.patient?.disease?.toLowerCase().includes('vih') ?? false,
+        tiene_vih: item.patient?.isVih ?? item.patient?.disease?.toLowerCase().includes('vih') ?? false,
         alergias: item.patient?.alergias ?? null,
       },
       odontologo: {
@@ -78,15 +78,15 @@ export class AgendaService {
   });
 }
 
-  updateVisita(id: number, visita: Partial<Visita>): Observable<Visita> {
+  updateVisita(id: number, visita: any): Observable<Visita> {
     const body: any = {};
 
-    if (visita.fecha)            body['date']         = visita.fecha;
-    if (visita.hora_inicio)      body['hourVisit']    = visita.hora_inicio;
-    if (visita.motivo_consulta)  body['reason']       = visita.motivo_consulta;
-    if (visita.paciente?.observations !== undefined) {
-      body['observations'] = visita.paciente.observations;
-    }
+    if (visita.fecha)           body['date']        = visita.fecha;
+    if (visita.hora_inicio)     body['hourVisit']   = visita.hora_inicio;
+    if (visita.motivo_consulta) body['reason']      = visita.motivo_consulta;
+    if (visita.observations !== undefined) body['observations'] = visita.observations;
+    if (visita.patientId)       body['patient_id']  = parseInt(visita.patientId);
+    if (visita.doctorId)        body['doctorId']    = visita.doctorId;
 
     return this.http.put<any>(`${API_BASE}/appointment/${id}`, body).pipe(
       map(response => this.mapItemToVisita(response.data))

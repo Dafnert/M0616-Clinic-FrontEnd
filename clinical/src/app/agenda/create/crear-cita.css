@@ -43,7 +43,7 @@
     margin-bottom: 6px;
   }
 
-  input, textarea {
+  input, textarea, select {
     width: 100%;
     box-sizing: border-box;
     font-size: 14px;
@@ -53,6 +53,7 @@
     border-radius: 8px;
     outline: none;
     font-family: inherit;
+    background: #fff;
 
     &:focus {
       border-color: #9ca3af;
