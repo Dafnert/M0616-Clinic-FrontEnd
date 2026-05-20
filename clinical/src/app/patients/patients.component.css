@@ -20,6 +20,30 @@
   gap: 12px;
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-nou-pacient {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 16px;
+  background: #1a73c8;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.btn-nou-pacient:hover { background: #1560a8; }
+
 .patients-header h2 {
   font-family: 'Nunito', sans-serif;
   font-size: 1.7rem;
@@ -101,6 +125,11 @@
 .patient-row:last-child { border-bottom: none; }
 .patient-row:hover { background: #f7faff; }
 
+.patient-row.row-vih { background: #fff5f5; }
+.patient-row.row-vih:hover { background: #ffebeb; }
+.patient-row.row-alergies { background: #fff9f0; }
+.patient-row.row-alergies:hover { background: #fff3e0; }
+
 .patients-table td {
   padding: 14px 20px;
   font-size: 0.9rem;
@@ -141,6 +170,37 @@
   background: #e8f1fc;
   padding: 3px 8px;
   border-radius: 6px;
+}
+
+.avatar-vih {
+  background: #c62828 !important;
+}
+
+.badge-vih {
+  display: inline-block;
+  background: #c62828;
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1px 7px;
+  border-radius: 20px;
+  margin-left: 6px;
+  vertical-align: middle;
+  letter-spacing: 0.3px;
+}
+
+.badge-alergies {
+  display: inline-block;
+  background: #f57c00;
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1px 7px;
+  border-radius: 20px;
+  margin-left: 6px;
+  vertical-align: middle;
+  letter-spacing: 0.3px;
+  cursor: help;
 }
 
 .btn-ver {

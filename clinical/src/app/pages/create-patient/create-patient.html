@@ -1,12 +1,7 @@
 <div class="form-page">
-  <div class="bg-decoration">
-    <div class="circle circle-1"></div>
-    <div class="circle circle-2"></div>
-  </div>
 
   <div class="form-wrapper">
 
-    <!-- Header azul (igual que el dashboard de paciente) -->
     <div class="form-header">
       <div class="form-header-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
@@ -20,7 +15,6 @@
       </div>
     </div>
 
-    <!-- Formulario -->
     <form [formGroup]="form" (ngSubmit)="guardar()">
 
       <div class="form-section-title">Dades personals</div>
@@ -28,8 +22,15 @@
       <div class="form-row">
         <div class="field">
           <label>Nom</label>
-          <input type="text" formControlName="name" placeholder="Nom complet" />
+          <input type="text" formControlName="name" placeholder="Nom" />
         </div>
+        <div class="field">
+          <label>Cognoms</label>
+          <input type="text" formControlName="surname" placeholder="Cognoms" />
+        </div>
+      </div>
+
+      <div class="form-row">
         <div class="field">
           <label>Edat</label>
           <input type="number" formControlName="age" placeholder="Anys" />
@@ -43,10 +44,34 @@
       <hr class="form-divider" />
       <div class="form-section-title">Informació mèdica</div>
 
-      <div class="field">
-        <label>Malaltia / Diagnòstic</label>
-        <input type="text" formControlName="disease" placeholder="Opcional" />
+      <!-- VIH checkbox -->
+      <div class="vih-toggle" [class.vih-actiu]="form.get('teneVih')?.value">
+        <label class="vih-label">
+          <input type="checkbox" formControlName="teneVih" />
+          <span class="vih-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </span>
+          <span class="vih-text">Pacient amb VIH</span>
+        </label>
+        @if (form.get('teneVih')?.value) {
+          <span class="vih-badge">⚠ VIH actiu</span>
+        }
       </div>
+
+      @if (!form.get('teneVih')?.value) {
+        <div class="field">
+          <label>Malaltia / Diagnòstic</label>
+          <input type="text" formControlName="disease" placeholder="Opcional" />
+        </div>
+      }
+
+      <div class="field">
+        <label>Al·lèrgies</label>
+        <input type="text" formControlName="alergias" placeholder="Penicil·lina, làtex... (opcional)" />
+      </div>
+
       <div class="field">
         <label>Observacions</label>
         <input type="text" formControlName="observations" placeholder="Opcional" />
@@ -66,7 +91,9 @@
         </div>
       </div>
 
-      <p *ngIf="error" class="error-msg">{{ error }}</p>
+      @if (error) {
+        <p class="error-msg">{{ error }}</p>
+      }
 
       <div class="form-actions">
         <button type="button" class="btn-secondary" (click)="cancelar()">Cancel·lar</button>

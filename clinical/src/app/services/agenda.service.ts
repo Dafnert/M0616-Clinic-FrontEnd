@@ -15,8 +15,8 @@ export class AgendaService {
     return {
       id_visita: item.id,
       fecha: item.date,
-      hora_inicio: item.hourVisit,
-      hora_fin: item.hourVisit,
+      hora_inicio: item.hourVisit?.substring(0, 5) ?? '',
+      hora_fin: item.hourVisit?.substring(0, 5) ?? '',
       motivo_consulta: item.reason,
       estado: 'pendiente',
       paciente: {
@@ -29,7 +29,7 @@ export class AgendaService {
         password: '',
         disease: item.patient?.disease ?? '',
         observations: item.patient?.observations ?? item.observations ?? '',
-        tiene_vih: item.patient?.disease?.toLowerCase().includes('vih') ?? false,
+        tiene_vih: item.patient?.isVih ?? item.patient?.disease?.toLowerCase().includes('vih') ?? false,
         alergias: item.patient?.alergias ?? null,
       },
       odontologo: {

@@ -7,19 +7,27 @@
         <span class="count-badge">{{ filtered().length }} pacients</span>
       }
     </div>
-    @if (!loading() && !error() && patients().length > 0) {
-      <div class="search-box">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    <div class="header-right">
+      <button class="btn-nou-pacient" (click)="nouPacient()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16">
+          <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
         </svg>
-        <input
-          type="text"
-          placeholder="Cercar per nom o usuari..."
-          [value]="search()"
-          (input)="search.set($any($event.target).value)"
-        />
-      </div>
-    }
+        Nou Pacient
+      </button>
+      @if (!loading() && !error() && patients().length > 0) {
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input
+            type="text"
+            placeholder="Cercar per nom o usuari..."
+            [value]="search()"
+            (input)="search.set($any($event.target).value)"
+          />
+        </div>
+      }
+    </div>
   </div>
 
   @if (loading()) {
@@ -64,12 +72,24 @@
         </thead>
         <tbody>
           @for (patient of filtered(); track patient.id) {
-            <tr class="patient-row" (click)="verFicha(patient.id)">
+            <tr class="patient-row"
+              [class.row-vih]="patient.isVih || patient.disease.toLowerCase() === 'vih'"
+              [class.row-alergies]="patient.alergias && !patient.isVih && patient.disease.toLowerCase() !== 'vih'"
+              (click)="verFicha(patient.id)">
               <td>
                 <div class="patient-name-cell">
-                  <div class="avatar">{{ patient.name[0] | uppercase }}</div>
+                  <div class="avatar" [class.avatar-vih]="patient.isVih || patient.disease.toLowerCase() === 'vih'">
+                    {{ patient.name[0] | uppercase }}
+                  </div>
                   <div>
-                    <div class="name">{{ patient.name }} {{ patient.surname }}</div>
+                    <div class="name">
+                      {{ patient.name }} {{ patient.surname }}
+                      @if (patient.isVih || patient.disease.toLowerCase() === 'vih') {
+                        <span class="badge-vih">VIH</span>
+                      } @else if (patient.alergias) {
+                        <span class="badge-alergies" [title]="patient.alergias">AL·L</span>
+                      }
+                    </div>
                     <div class="sub">ID #{{ patient.id }}</div>
                   </div>
                 </div>

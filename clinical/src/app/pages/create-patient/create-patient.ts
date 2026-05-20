@@ -22,12 +22,15 @@ export class CrearPacienteComponent {
     private http: HttpClient
   ) {
     this.form = this.fb.group({
-      name:     ['', Validators.required],
-      age:      ['', [Validators.required, Validators.min(0)]],
-      dni:      ['', Validators.required],
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      disease:  [''],
+      name:         ['', Validators.required],
+      surname:      [''],
+      age:          ['', [Validators.required, Validators.min(0)]],
+      dni:          ['', Validators.required],
+      username:     ['', Validators.required],
+      password:     ['', Validators.required],
+      teneVih:      [false],
+      disease:      [''],
+      alergias:     [''],
       observations: ['']
     });
   }
@@ -35,9 +38,25 @@ export class CrearPacienteComponent {
   guardar() {
     if (this.form.invalid) return;
 
-    this.http.post('http://localhost:8000/patient', this.form.value).subscribe({
-      next: () => this.router.navigate(['/agenda']),
-      error: (err) => this.error = err.error?.message || 'Error al crear el pacient'
+    const v = this.form.value;
+    const body: any = {
+      name:     v.name,
+      age:      parseInt(v.age, 10),
+      dni:      v.dni,
+      username: v.username,
+      password: v.password,
+      disease:  v.teneVih ? 'vih' : (v.disease || ''),
+      observations: v.observations || '',
+    };
+    if (v.surname)  body['surname']  = v.surname;
+    if (v.alergias) body['alergias'] = v.alergias;
+
+    this.http.post('http://localhost:8000/patient', body).subscribe({
+      next: () => this.router.navigate(['/patients']),
+      error: (err) => {
+        console.error('ERROR POST /patient:', err);
+        this.error = err.error?.message || err.message || 'Error al crear el pacient';
+      }
     });
   }
 

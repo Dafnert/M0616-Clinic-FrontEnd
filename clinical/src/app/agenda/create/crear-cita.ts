@@ -24,6 +24,16 @@ export class CrearCitaComponent implements OnInit {
   patients: any[] = [];
   doctors: Doctor[] = [];
 
+  selectedPatient: any = null;
+
+  get patientHasVih(): boolean {
+    return !!(this.selectedPatient?.isVih ?? this.selectedPatient?.disease?.toLowerCase().includes('vih'));
+  }
+
+  get patientHasAlergias(): boolean {
+    return !!this.selectedPatient?.alergias;
+  }
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -54,6 +64,10 @@ export class CrearCitaComponent implements OnInit {
       doctorId: ['']
     });
 
+    this.form.get('patientId')!.valueChanges.subscribe(id => {
+      this.selectedPatient = this.patients.find(p => p.id == id) ?? null;
+    });
+
     // Cargar lista de doctores
     this.doctorService.getAllDoctors().subscribe({
       next: (data) => this.doctors = data,
@@ -79,6 +93,7 @@ export class CrearCitaComponent implements OnInit {
     this.agendaService.getVisitaById(id).subscribe({
       next: (visita) => {
         this.visitaActual = visita;
+        this.selectedPatient = visita.paciente ?? null;
         this.form = this.fb.group({
           patientId: [visita.paciente?.id || ''],
           date: [visita.fecha],

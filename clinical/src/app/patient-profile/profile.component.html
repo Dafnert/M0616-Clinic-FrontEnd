@@ -121,6 +121,47 @@
           </div>
         </div>
 
+        <div class="info-card medical-card"
+          [class.vih-card]="patient.disease.toLowerCase() === 'vih'"
+          [class.alergies-card]="patient.alergias && patient.disease.toLowerCase() !== 'vih'">
+          <div class="card-header">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+            Informació mèdica
+          </div>
+          <div class="fields-list">
+            <div class="field-row">
+              <span class="field-label">VIH</span>
+              <span class="field-value">
+                @if (patient.disease.toLowerCase() === 'vih') {
+                  <span class="badge-vih">⚠ Positiu</span>
+                } @else {
+                  <span class="badge-no">Negatiu</span>
+                }
+              </span>
+            </div>
+            @if (patient.alergias) {
+              <div class="field-row">
+                <span class="field-label">Al·lèrgies</span>
+                <span class="field-value alergies-val">{{ patient.alergias }}</span>
+              </div>
+            }
+            @if (patient.disease && patient.disease.toLowerCase() !== 'vih') {
+              <div class="field-row">
+                <span class="field-label">Malaltia</span>
+                <span class="field-value">{{ patient.disease }}</span>
+              </div>
+            }
+            @if (patient.observations) {
+              <div class="field-row">
+                <span class="field-label">Observacions</span>
+                <span class="field-value">{{ patient.observations }}</span>
+              </div>
+            }
+          </div>
+        </div>
+
       </div>
 
       <!-- Edit Mode -->
@@ -159,6 +200,36 @@
             <input class="form-input readonly" type="text" [value]="patient.id" disabled />
             <span class="field-hint">El ID no puede modificarse</span>
           </div>
+        </div>
+
+        <!-- VIH + Alèrgies -->
+        <div class="form-section-sep">Informació mèdica</div>
+
+        <div class="vih-toggle-edit" [class.vih-actiu]="editVih">
+          <label class="vih-label">
+            <input type="checkbox" [(ngModel)]="editVih" />
+            <span class="vih-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            <span class="vih-text">Pacient amb VIH</span>
+          </label>
+          @if (editVih) {
+            <span class="vih-badge-edit">⚠ VIH actiu</span>
+          }
+        </div>
+
+        @if (!editVih) {
+          <div class="form-group">
+            <label class="form-label">Malaltia / Diagnòstic</label>
+            <input class="form-input" type="text" [(ngModel)]="editForm.disease" placeholder="Opcional" />
+          </div>
+        }
+
+        <div class="form-group">
+          <label class="form-label">Al·lèrgies</label>
+          <input class="form-input" type="text" [(ngModel)]="editForm.alergias" placeholder="Penicil·lina, làtex... (opcional)" />
         </div>
 
         <!-- Password toggle -->
