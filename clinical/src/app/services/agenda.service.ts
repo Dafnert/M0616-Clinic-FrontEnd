@@ -78,15 +78,15 @@ export class AgendaService {
   });
 }
 
-  updateVisita(id: number, visita: Partial<Visita>): Observable<Visita> {
+  updateVisita(id: number, visita: any): Observable<Visita> {
     const body: any = {};
 
-    if (visita.fecha)            body['date']         = visita.fecha;
-    if (visita.hora_inicio)      body['hourVisit']    = visita.hora_inicio;
-    if (visita.motivo_consulta)  body['reason']       = visita.motivo_consulta;
-    if (visita.paciente?.observations !== undefined) {
-      body['observations'] = visita.paciente.observations;
-    }
+    if (visita.fecha)           body['date']        = visita.fecha;
+    if (visita.hora_inicio)     body['hourVisit']   = visita.hora_inicio;
+    if (visita.motivo_consulta) body['reason']      = visita.motivo_consulta;
+    if (visita.observations !== undefined) body['observations'] = visita.observations;
+    if (visita.patientId)       body['patient_id']  = parseInt(visita.patientId);
+    if (visita.doctorId)        body['doctorId']    = visita.doctorId;
 
     return this.http.put<any>(`${API_BASE}/appointment/${id}`, body).pipe(
       map(response => this.mapItemToVisita(response.data))
