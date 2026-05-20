@@ -119,6 +119,85 @@ form {
   color: #a0aec0;
 }
 
+/* VIH toggle */
+.vih-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  transition: border-color 0.2s, background 0.2s;
+  cursor: pointer;
+}
+
+.vih-toggle.vih-actiu {
+  border-color: #c62828;
+  background: #fff5f5;
+}
+
+.vih-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.vih-label input[type="checkbox"] {
+  display: none;
+}
+
+.vih-box {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #cbd5e0;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.vih-toggle.vih-actiu .vih-box {
+  border-color: #c62828;
+  background: #c62828;
+}
+
+.vih-box svg {
+  width: 13px;
+  height: 13px;
+  stroke: white;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.vih-toggle.vih-actiu .vih-box svg {
+  opacity: 1;
+}
+
+.vih-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.vih-toggle.vih-actiu .vih-text {
+  color: #c62828;
+}
+
+.vih-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: #c62828;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+}
+
 .form-divider {
   border: none;
   border-top: 2px solid #f0f8fa;

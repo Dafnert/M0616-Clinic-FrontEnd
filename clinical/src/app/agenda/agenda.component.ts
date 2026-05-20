@@ -132,13 +132,31 @@ export class AgendaComponent implements OnInit {
 
     return Array.from(mapa.entries())
       .sort(([a], [b]) => a.localeCompare(b))
-      .map(([fecha, visitas]) => ({
-        fecha,
-        fechaLabel: this.formatFecha(fecha),
-        visitas: visitas.sort((a, b) =>
-          a.hora_inicio.localeCompare(b.hora_inicio)
-        ),
-      }));
+      .map(([fecha, visitas]) => {
+        const normales = visitas
+          .filter(v => !v.paciente.tiene_vih && !v.paciente.alergias)
+          .sort((a, b) => a.hora_inicio.localeCompare(b.hora_inicio));
+
+        const advertencia = visitas
+          .filter(v => v.paciente.tiene_vih || !!v.paciente.alergias)
+          .sort((a, b) => a.hora_inicio.localeCompare(b.hora_inicio));
+
+        const ultimaHora = normales.length > 0
+          ? normales[normales.length - 1].hora_inicio
+          : null;
+
+        const advertenciaFinal = advertencia.map((v, i) => ({
+          ...v,
+          hora_inicio: ultimaHora ? this.sumarHores(ultimaHora, i + 1) : v.hora_inicio,
+          hora_fin:    ultimaHora ? this.sumarHores(ultimaHora, i + 1) : v.hora_fin,
+        }));
+
+        return {
+          fecha,
+          fechaLabel: this.formatFecha(fecha),
+          visitas: [...normales, ...advertenciaFinal],
+        };
+      });
   }));
 
   // =========================
@@ -152,6 +170,12 @@ export class AgendaComponent implements OnInit {
     const meses = ['gener', 'febrer', 'març', 'abril', 'maig', 'juny', 'juliol', 'agost', 'septembre', 'octubre', 'novembre', 'desembre'];
 
     return `${dias[date.getDay()]} ${day} de ${meses[month - 1]} de ${year}`;
+  }
+
+  sumarHores(hora: string, hores: number): string {
+    const [h, m] = hora.split(':').map(Number);
+    const total = (h + hores) % 24;
+    return `${String(total).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
   }
 
   estadoClass(estado: string): string {

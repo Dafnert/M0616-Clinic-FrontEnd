@@ -361,6 +361,105 @@
   font-weight: 600;
 }
 
+/* ── Medical section ─────────────────────────── */
+.form-section-sep {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--c-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin: 20px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.vih-toggle-edit {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border: 2px solid var(--c-border);
+  border-radius: 10px;
+  margin-bottom: 14px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.vih-toggle-edit.vih-actiu {
+  border-color: #c62828;
+  background: #fff5f5;
+}
+.vih-toggle-edit .vih-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  flex: 1;
+}
+.vih-toggle-edit .vih-label input[type="checkbox"] { display: none; }
+.vih-toggle-edit .vih-box {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--c-border);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+.vih-toggle-edit.vih-actiu .vih-box {
+  border-color: #c62828;
+  background: #c62828;
+}
+.vih-toggle-edit .vih-box svg {
+  width: 12px;
+  height: 12px;
+  stroke: white;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.vih-toggle-edit.vih-actiu .vih-box svg { opacity: 1; }
+.vih-toggle-edit .vih-text {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #4a5568;
+}
+.vih-toggle-edit.vih-actiu .vih-text { color: #c62828; }
+.vih-badge-edit {
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: #c62828;
+  color: white;
+  padding: 2px 9px;
+  border-radius: 20px;
+}
+
+/* ── Medical card badges ─────────────────────── */
+.medical-card { grid-column: 1 / -1; }
+.vih-card { border-left: 4px solid #c62828; background: #fff5f5; }
+.alergies-card { border-left: 4px solid #f57c00; background: #fff9f0; }
+.badge-vih {
+  display: inline-block;
+  background: #c62828;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 20px;
+}
+.badge-no {
+  display: inline-block;
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 20px;
+}
+.alergies-val {
+  color: #f57c00;
+  font-weight: 600;
+}
+
 /* ── Password section ────────────────────────── */
 .password-section {
   border-top: 1px dashed var(--c-border);
