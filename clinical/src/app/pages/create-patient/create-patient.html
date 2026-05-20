@@ -91,6 +91,23 @@
         </div>
       </div>
 
+      <hr class="form-divider" />
+<div class="form-section-title">Consentiments</div>
+
+<div class="consent-group">
+
+  <label class="consent-label required">
+    <input type="checkbox" formControlName="acceptedPrivacy" />
+    Accepto la política de privacitat *
+  </label>
+
+  <label class="consent-label">
+    <input type="checkbox" formControlName="acceptedAnesthesia" />
+    Accepto el consentiment d’anestèsia
+  </label>
+
+</div>
+
       @if (error) {
         <p class="error-msg">{{ error }}</p>
       }

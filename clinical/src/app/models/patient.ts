@@ -10,7 +10,9 @@ export class Patient{
     observations:string="";
     alergias:string|null=null;
     isVih:boolean=false;
-    constructor(id =0,name="",surname="", age =0, username="", password="", disease="", observations="" , dni="", alergias:string|null=null){
+    acceptedPrivacy: boolean;
+    acceptedAnesthesia: boolean;
+    constructor(id =0,name="",surname="", age =0, username="", password="", disease="", observations="" , dni="", alergias:string|null=null, acceptedPrivacy=false, acceptedAnesthesia=false){
         this.id=id;
         this.name=name;
         this.surname=surname;
@@ -21,6 +23,8 @@ export class Patient{
         this.observations=observations;
         this.dni=dni;
         this.alergias=alergias;
+        this.acceptedPrivacy = acceptedPrivacy;
+        this.acceptedAnesthesia = acceptedAnesthesia;
     }
 }
  

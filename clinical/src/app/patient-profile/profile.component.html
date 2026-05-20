@@ -159,6 +159,27 @@
                 <span class="field-value">{{ patient.observations }}</span>
               </div>
             }
+            @if (patient.acceptedPrivacy || patient.acceptedAnesthesia) {
+  <div class="field-row">
+    <span class="field-label">Consentiments</span>
+
+    <span class="field-value consent-values">
+
+      @if (patient.acceptedPrivacy) {
+        <span class="consent-badge success">
+          ✓ Privacitat acceptada
+        </span>
+      }
+
+      @if (patient.acceptedAnesthesia) {
+        <span class="consent-badge success">
+          ✓ Anestèsia acceptada
+        </span>
+      }
+
+    </span>
+  </div>
+}
           </div>
         </div>
 

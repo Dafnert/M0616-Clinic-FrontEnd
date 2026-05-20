@@ -31,7 +31,9 @@ export class CrearPacienteComponent {
       teneVih:      [false],
       disease:      [''],
       alergias:     [''],
-      observations: ['']
+      observations: [''],
+      acceptedPrivacy: [false, Validators.requiredTrue],
+      acceptedAnesthesia: [false],
     });
   }
 
@@ -47,10 +49,12 @@ export class CrearPacienteComponent {
       password: v.password,
       disease:  v.teneVih ? 'vih' : (v.disease || ''),
       observations: v.observations || '',
+      acceptedPrivacy: v.acceptedPrivacy,
+      acceptedAnesthesia: v.acceptedAnesthesia,
     };
     if (v.surname)  body['surname']  = v.surname;
     if (v.alergias) body['alergias'] = v.alergias;
-
+    console.log(body);
     this.http.post('http://localhost:8000/patient', body).subscribe({
       next: () => this.router.navigate(['/patients']),
       error: (err) => {
