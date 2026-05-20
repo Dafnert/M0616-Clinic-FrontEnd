@@ -26,6 +26,17 @@ export class CrearCitaComponent implements OnInit {
 
   selectedPatient: any = null;
 
+  horasDisponibles: string[] = (() => {
+    const slots: string[] = [];
+    for (let h = 10; h <= 19; h++) {
+      for (let m = 0; m < 60; m += 5) {
+        if (h === 19 && m > 30) break;
+        slots.push(`${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`);
+      }
+    }
+    return slots;
+  })();
+
   get patientHasVih(): boolean {
     return !!(this.selectedPatient?.isVih ?? this.selectedPatient?.disease?.toLowerCase().includes('vih'));
   }
@@ -66,6 +77,9 @@ export class CrearCitaComponent implements OnInit {
 
     this.form.get('patientId')!.valueChanges.subscribe(id => {
       this.selectedPatient = this.patients.find(p => p.id == id) ?? null;
+      if (this.patientHasVih) {
+        this.form.get('hourVisit')!.setValue('19:30');
+      }
     });
 
     // Cargar lista de doctores
@@ -119,20 +133,15 @@ export class CrearCitaComponent implements OnInit {
     const data = this.form.value;
 
     if (this.isEditMode && this.visitaId) {
-      // Modo edición - actualizar
       this.agendaService.updateVisita(this.visitaId, {
         fecha: data.date,
         hora_inicio: data.hourVisit,
         motivo_consulta: data.reason,
-        paciente: {
-          ...this.visitaActual.paciente,
-          observaciones_importantes: data.observations
-        }
+        observations: data.observations,
+        patientId: data.patientId,
+        doctorId: data.doctorId,
       }).subscribe({
-        next: res => {
-          console.log('ACTUALIZADO', res);
-          this.router.navigate(['/agenda']);
-        },
+        next: () => this.router.navigate(['/agenda']),
         error: err => console.log('ERROR BACKEND', err.error)
       });
     } else {
