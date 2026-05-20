@@ -5,7 +5,9 @@
 
     <p class="form-subtitle">Emplena les dades per a registrar la cita</p>
   </div>
-
+  <div *ngIf="errorMessage" class="alert alert-danger" style="color: white; background-color: #d9534f; padding: 10px; border-radius: 4px; margin-bottom: 15px;">
+    {{ errorMessage }}
+  </div>
   <form [formGroup]="form" (ngSubmit)="guardar()">
 
     <!-- PACIENTE -->
