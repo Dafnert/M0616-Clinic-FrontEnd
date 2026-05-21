@@ -141,20 +141,10 @@ export class AgendaComponent implements OnInit {
           .filter(v => v.paciente.tiene_vih || !!v.paciente.alergias)
           .sort((a, b) => a.hora_inicio.localeCompare(b.hora_inicio));
 
-        const ultimaHora = normales.length > 0
-          ? normales[normales.length - 1].hora_inicio
-          : null;
-
-        const advertenciaFinal = advertencia.map((v, i) => ({
-          ...v,
-          hora_inicio: ultimaHora ? this.sumarHores(ultimaHora, i + 1) : v.hora_inicio,
-          hora_fin:    ultimaHora ? this.sumarHores(ultimaHora, i + 1) : v.hora_fin,
-        }));
-
         return {
           fecha,
           fechaLabel: this.formatFecha(fecha),
-          visitas: [...normales, ...advertenciaFinal],
+          visitas: [...normales, ...advertencia],
         };
       });
   }));
