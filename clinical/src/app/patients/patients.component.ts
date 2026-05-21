@@ -20,6 +20,8 @@ export class PatientsComponent implements OnInit {
   loading = signal(true);
   error = signal(false);
   search = signal('');
+  confirmandoEliminar = signal<number | null>(null);
+  deleteError = signal<string | null>(null);
 
   filtered = computed(() => {
     const q = this.search().toLowerCase();
@@ -52,5 +54,31 @@ export class PatientsComponent implements OnInit {
 
   nouPacient() {
     this.router.navigate(['/pacient/nou']);
+  }
+
+  pedirConfirmacion(id: number) {
+    this.deleteError.set(null);
+    this.confirmandoEliminar.set(id);
+  }
+
+  cancelarEliminar() {
+    this.confirmandoEliminar.set(null);
+    this.deleteError.set(null);
+  }
+
+  confirmarEliminar(id: number) {
+    this.patientService.delete(id).subscribe({
+      next: () => {
+        this.patients.update(list => list.filter(p => p.id !== id));
+        this.confirmandoEliminar.set(null);
+      },
+      error: (err) => {
+        this.deleteError.set(
+          err.status === 500 || err.status === 409
+            ? 'No es pot eliminar: el pacient té cites associades.'
+            : 'Error en eliminar el pacient.'
+        );
+      }
+    });
   }
 }

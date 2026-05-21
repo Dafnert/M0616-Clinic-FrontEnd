@@ -233,6 +233,93 @@
 }
 .btn-edit:hover { background: rgba(255,255,255,0.25); transform: translateY(-1px); }
 
+.header-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.btn-delete {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(220, 38, 38, 0.15);
+  border: 1.5px solid rgba(220, 38, 38, 0.4);
+  color: #fca5a5;
+  padding: 9px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s, transform .15s;
+  white-space: nowrap;
+}
+.btn-delete:hover { background: rgba(220, 38, 38, 0.3); transform: translateY(-1px); }
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px 28px 24px;
+  max-width: 360px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+.modal-icon-danger {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #fee2e2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+.modal-icon-danger svg { width: 26px; height: 26px; stroke: #dc2626; }
+
+.modal h3 { font-size: 18px; font-weight: 700; color: #111827; margin: 0 0 8px; }
+.modal p { font-size: 14px; color: #6b7280; margin: 0 0 20px; }
+.modal-error { color: #dc2626 !important; font-weight: 500; }
+
+.modal-acciones {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.btn-modal-cancel {
+  padding: 9px 20px;
+  border: 1.5px solid #d1d5db;
+  background: #fff;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.btn-modal-cancel:hover { background: #f9fafb; }
+
+.btn-modal-confirm {
+  padding: 9px 20px;
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-modal-confirm:hover { background: #b91c1c; }
+
 /* ── Content grid ───────────────────────────── */
 .content-grid {
   display: grid;

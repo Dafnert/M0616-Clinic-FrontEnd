@@ -27,4 +27,8 @@ export class PatientService {
       map(res => res.patient ? res : { success: true, patient: res })
     );
   }
+
+  delete(id: number): Observable<any> {
+    return this.conexHttp.delete(`${this.url}/${id}`);
+  }
 }
