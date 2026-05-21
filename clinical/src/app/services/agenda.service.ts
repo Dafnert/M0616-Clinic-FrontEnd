@@ -78,7 +78,7 @@ export class AgendaService {
   });
 }
 
-  updateVisita(id: number, visita: any): Observable<Visita> {
+  updateVisita(id: number, visita: any): Observable<any> {
     const body: any = {};
 
     if (visita.fecha)           body['date']        = visita.fecha;
@@ -86,11 +86,13 @@ export class AgendaService {
     if (visita.motivo_consulta) body['reason']      = visita.motivo_consulta;
     if (visita.observations !== undefined) body['observations'] = visita.observations;
     if (visita.patientId)       body['patient_id']  = parseInt(visita.patientId);
-    if (visita.doctorId)        body['doctorId']    = visita.doctorId;
+    if (visita.doctorId) {
+      body['doctorId']   = parseInt(visita.doctorId);
+      body['doctor_id']  = parseInt(visita.doctorId);
+    }
 
-    return this.http.put<any>(`${API_BASE}/appointment/${id}`, body).pipe(
-      map(response => this.mapItemToVisita(response.data))
-    );
+    console.log('PUT /appointment/' + id, body);
+    return this.http.put<any>(`${API_BASE}/appointment/${id}`, body);
   }
 
   deleteVisita(id: number): Observable<void> {

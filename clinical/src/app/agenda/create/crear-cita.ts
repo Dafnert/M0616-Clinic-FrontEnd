@@ -148,70 +148,14 @@ export class CrearCitaComponent implements OnInit {
   guardar() {
     this.errorMessage = null;
 
-    if (this.form.invalid) {
-      this.errorMessage = 'Formulari de cita invàlid';
-      return;
-    }
-
     const data = this.form.value;
 
-    if (!data.reason || !data.doctorId || !data.date || !data.hourVisit) {
-      this.errorMessage = 'Falten camps obligatoris: La cita depèn del tractament/motiu, metge i hora.';
+    if (!data.date || !data.hourVisit || !data.doctorId) {
+      this.errorMessage = 'Falten camps obligatoris: data, hora i doctor.';
       return;
     }
 
-    const DURACION_TRATAMIENTO: Record<string, number> = {
-      'Dentista': 30,
-      'Neteja': 20,
-      'Ortodòncia': 45,
-      'Revisió': 15,
-      'default': 30
-    };
-
-    this.agendaService.getVisitas().subscribe({
-      next: (visitasExistentes) => {
-        const [nuevaHora, nuevaMinutos] = data.hourVisit.split(':').map(Number);
-        const nuevaInicio = nuevaHora * 60 + nuevaMinutos;
-        const duracionNueva = DURACION_TRATAMIENTO[data.reason] || DURACION_TRATAMIENTO['default'];
-        const nuevaFin = nuevaInicio + duracionNueva;
-
-        const hayConflicto = visitasExistentes.some(visita => {
-          if (this.isEditMode && visita.id_visita === Number(this.visitaId)) {
-            return false;
-          }
-
-          const mismoDoctor = Number(visita.doctor?.id) === Number(data.doctorId);
-          const mismaFecha = visita.fecha === data.date;
-
-          if (mismoDoctor && mismaFecha) {
-            const [vHora, vMinutos] = visita.hora_inicio.split(':').map(Number);
-            const viejaInicio = vHora * 60 + vMinutos;
-            const duracionVieja = DURACION_TRATAMIENTO[visita.motivo_consulta] || DURACION_TRATAMIENTO['default'];
-            const viejaFin = viejaInicio + duracionVieja;
-
-            const viejaFinConMargen = viejaFin + 5;
-            const nuevaFinConMargen = nuevaFin + 5;
-
-            const solapaAntes = (nuevaInicio >= viejaInicio && nuevaInicio < viejaFinConMargen);
-            const solapaDespues = (viejaInicio >= nuevaInicio && viejaInicio < nuevaFinConMargen);
-
-            return solapaAntes || solapaDespues;
-          }
-          return false;
-        });
-
-        if (hayConflicto) {
-          this.errorMessage = "Error: Hi ha d'haver un marge mínim de 5 minuts abans i després amb qualsevol altra cita d'aquest doctor.";
-          return;
-        }
-
-        this.ejecutarGuardado(data);
-      },
-      error: (err) => {
-        console.error('Error al verificar conflictos de agenda', err);
-        this.errorMessage = "No s'ha pogut verificar la disponibilitat de la cita.";
-      }
-    });
+    this.ejecutarGuardado(data);
   }
 
   private ejecutarGuardado(data: any) {
