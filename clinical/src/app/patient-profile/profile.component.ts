@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Patient } from '../models/patient';
@@ -31,8 +31,12 @@ export class PatientProfileComponent implements OnInit {
   saveSuccess = false;
   saveError = false;
 
+  confirmandoEliminar = false;
+  deleteError: string | null = null;
+
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private patientService: PatientService
   ) {}
 
@@ -74,6 +78,18 @@ export class PatientProfileComponent implements OnInit {
     this.newPassword = '';
     this.confirmPassword = '';
     this.passwordMismatch = false;
+  }
+
+  eliminarPacient(): void {
+    this.deleteError = null;
+    this.patientService.delete(this.patient.id).subscribe({
+      next: () => this.router.navigate(['/patients']),
+      error: (err) => {
+        this.deleteError = err.status === 500 || err.status === 409
+          ? 'No es pot eliminar: el pacient té cites associades. Elimina primer les cites.'
+          : 'Error en eliminar el pacient.';
+      }
+    });
   }
 
   saveChanges(): void {
