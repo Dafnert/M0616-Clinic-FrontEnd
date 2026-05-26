@@ -11,12 +11,20 @@ export class AgendaService {
 
   private http = inject(HttpClient);
 
+  private addMinutes(time: string, minutes: number): string {
+    const [h, m] = time.split(':').map(Number);
+    const total = h * 60 + m + minutes;
+    return `${String(Math.floor(total / 60) % 24).padStart(2, '0')}:${String(total % 60).padStart(2, '0')}`;
+  }
+
   private mapItemToVisita(item: any): Visita {
+    const horaInicio = item.hourVisit?.substring(0, 5) ?? '';
+    const duration = item.duration ?? 30;
     return {
       id_visita: item.id,
       fecha: item.date,
-      hora_inicio: item.hourVisit?.substring(0, 5) ?? '',
-      hora_fin: item.hourVisit?.substring(0, 5) ?? '',
+      hora_inicio: horaInicio,
+      hora_fin: horaInicio ? this.addMinutes(horaInicio, duration) : '',
       motivo_consulta: item.reason,
       estado: 'pendiente',
       paciente: {
@@ -59,24 +67,22 @@ export class AgendaService {
   }
 
   createVisita(visita: any): Observable<Visita> {
-  const body: any = {
-  date:         visita.date         ?? visita.fecha,
-  hourVisit:    visita.hourVisit    ?? visita.hora_inicio,
-  reason:       visita.reason       ?? visita.motivo_consulta,
-  observations: visita.observations ?? visita.paciente?.observations ?? '',
-  patient_id:   visita.patientId ? parseInt(visita.patientId) : undefined
-};
-
-  if (visita.doctorId) {
-    body['doctorId'] = visita.doctorId;
+    const body: any = {
+      date:         visita.date         ?? visita.fecha,
+      hourVisit:    visita.hourVisit    ?? visita.hora_inicio,
+      reason:       visita.reason       ?? visita.motivo_consulta,
+      observations: visita.observations ?? visita.paciente?.observations ?? '',
+      patient_id:   visita.patientId ? parseInt(visita.patientId) : undefined,
+      duration:     visita.duration ?? 30,
+    };
+    if (visita.doctorId) {
+      body['doctorId']  = parseInt(visita.doctorId);
+      body['doctor_id'] = parseInt(visita.doctorId);
+    }
+    return this.http.post<any>(`${API_BASE}/appointment`, body, {
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
-
-  console.log('BODY FINAL:', body);
-
-  return this.http.post<any>(`${API_BASE}/appointment`, body, {
-    headers: { 'Content-Type': 'application/json' }
-  });
-}
 
   updateVisita(id: number, visita: any): Observable<any> {
     const body: any = {};
