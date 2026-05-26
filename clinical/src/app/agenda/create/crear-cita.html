@@ -84,6 +84,9 @@
           <option [value]="doctor.id">{{ doctor.name }} {{ doctor.surname }} — {{ doctor.speciality }}</option>
         }
       </select>
+      @if (form.get('doctorId')?.value) {
+        <span class="duracio-pill">⏱ Durada: {{ duracionCita }} min</span>
+      }
     </div>
 
     <div class="field">

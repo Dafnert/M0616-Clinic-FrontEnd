@@ -100,6 +100,18 @@
 
   &:hover { background: #1f2937; }
 }
+.duracio-pill {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #374151;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 3px 10px;
+}
+
 /* Estil per a l'alerta d'error a l'agenda */
 .alert-error-agenda {
   color: #ffffff;
