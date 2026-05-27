@@ -1,8 +1,8 @@
 <div class="documents-container">
   <div class="doc-header">
-    <h3>📁 Documentos</h3>
+    <h3>📁 Documents</h3>
     <label class="btn-upload" [class.disabled]="uploading">
-      {{ uploading ? 'Subiendo...' : '+ Subir archivo' }}
+      {{ uploading ? 'Pujant...' : '+ Pujar arxiu' }}
       <input type="file" (change)="onFileSelected($event)" [disabled]="uploading" hidden />
     </label>
   </div>
@@ -12,11 +12,11 @@
   }
 
   @if (isLoading) {
-    <p class="doc-loading">Cargando documentos...</p>
+    <p class="doc-loading">Carregant documents...</p>
   }
 
   @if (!isLoading && documents.length === 0) {
-    <p class="doc-empty">No hay documentos subidos.</p>
+    <p class="doc-empty">No hi ha documents pujats.</p>
   }
 
   @if (!isLoading && documents.length > 0) {
@@ -29,8 +29,8 @@
             <span class="doc-date">{{ doc.uploadedAt }}</span>
           </div>
           <div class="doc-actions">
-            <button class="btn-download" (click)="download(doc.id)">⬇️ Descargar</button>
-            <button class="btn-delete" (click)="delete(doc.id)">🗑️</button>
+            <button class="btn-download" (click)="download(doc.id)">⬇️ Descarregar</button>
+            <button class="btn-delete" (click)="delete(doc.id)">🗑️Eliminar</button>
           </div>
         </div>
       }

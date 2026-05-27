@@ -11,7 +11,7 @@
     <span class="toast-icon">✓</span> Perfil actualitzat correctament
   </div>
   <div class="toast toast-error" [class.show]="saveError">
-    <span class="toast-icon">✗</span> Error al guardar els canvis
+    <span class="toast-icon">✗</span> Error al desar els canvis
   </div>
 
   <div class="profile-container">
@@ -19,12 +19,12 @@
     <!-- Loading -->
     <div class="loading-state" *ngIf="isLoading">
       <div class="spinner"></div>
-      <p>Cargando perfil...</p>
+      <p>Carregant perfil...</p>
     </div>
 
     <!-- Error -->
     <div class="error-state" *ngIf="loadError && !isLoading">
-      <p>⚠️ No se pudo cargar el paciente.</p>
+      <p>⚠️ No es va poder carregar el pacient.</p>
     </div>
 
     <ng-container *ngIf="!isLoading && !loadError">
@@ -37,7 +37,7 @@
         </div>
 
         <div class="header-info">
-          <span class="patient-label">Paciente</span>
+          <span class="patient-label">Pacient</span>
           <h1 class="patient-name">{{ patient.name }} {{ patient.surname }}</h1>
           <div class="patient-meta">
             <span class="meta-badge">
@@ -54,7 +54,7 @@
                 <line x1="8" y1="2" x2="8" y2="6"/>
                 <line x1="3" y1="10" x2="21" y2="10"/>
               </svg>
-              {{ patient.age }} años
+              {{ patient.age }} anys
             </span>
             <span class="meta-badge id-badge">ID #{{ patient.id }}</span>
           </div>
@@ -91,23 +91,23 @@
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
               <circle cx="12" cy="7" r="4"/>
             </svg>
-            Datos personales
+            Dades personals
           </div>
           <div class="fields-list">
             <div class="field-row">
-              <span class="field-label">Nombre</span>
+              <span class="field-label">Nom</span>
               <span class="field-value">{{ patient.name }}</span>
             </div>
             <div class="field-row">
-              <span class="field-label">Apellido</span>
+              <span class="field-label">Cognom</span>
               <span class="field-value">{{ patient.surname }}</span>
             </div>
             <div class="field-row">
-              <span class="field-label">Edad</span>
-              <span class="field-value">{{ patient.age }} años</span>
+              <span class="field-label">Edat</span>
+              <span class="field-value">{{ patient.age }} anys</span>
             </div>
             <div class="field-row">
-              <span class="field-label">ID de paciente</span>
+              <span class="field-label">ID de pacient</span>
               <span class="field-value highlight">#{{ patient.id }}</span>
             </div>
           </div>
@@ -120,15 +120,15 @@
               <line x1="8" y1="21" x2="16" y2="21"/>
               <line x1="12" y1="17" x2="12" y2="21"/>
             </svg>
-            Cuenta de acceso
+            Compte d'accés
           </div>
           <div class="fields-list">
             <div class="field-row">
-              <span class="field-label">Nombre de usuario</span>
+              <span class="field-label">Nom d'usuari</span>
               <span class="field-value mono">{{ patient.username }}</span>
             </div>
             <div class="field-row">
-              <span class="field-label">Contraseña</span>
+              <span class="field-label">Contrasenya</span>
               <span class="field-value">••••••••</span>
             </div>
           </div>
@@ -205,34 +205,34 @@
             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
           </svg>
-          Editando perfil
+          Editant perfil
         </div>
 
         <div class="form-grid">
           <div class="form-group">
-            <label class="form-label">Nombre</label>
+            <label class="form-label">Nom</label>
             <input class="form-input" type="text" [(ngModel)]="editForm.name" placeholder="Nombre" />
           </div>
 
           <div class="form-group">
-            <label class="form-label">Apellido</label>
+            <label class="form-label">Cognom</label>
             <input class="form-input" type="text" [(ngModel)]="editForm.surname" placeholder="Apellido" />
           </div>
 
           <div class="form-group">
-            <label class="form-label">Edad</label>
+            <label class="form-label">Edat</label>
             <input class="form-input" type="number" [(ngModel)]="editForm.age" min="0" max="120" placeholder="Edad" />
           </div>
 
           <div class="form-group">
-            <label class="form-label">Nombre de usuario</label>
+            <label class="form-label">Nom d'usuari</label>
             <input class="form-input" type="text" [(ngModel)]="editForm.username" placeholder="username" />
           </div>
 
           <div class="form-group">
-            <label class="form-label">ID de paciente</label>
+            <label class="form-label">ID de pacient</label>
             <input class="form-input readonly" type="text" [value]="patient.id" disabled />
-            <span class="field-hint">El ID no puede modificarse</span>
+            <span class="field-hint">El ID no pot modificar-se</span>
           </div>
         </div>
 
@@ -273,16 +273,16 @@
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
               <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
             </svg>
-            {{ showPasswordChange ? 'Cancelar cambio de contraseña' : 'Cambiar contraseña' }}
+            {{ showPasswordChange ? 'Cancel·lar canvi de contrasenya' : 'Canviar contrasenya' }}
           </button>
 
           <div class="password-fields" *ngIf="showPasswordChange">
             <div class="form-group">
-              <label class="form-label">Nueva contraseña</label>
-              <input class="form-input" type="password" [(ngModel)]="newPassword" placeholder="Nueva contraseña" />
+              <label class="form-label">Nova contrasenya</label>
+              <input class="form-input" type="password" [(ngModel)]="newPassword" placeholder="Nova contrasenya" />
             </div>
             <div class="form-group">
-              <label class="form-label">Confirmar contraseña</label>
+              <label class="form-label">Confirmar contrasenya</label>
               <input class="form-input" [class.input-error]="passwordMismatch" type="password"
                 [(ngModel)]="confirmPassword" placeholder="Repite la contraseña" />
               <span class="error-msg" *ngIf="passwordMismatch">Las contraseñas no coinciden</span>
@@ -292,12 +292,12 @@
 
         <!-- Actions -->
         <div class="form-actions">
-          <button class="btn-cancel" (click)="cancelEdit()">Cancelar</button>
+          <button class="btn-cancel" (click)="cancelEdit()">Cancel·lar</button>
           <button class="btn-save" (click)="saveChanges()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="20 6 9 17 4 12"/>
             </svg>
-            Guardar cambios
+            Desar canvis
           </button>
         </div>
       </div>
