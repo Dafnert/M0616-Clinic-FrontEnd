@@ -46,11 +46,11 @@ export class OdontogramaComponent implements OnInit {
   ];
 
   readonly PALETA_MARCADORES: { clave: string; label: string; hex: string }[] = [
-    { clave: 'marcador:X:rojo',  label: '✕ Extracción pdte.', hex: '#e53935' },
-    { clave: 'marcador:X:azul',  label: '✕ Extracción hecha', hex: '#1565c0' },
-    { clave: 'marcador:X:negro', label: '✕ Ausencia natural', hex: '#212121' },
+    { clave: 'marcador:X:rojo',  label: '✕ Extracció pdte.', hex: '#e53935' },
+    { clave: 'marcador:X:azul',  label: '✕ Extracció feta', hex: '#1565c0' },
+    { clave: 'marcador:X:negro', label: '✕ Ausència natural', hex: '#212121' },
     { clave: 'marcador:E:rojo',  label: 'E Endodoncia pdte.',  hex: '#e53935' },
-    { clave: 'marcador:E:azul',  label: 'E Endodoncia hecha',  hex: '#1565c0' },
+    { clave: 'marcador:E:azul',  label: 'E Endodoncia feta',  hex: '#1565c0' },
   ];
 
   ngOnInit() {
