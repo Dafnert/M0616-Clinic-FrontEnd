@@ -652,6 +652,49 @@
   background: #c0392b;
 }
 
+.btn-primary {
+  padding: 9px 22px;
+  background: linear-gradient(135deg, #1a73c8 0%, #1558a0 100%);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  box-shadow: 0 2px 8px rgba(26, 115, 200, 0.25);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #1558a0 0%, #0d4e8a 100%);
+  box-shadow: 0 4px 12px rgba(26, 115, 200, 0.35);
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+}
+
+.btn-secondary {
+  padding: 9px 22px;
+  background: #f0f5fb;
+  border: 1px solid #cdddf5;
+  border-radius: 8px;
+  color: #1a73c8;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.btn-secondary:hover {
+  background: #dce9f8;
+  border-color: #1a73c8;
+}
+
+.btn-secondary:active {
+  transform: scale(0.97);
+}
+
 /* ── Responsive ──────────────────────────────────── */
 @media (max-width: 700px) {
   .visita-card {
@@ -684,18 +727,4 @@
   .page-title {
     font-size: 1.5rem;
   }
-}
-.btn-ficha {
-  background: linear-gradient(135deg, #00788f, #0097b2);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.btn-ficha:hover {
-  opacity: 0.9;
 }
