@@ -14,7 +14,19 @@
 
       <input type="text" name="username" placeholder="Nom d'usuari" [(ngModel)]="user.username" required />
 
-      <input type="password" name="password" placeholder="Contrasenya" [(ngModel)]="user.password" required />
+      <input type="password" name="password" placeholder="Contrasenya" [(ngModel)]="user.password" (ngModelChange)="validatePassword($event)" required />
+
+      <!-- Mensajes de validación de contraseña -->
+      @if (user.password) {
+        <div class="password-requirements">
+          <div [class.valid]="passwordErrors.hasNumber" [class.invalid]="!passwordErrors.hasNumber">
+            {{ passwordErrors.hasNumber ? '✓' : '✗' }} Debe contener al menos un número
+          </div>
+          <div [class.valid]="passwordErrors.hasUppercase" [class.invalid]="!passwordErrors.hasUppercase">
+            {{ passwordErrors.hasUppercase ? '✓' : '✗' }} Debe contener al menos una mayúscula
+          </div>
+        </div>
+      }
 
       <select name="role" [(ngModel)]="user.role" required>
         <option value="" disabled selected>Selecciona un rol</option>
@@ -29,7 +41,7 @@
         <div class="status-message error">{{ errorMessage }}</div>
       }
 
-      <button type="submit" [disabled]="registerForm.invalid">
+      <button type="submit" [disabled]="registerForm.invalid || !isPasswordValid()">
         Registrarse
       </button>
     </div>

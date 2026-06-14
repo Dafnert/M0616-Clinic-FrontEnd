@@ -16,15 +16,33 @@ export class RegisterComponent {
   user: user = new user();
   successMessage: string = '';
   errorMessage: string = '';
+  passwordErrors: { hasNumber: boolean; hasUppercase: boolean } = { hasNumber: false, hasUppercase: false };
 
   constructor(
     private userService: UserService,
     private router: Router
   ) { }
 
+  validatePassword(password: string) {
+    this.passwordErrors = {
+      hasNumber: /[0-9]/.test(password),
+      hasUppercase: /[A-Z]/.test(password)
+    };
+  }
+
+  isPasswordValid(): boolean {
+    return this.passwordErrors.hasNumber && this.passwordErrors.hasUppercase;
+  }
+
 register() {
   this.successMessage = '';
   this.errorMessage = '';
+
+  // Validar contraseña antes de registrar
+  if (!this.isPasswordValid()) {
+    this.errorMessage = 'La contraseña debe contener al menos un número y una mayúscula';
+    return;
+  }
 
   this.userService.register(this.user).subscribe({
     next: (response) => {

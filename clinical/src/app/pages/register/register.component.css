@@ -14,7 +14,7 @@ body {
 
 form {
   width: 850px;
-  height: 550px;
+  height: 650px;
   background-color: #fff;
   border-radius: 30px;
   display: flex;
@@ -99,6 +99,30 @@ form {
 .right img {
   width: 260px;
   max-width: 100%;
+}
+
+.password-requirements {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 14px;
+  font-size: 13px;
+}
+
+.password-requirements > div {
+  padding: 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.password-requirements > div.valid {
+  color: #059669;
+}
+
+.password-requirements > div.invalid {
+  color: #dc2626;
 }
 
 /* RESPONSIVE */
