@@ -47,7 +47,7 @@ register() {
   this.userService.register(this.user).subscribe({
     next: (response) => {
       // Comprobamos si la respuesta trae datos (por ejemplo, el username o el id del usuario creado)
-      if (response && (response.id || response.username)) {
+      if (response && response.data && (response.data.id || response.data.username)) {
         this.successMessage = 'Registro exitoso';
         
         // Te redirige a los 2 segundos
@@ -61,8 +61,18 @@ register() {
     },
     error: (err) => {
       console.error('Error capturado por Angular:', err);
-      if (err.status === 400) {
-        this.errorMessage = 'Faltan campos obligatorios o el usuario ya existe';
+      if (err.status === 409) {
+        // Errores de conflicto: username, name o surname duplicado
+        const message = err.error?.message || '';
+        if (message.includes('Username')) {
+          this.errorMessage = 'El nombre de usuario ya existe';
+        } else if (message.includes('Name')) {
+          this.errorMessage = 'El nombre ya está registrado';
+        } else {
+          this.errorMessage = 'Ya existe un usuario con estos datos';
+        }
+      } else if (err.status === 400) {
+        this.errorMessage = 'Faltan campos obligatorios';
       } else {
         this.errorMessage = 'Error al conectar con el servidor';
       }
