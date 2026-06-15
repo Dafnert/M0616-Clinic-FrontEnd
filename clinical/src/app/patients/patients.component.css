@@ -321,3 +321,44 @@
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-top: 1px solid #edf2fb;
+}
+
+.pg-btn {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid #d0e4f7;
+  border-radius: 8px;
+  background: #fff;
+  color: #344563;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.pg-btn:hover:not(:disabled) {
+  background: #e8f1fc;
+  border-color: #1a73c8;
+  color: #1a73c8;
+}
+
+.pg-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.pg-info {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6b7c93;
+  min-width: 120px;
+  text-align: center;
+}

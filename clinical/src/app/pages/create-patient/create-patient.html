@@ -38,6 +38,16 @@
         <div class="field">
           <label>DNI</label>
           <input type="text" formControlName="dni" placeholder="DNI" />
+          @if (form.get('dni')?.value) {
+            <div class="requirements">
+              <div [class.valid]="dniErrors.hasEightDigits" [class.invalid]="!dniErrors.hasEightDigits">
+                {{ dniErrors.hasEightDigits ? '✓' : '✗' }} 8 dígits
+              </div>
+              <div [class.valid]="dniErrors.hasLetters" [class.invalid]="!dniErrors.hasLetters">
+                {{ dniErrors.hasLetters ? '✓' : '✗' }} Almenys una lletra
+              </div>
+            </div>
+          }
         </div>
       </div>
 
@@ -88,6 +98,16 @@
         <div class="field">
           <label>Contrasenya</label>
           <input type="password" formControlName="password" placeholder="Contrasenya" />
+          @if (form.get('password')?.value) {
+            <div class="requirements">
+              <div [class.valid]="passwordErrors.hasNumber" [class.invalid]="!passwordErrors.hasNumber">
+                {{ passwordErrors.hasNumber ? '✓' : '✗' }} Almenys un número
+              </div>
+              <div [class.valid]="passwordErrors.hasUppercase" [class.invalid]="!passwordErrors.hasUppercase">
+                {{ passwordErrors.hasUppercase ? '✓' : '✗' }} Almenys una majúscula
+              </div>
+            </div>
+          }
         </div>
       </div>
 
@@ -107,6 +127,7 @@
   </label>
 
 </div>
+<br>
 
       @if (error) {
         <p class="error-msg">{{ error }}</p>

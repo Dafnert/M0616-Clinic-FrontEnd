@@ -12,6 +12,12 @@ export class PatientService {
 
   constructor(private conexHttp: HttpClient) {}
 
+  searchByName(name: string): Observable<{ success: boolean; patients: Patient[] }> {
+    return this.conexHttp.get<any>(`${this.url}/search`, { params: { name } }).pipe(
+      map(res => ({ success: res.success, patients: res.patients || [] }))
+    );
+  }
+
   getAll(): Observable<Patient[]> {
     return this.conexHttp.get<Patient[]>(`${this.url}/list`);
   }

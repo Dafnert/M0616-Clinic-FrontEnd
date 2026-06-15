@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PatientService } from '../services/patient.service';
 import { Patient } from '../models/patient';
+import { debounceTime, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-patients',
@@ -22,19 +23,47 @@ export class PatientsComponent implements OnInit {
   search = signal('');
   confirmandoEliminar = signal<number | null>(null);
   deleteError = signal<string | null>(null);
+  searchError = signal<string | null>(null);
+  searchLoading = signal(false);
+  currentPage = signal(1);
+
+  private readonly itemsPerPage = 8;
+  private searchSubject = new Subject<string>();
 
   filtered = computed(() => {
-    const q = this.search().toLowerCase();
-    return q
-      ? this.patients().filter(p =>
-          p.name.toLowerCase().includes(q) ||
-          p.surname.toLowerCase().includes(q) ||
-          p.username.toLowerCase().includes(q)
-        )
-      : this.patients();
+    const start = (this.currentPage() - 1) * this.itemsPerPage;
+    return this.patients().slice(start, start + this.itemsPerPage);
   });
 
+  totalPages = computed(() =>
+    Math.ceil(this.patients().length / this.itemsPerPage)
+  );
+
+  pageNumbers = computed(() =>
+    Array.from({ length: this.totalPages() }, (_, i) => i + 1)
+  );
+
   ngOnInit() {
+    this.loadAll();
+
+    this.searchSubject.pipe(debounceTime(300)).subscribe(query => {
+      this.currentPage.set(1);
+      this.performSearch(query);
+    });
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages()) {
+      this.currentPage.set(page);
+    }
+  }
+
+  onSearchChange(value: string) {
+    this.search.set(value);
+    this.searchSubject.next(value);
+  }
+
+  private loadAll() {
     this.patientService.getAll().subscribe({
       next: (data: any) => {
         const list = Array.isArray(data) ? data : (data.data ?? data.patients ?? []);
@@ -44,6 +73,32 @@ export class PatientsComponent implements OnInit {
       error: () => {
         this.error.set(true);
         this.loading.set(false);
+      }
+    });
+  }
+
+  private performSearch(query: string) {
+    if (!query.trim()) {
+      this.searchError.set(null);
+      this.loadAll();
+      return;
+    }
+
+    this.searchLoading.set(true);
+    this.searchError.set(null);
+
+    this.patientService.searchByName(query).subscribe({
+      next: (res) => {
+        this.patients.set(res.patients || []);
+        this.searchLoading.set(false);
+      },
+      error: (err) => {
+        this.searchLoading.set(false);
+        if (err.status === 404) {
+          this.patients.set([]);
+        } else {
+          this.searchError.set('Error en la cerca');
+        }
       }
     });
   }
@@ -71,6 +126,9 @@ export class PatientsComponent implements OnInit {
       next: () => {
         this.patients.update(list => list.filter(p => p.id !== id));
         this.confirmandoEliminar.set(null);
+        if (this.filtered().length === 0 && this.currentPage() > 1) {
+          this.currentPage.update(p => p - 1);
+        }
       },
       error: (err) => {
         this.deleteError.set(
